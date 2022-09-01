@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ruen</string>
+    <string name="translator">Переводчик</string>
+    <string name="Карточки" />
+    <string name="Cards">Карточки</string>
+    <string name="settings">Настройки</string>
 </resources>

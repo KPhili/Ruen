@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/translatorFragment"
+        android:icon="@drawable/translator"
+        android:title="@string/translator" />
+    <item
+        android:id="@+id/cardsFragment"
+        android:icon="@drawable/cards_list"
+        android:title="@string/Cards" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="@string/settings" />
+</menu>
