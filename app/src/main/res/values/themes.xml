@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Widget.AppCompat.TextView.TranslateTextView">
+        <item name="android:layout_marginTop">@dimen/translate_view_margin_top</item>
+        <item name="android:textSize">@dimen/translate_view_text_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

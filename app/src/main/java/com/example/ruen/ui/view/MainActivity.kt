@@ -1,10 +1,10 @@
-package com.example.ruen
+package com.example.ruen.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.ruen.R
 import com.example.ruen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
