@@ -1,4 +1,4 @@
-package com.example.ruen.ui.view
+package com.example.ruen.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

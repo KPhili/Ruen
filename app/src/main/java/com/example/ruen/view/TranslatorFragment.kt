@@ -1,25 +1,27 @@
-package com.example.ruen.ui.view
+package com.example.ruen.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentTranslatorBinding
-import com.example.ruen.ui.viewmodel.TranslatorUIState
-import com.example.ruen.ui.viewmodel.TranslatorViewModel
+import com.example.ruen.viewmodel.TranslatorUIState
+import com.example.ruen.viewmodel.TranslatorViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TranslatorFragment :
     BaseFragment<FragmentTranslatorBinding>(FragmentTranslatorBinding::inflate) {
 
-    private val viewModel: TranslatorViewModel by viewModels()
+    val viewModel: TranslatorViewModel by viewModel()
     private val imm by lazy { requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +58,11 @@ class TranslatorFragment :
                 setSuccessUiState(uiState)
             }
             is TranslatorUIState.Loading -> showWarning("Загрузка")
-            else -> {}
+            is TranslatorUIState.Error -> uiState.throwable.message?.let {
+                showWarning(it)
+                Log.d("TAGwww", "updateUI:  ${uiState.throwable.stackTraceToString()}")
+
+            }
         }
     }
 
@@ -78,14 +84,14 @@ class TranslatorFragment :
 
     private fun hideKeyboard() = imm.hideSoftInputFromWindow(view?.windowToken, 0)
 
-    private fun createTranslateTextView(text: String) =
+    private fun createTranslateTextView(translatedWord: TranslatedWord) =
         TextView(
             requireContext(),
             null,
             0,
             R.style.Widget_AppCompat_TextView_TranslateTextView
         ).apply {
-            setText(text)
+            setText(translatedWord.translatedText)
         }
 
     private fun showWarning(message: String) {

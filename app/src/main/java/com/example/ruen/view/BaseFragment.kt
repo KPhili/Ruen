@@ -1,4 +1,4 @@
-package com.example.ruen.ui.view
+package com.example.ruen.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

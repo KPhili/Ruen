@@ -1,4 +1,4 @@
-package com.example.ruen.ui.view
+package com.example.ruen.view
 
 import com.example.ruen.databinding.FragmentCardsBinding
 
