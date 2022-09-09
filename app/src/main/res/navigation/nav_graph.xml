@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/translatorFragment"
-        android:name="com.example.ruen.view.TranslatorFragment"
+        android:name="com.example.ruen.view.NewCardFragment"
         android:label="TranslatorFragment" />
     <fragment
         android:id="@+id/cardsFragment"

@@ -2,24 +2,27 @@ package com.example.ruen.view
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
-import com.example.ruen.databinding.FragmentTranslatorBinding
+import com.example.ruen.databinding.FragmentNewCardBinding
 import com.example.ruen.viewmodel.TranslatorUIState
 import com.example.ruen.viewmodel.TranslatorViewModel
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TranslatorFragment :
-    BaseFragment<FragmentTranslatorBinding>(FragmentTranslatorBinding::inflate) {
+class NewCardFragment :
+    BaseFragment<FragmentNewCardBinding>(FragmentNewCardBinding::inflate) {
 
     val viewModel: TranslatorViewModel by viewModel()
     private val imm by lazy { requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
@@ -28,6 +31,7 @@ class TranslatorFragment :
         super.onViewCreated(view, savedInstanceState)
         subscribeUpdatesUI()
         setClickListeners()
+        setChangeListeners()
     }
 
     private fun setClickListeners() {
@@ -40,6 +44,20 @@ class TranslatorFragment :
                     viewModel.translate(wordView.text.toString())
             }
         }
+    }
+
+    private fun setChangeListeners() = with(binding) {
+        wordView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(text: Editable?) {
+                text?.let {
+                    viewModel.translate(text.toString())
+                }
+            }
+
+        })
     }
 
     private fun subscribeUpdatesUI() {
@@ -61,7 +79,6 @@ class TranslatorFragment :
             is TranslatorUIState.Error -> uiState.throwable.message?.let {
                 showWarning(it)
                 Log.d("TAGwww", "updateUI:  ${uiState.throwable.stackTraceToString()}")
-
             }
         }
     }
@@ -72,11 +89,11 @@ class TranslatorFragment :
                 setText(uiState.word)
                 setSelection(uiState.word.length)
             }
-            translationContainter.apply {
-                removeAllViews()
-            }
+            translationContainerView.removeAllViews()
             uiState.translations?.forEach {
-                translationContainter.addView(createTranslateTextView(it))
+                for (i in 1..10) {
+                    translationContainerView.addView(createTranslateTextView(it))
+                }
             }
             hideKeyboard()
         }
@@ -85,13 +102,17 @@ class TranslatorFragment :
     private fun hideKeyboard() = imm.hideSoftInputFromWindow(view?.windowToken, 0)
 
     private fun createTranslateTextView(translatedWord: TranslatedWord) =
-        TextView(
+        Chip(
             requireContext(),
             null,
-            0,
-            R.style.Widget_AppCompat_TextView_TranslateTextView
         ).apply {
-            setText(translatedWord.translatedText)
+            val chipDrawable = ChipDrawable.createFromAttributes(
+                requireContext(),
+                null, 0,
+                R.style.Widget_MaterialComponents_Chip_Choice_MyChip
+            )
+            setChipDrawable(chipDrawable)
+            text = translatedWord.translatedText
         }
 
     private fun showWarning(message: String) {
