@@ -1,4 +1,4 @@
-package com.example.ruen.view
+package com.example.ruen.views
 
 import android.content.Context
 import android.os.Bundle
@@ -14,8 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentNewCardBinding
-import com.example.ruen.viewmodel.TranslatorUIState
-import com.example.ruen.viewmodel.TranslatorViewModel
+import com.example.ruen.viewmodels.TranslatorUIState
+import com.example.ruen.viewmodels.TranslatorViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import kotlinx.coroutines.launch
@@ -38,10 +38,15 @@ class NewCardFragment :
         with(binding) {
             saveView.setOnClickListener {
                 val word = wordView.text.toString()
-                if (word.isEmpty())
-                    showWarning("Введите слово")
-                else
-                    viewModel.translate(wordView.text.toString())
+                val translations = translationView.text.split("\n").toMutableList()
+                val chipIds = translationContainerView.checkedChipIds
+                if (chipIds.isNotEmpty()) {
+                    chipIds.forEach {
+                        val translate = requireActivity().findViewById<Chip>(it).text.toString()
+                        translations.add(translate)
+                    }
+                }
+                viewModel.newCard(word, translations.toTypedArray())
             }
         }
     }
@@ -75,11 +80,12 @@ class NewCardFragment :
             is TranslatorUIState.Success -> {
                 setSuccessUiState(uiState)
             }
-            is TranslatorUIState.Loading -> showWarning("Загрузка")
+            is TranslatorUIState.Loading -> showNotification("Загрузка")
             is TranslatorUIState.Error -> uiState.throwable.message?.let {
-                showWarning(it)
+                showNotification(it)
                 Log.d("TAGwww", "updateUI:  ${uiState.throwable.stackTraceToString()}")
             }
+            is TranslatorUIState.Notification -> showNotification(uiState.message)
         }
     }
 
@@ -115,7 +121,7 @@ class NewCardFragment :
             text = translatedWord.value
         }
 
-    private fun showWarning(message: String) {
+    private fun showNotification(message: String) {
         Toast.makeText(
             requireContext(),
             message,

@@ -1,4 +1,4 @@
-package com.example.ruen.viewmodel
+package com.example.ruen.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,15 +6,16 @@ import com.example.data.repositories.TranslatedWordRepository
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
+import com.example.ruen.providers.IResourceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class TranslatorViewModel(
     private val repository: TranslatedWordRepository,
-    private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase
+    private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase,
+    private val resourceProvider: IResourceProvider
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
@@ -50,10 +51,35 @@ class TranslatorViewModel(
     }
 
     fun newCard(word: String, translations: Array<String>) = viewModelScope.launch {
-        val card = Card(value = word)
-        val translatedWordList = translations.map { TranslatedWord(value = it) }
-        saveCardWithTranslatedWordUseCase(card, translatedWordList)
-        _viewState.update { TranslatorUIState.Success() }
+        _viewState.update {
+            if (word.isEmpty()) {
+                TranslatorUIState.Notification(
+                    resourceProvider.getString(
+                        IResourceProvider.STRINGS.FIELD_WORD_IS_EMPTY
+                    )
+                )
+                return@launch
+            }
+            val translatedWordList = translations
+                .filter { it.isNotEmpty() }
+                .map { TranslatedWord(value = it) }
+            if (translatedWordList.isEmpty()) {
+                TranslatorUIState.Notification(
+                    resourceProvider.getString(
+                        IResourceProvider.STRINGS.LIST_OF_TRANSLATION_IS_EMPTY
+                    )
+                )
+                return@launch
+            }
+            val card = Card(value = word)
+            saveCardWithTranslatedWordUseCase(card, translatedWordList)
+
+            TranslatorUIState.Success(
+                notificationMessage = resourceProvider.getString(
+                    IResourceProvider.STRINGS.SAVE_CARD_SUCCESS
+                )
+            )
+        }
     }
 
     companion object {
@@ -62,9 +88,13 @@ class TranslatorViewModel(
 }
 
 sealed class TranslatorUIState {
-    data class Success(val word: String = "", val translations: List<TranslatedWord>? = null) :
-        TranslatorUIState()
+    data class Success(
+        val word: String = "",
+        val translations: List<TranslatedWord>? = null,
+        val notificationMessage: String? = null
+    ) : TranslatorUIState()
 
+    data class Notification(val message: String) : TranslatorUIState()
     data class Error(val throwable: Throwable) : TranslatorUIState()
     object Loading : TranslatorUIState()
 }

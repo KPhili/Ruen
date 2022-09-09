@@ -3,4 +3,9 @@
     <string name="new_card">Новая карточка</string>
     <string name="сards">Карточки</string>
     <string name="settings">Настройки</string>
+    // messages
+    <string name="save_card_success">Карточка сохранена</string>
+    <string name="field_word_is_empty">Поле "Слово" пустое</string>
+    <string name="list_of_translation_is_empty">Пустой список переводов</string>
+
 </resources>

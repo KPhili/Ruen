@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Ruen"
         tools:targetApi="31">
         <activity
-            android:name="com.example.ruen.view.MainActivity"
+            android:name="com.example.ruen.views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
