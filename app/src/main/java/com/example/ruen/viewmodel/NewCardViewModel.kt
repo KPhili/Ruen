@@ -2,18 +2,19 @@ package com.example.ruen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.repositories.WordTranslationRepository
+import com.example.data.repositories.TranslatedWordRepository
+import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
+import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.util.Locale.filter
 
 
 class TranslatorViewModel(
-    private val repository: WordTranslationRepository
+    private val repository: TranslatedWordRepository,
+    private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
@@ -34,10 +35,7 @@ class TranslatorViewModel(
                 .collect { word ->
                     _viewState.update { TranslatorUIState.Loading }
                     _viewState.update {
-                        val translations =
-                            withContext(Dispatchers.IO) {
-                                repository.translate(word)
-                            }
+                        val translations = repository.translate(word)
                         TranslatorUIState.Success(word, translations)
                     }
                 }
@@ -49,6 +47,13 @@ class TranslatorViewModel(
         viewModelScope.launch {
             wordFlow.emit(word)
         }
+    }
+
+    fun newCard(word: String, translations: Array<String>) = viewModelScope.launch {
+        val card = Card(value = word)
+        val translatedWordList = translations.map { TranslatedWord(value = it) }
+        saveCardWithTranslatedWordUseCase(card, translatedWordList)
+        _viewState.update { TranslatorUIState.Success() }
     }
 
     companion object {

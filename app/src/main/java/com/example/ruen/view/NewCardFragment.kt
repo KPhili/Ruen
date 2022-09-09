@@ -112,7 +112,7 @@ class NewCardFragment :
                 R.style.Widget_MaterialComponents_Chip_Choice_MyChip
             )
             setChipDrawable(chipDrawable)
-            text = translatedWord.translatedText
+            text = translatedWord.value
         }
 
     private fun showWarning(message: String) {

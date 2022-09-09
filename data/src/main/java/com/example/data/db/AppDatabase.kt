@@ -6,11 +6,11 @@ import androidx.room.TypeConverters
 import com.example.data.db.converters.DateConverter
 import com.example.data.db.dao.CardDao
 import com.example.data.db.dao.TranslatedWordDao
-import com.example.data.db.entities.CardRoom
-import com.example.data.db.entities.TranslatedWordRoom
+import com.example.data.db.entities.CardEntity
+import com.example.data.db.entities.TranslatedWordEntity
 
 @Database(
-    entities = [CardRoom::class, TranslatedWordRoom::class],
+    entities = [CardEntity::class, TranslatedWordEntity::class],
     version = 1,
     exportSchema = false
 )

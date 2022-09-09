@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
 @Entity(tableName = "cards")
-data class CardRoom(
+data class CardEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long?,
     val value: String,
     @ColumnInfo(name = "next_repetition")
-    val nextRepetition: LocalDateTime = LocalDateTime.now(),
+    val nextRepetition: LocalDateTime,
     @ColumnInfo(name = "repeat_number")
-    val repeatNumber: Int = 0
+    val repeatNumber: Int,
 )

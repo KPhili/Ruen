@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/translatorFragment"
+        android:id="@+id/newCardFragment"
         android:icon="@drawable/translator"
-        android:title="@string/translator" />
+        android:title="@string/new_card" />
     <item
         android:id="@+id/cardsFragment"
         android:icon="@drawable/cards_list"
-        android:title="@string/Cards" />
+        android:title="@string/сards" />
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings"
