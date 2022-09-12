@@ -21,10 +21,10 @@ interface CardDao {
     suspend fun delete(card: CardEntity)
 
     @Transaction
-    @Query("SELECT * FROM cards")
-    fun getCardsWithTranslatedWords(): Flow<List<CardWithTranslatedWordEntity>>
+    @Query("SELECT * FROM cards WHERE id=:id")
+    suspend fun getCardsWithTranslatedWords(id: Long): CardWithTranslatedWordEntity
 
     @Transaction
-    @Query("SELECT * FROM cards WHERE id=:id")
-    fun getCardsWithTranslatedWords(id: Long): Flow<List<CardWithTranslatedWordEntity>>
+    @Query("SELECT * FROM cards ORDER BY next_repetition LIMIT 1")
+    suspend fun getNextCardForRepeat(): CardWithTranslatedWordEntity
 }

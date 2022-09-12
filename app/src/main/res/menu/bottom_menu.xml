@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/cardRepeatFragment"
+        android:icon="@drawable/repeating"
+        android:title="@string/repeating" />
     <item
         android:id="@+id/newCardFragment"
-        android:icon="@drawable/translator"
+        android:icon="@drawable/new_card"
         android:title="@string/new_card" />
     <item
         android:id="@+id/cardsFragment"

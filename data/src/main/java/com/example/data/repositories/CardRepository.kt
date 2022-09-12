@@ -5,7 +5,9 @@ import com.example.data.db.dao.CardDao
 import com.example.data.db.entities.CardEntity
 import com.example.data.mappers.toCard
 import com.example.data.mappers.toCardRoom
+import com.example.data.mappers.toTranslatedWord
 import com.example.domain.models.Card
+import com.example.domain.models.TranslatedWord
 import com.example.domain.repositories.ICardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -31,7 +33,15 @@ class CardRepository(
             }
     }
 
-    companion object{
+    override suspend fun getNextCardForRepeat(): Pair<Card, List<TranslatedWord>> {
+        val result = cardDao.getNextCardForRepeat()
+        return Pair(
+            result.cardRoom.toCard(),
+            result.translatedWords.map { it.toTranslatedWord() }
+        )
+    }
+
+    companion object {
         private const val MAX_SIZE = 120
         private const val PAGE_SIZE = 30
     }

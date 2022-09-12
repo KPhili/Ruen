@@ -8,5 +8,6 @@
     <string name="save_card_success">Карточка сохранена</string>
     <string name="no_translations">Нет ни одного перевода</string>
     <string name="list_of_translation_is_empty">Пустой список переводов</string>
+    <string name="repeating">Повторение</string>
 
 </resources>

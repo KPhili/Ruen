@@ -2,8 +2,6 @@ package com.example.data.di
 
 import androidx.room.Room
 import com.example.data.db.AppDatabase
-import com.example.data.db.dao.CardDao
-import com.example.data.db.dao.TranslatedWordDao
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

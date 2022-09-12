@@ -12,4 +12,8 @@
         android:id="@+id/cardsFragment"
         android:name="com.example.ruen.views.CardsFragment"
         android:label="CardsFragment" />
+    <fragment
+        android:id="@+id/cardRepeatFragment"
+        android:name="com.example.ruen.views.CardRepeatFragment"
+        android:label="CardRepeatFragment" />
 </navigation>
