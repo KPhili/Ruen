@@ -46,7 +46,7 @@ class NewCardFragment :
                         translations.add(translate)
                     }
                 }
-                viewModel.newCard("word", translations.toTypedArray())
+                viewModel.newCard(word, translations.toTypedArray())
             }
         }
     }
@@ -77,8 +77,11 @@ class NewCardFragment :
 
     private fun updateUI(uiState: TranslatorUIState) {
         when (uiState) {
-            is TranslatorUIState.Success -> {
+            is TranslatorUIState.TranslationsLoaded -> {
                 setSuccessUiState(uiState)
+            }
+            is TranslatorUIState.ClearUIState -> {
+                clearViews()
             }
             is TranslatorUIState.Loading -> showNotification("Загрузка")
             is TranslatorUIState.Error -> uiState.throwable.message?.let {
@@ -89,20 +92,20 @@ class NewCardFragment :
         }
     }
 
-    private fun setSuccessUiState(uiState: TranslatorUIState.Success) {
+    private fun setSuccessUiState(uiState: TranslatorUIState.TranslationsLoaded) {
         with(binding) {
-            wordView.apply {
-                setText(uiState.word)
-                setSelection(uiState.word.length)
-            }
             translationContainerView.removeAllViews()
             uiState.translations?.forEach {
-                for (i in 1..10) {
-                    translationContainerView.addView(createTranslateTextView(it))
-                }
+                translationContainerView.addView(createTranslateTextView(it))
             }
             hideKeyboard()
         }
+    }
+
+    private fun clearViews() = with(binding) {
+        translationContainerView.removeAllViews()
+        translationView.text.clear()
+        wordView.text.clear()
     }
 
     private fun hideKeyboard() = imm.hideSoftInputFromWindow(view?.windowToken, 0)

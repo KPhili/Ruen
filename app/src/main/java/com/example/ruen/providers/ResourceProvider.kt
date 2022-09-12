@@ -10,7 +10,7 @@ class ResourceProvider(
 
     override fun getString(resource: IResourceProvider.STRINGS): String = when (resource) {
         SAVE_CARD_SUCCESS -> appContext.resources.getString(R.string.save_card_success)
-        FIELD_WORD_IS_EMPTY -> appContext.resources.getString(R.string.field_word_is_empty)
-        LIST_OF_TRANSLATION_IS_EMPTY -> appContext.resources.getString(R.string.field_word_is_empty)
+        FIELD_WORD_IS_EMPTY -> appContext.resources.getString(R.string.no_translations)
+        LIST_OF_TRANSLATION_IS_EMPTY -> appContext.resources.getString(R.string.no_translations)
     }
 }

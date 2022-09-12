@@ -18,32 +18,31 @@ class TranslatorViewModel(
     private val resourceProvider: IResourceProvider
 ) : ViewModel() {
 
-    private val _viewState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
-        TranslatorUIState.Success()
+    private val _uiState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
+        TranslatorUIState.TranslationsLoaded()
     )
-    val viewState: StateFlow<TranslatorUIState> get() = _viewState.asStateFlow()
+    val viewState: StateFlow<TranslatorUIState> get() = _uiState.asStateFlow()
 
     private val wordFlow = MutableStateFlow("")
 
     init {
-        viewModelScope.launch(Dispatchers.Main) {
-            wordFlow.debounce(DEBOUNCE_MILLIS)
-                .distinctUntilChanged()
-                .collect { word ->
-                    if (word.isEmpty()) {
-                        _viewState.value = TranslatorUIState.Success()
-                        return@collect
-                    }
-                    _viewState.value = TranslatorUIState.Loading
-                    try {
-                        val translations = repository.translate(word)
-                        _viewState.value = TranslatorUIState.Success(word, translations)
-                    } catch (e: Throwable) {
-                        _viewState.value = TranslatorUIState.Error(e)
-                    }
-
+        wordFlow
+            .debounce(DEBOUNCE_MILLIS)
+            .onEach { word ->
+                if (word.isEmpty()) {
+                    _uiState.value = TranslatorUIState.ClearUIState
+                    return@onEach
                 }
-        }
+                _uiState.value = TranslatorUIState.Loading
+                try {
+                    val translations = repository.translate(word)
+                    _uiState.value = TranslatorUIState.TranslationsLoaded(translations)
+                } catch (e: Throwable) {
+                    TranslatorUIState.Error(e)
+                }
+            }
+            .flowOn(Dispatchers.Main)
+            .launchIn(viewModelScope)
     }
 
     fun translate(word: String) {
@@ -53,34 +52,28 @@ class TranslatorViewModel(
     }
 
     fun newCard(word: String, translations: Array<String>) = viewModelScope.launch {
-        _viewState.update {
-            if (word.isEmpty()) {
-                TranslatorUIState.Notification(
-                    resourceProvider.getString(
-                        IResourceProvider.STRINGS.FIELD_WORD_IS_EMPTY
-                    )
-                )
-                return@launch
-            }
-            val translatedWordList = translations
-                .filter { it.isNotEmpty() }
-                .map { TranslatedWord(value = it) }
-            if (translatedWordList.isEmpty()) {
-                TranslatorUIState.Notification(
-                    resourceProvider.getString(
-                        IResourceProvider.STRINGS.LIST_OF_TRANSLATION_IS_EMPTY
-                    )
-                )
-                return@launch
-            }
-            val card = Card(value = word)
-            saveCardWithTranslatedWordUseCase(card, translatedWordList)
-            TranslatorUIState.Success(
-                notificationMessage = resourceProvider.getString(
-                    IResourceProvider.STRINGS.SAVE_CARD_SUCCESS
+        if (word.isEmpty()) {
+            _uiState.value = TranslatorUIState.Notification(
+                resourceProvider.getString(
+                    IResourceProvider.STRINGS.FIELD_WORD_IS_EMPTY
                 )
             )
+            return@launch
         }
+        val translatedWordList = translations
+            .filter { it.isNotEmpty() }
+            .map { TranslatedWord(value = it) }
+        if (translatedWordList.isEmpty()) {
+            _uiState.value = TranslatorUIState.Notification(
+                resourceProvider.getString(
+                    IResourceProvider.STRINGS.LIST_OF_TRANSLATION_IS_EMPTY
+                )
+            )
+            return@launch
+        }
+        val card = Card(value = word)
+        saveCardWithTranslatedWordUseCase(card, translatedWordList)
+        _uiState.value = TranslatorUIState.ClearUIState
     }
 
     companion object {
@@ -89,12 +82,11 @@ class TranslatorViewModel(
 }
 
 sealed class TranslatorUIState {
-    data class Success(
-        val word: String = "",
-        val translations: List<TranslatedWord>? = null,
-        val notificationMessage: String? = null
+    data class TranslationsLoaded(
+        val translations: List<TranslatedWord>? = null
     ) : TranslatorUIState()
 
+    object ClearUIState : TranslatorUIState()
     data class Notification(val message: String) : TranslatorUIState()
     data class Error(val throwable: Throwable) : TranslatorUIState()
     object Loading : TranslatorUIState()
