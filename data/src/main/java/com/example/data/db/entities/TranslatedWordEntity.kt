@@ -1,13 +1,17 @@
 package com.example.data.db.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
+
 @Entity(
     tableName = "translated_words",
-    foreignKeys = [ForeignKey(entity = CardEntity::class, parentColumns = ["id"], childColumns = ["card_id"], onDelete = CASCADE)]
+    foreignKeys = [ForeignKey(
+        entity = CardEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["card_id"],
+        onDelete = CASCADE
+    )],
+    indices = [Index(value = ["card_id"])]
 )
 data class TranslatedWordEntity(
     @PrimaryKey(autoGenerate = true)

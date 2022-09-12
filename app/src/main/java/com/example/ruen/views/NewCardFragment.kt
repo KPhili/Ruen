@@ -24,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class NewCardFragment :
     BaseFragment<FragmentNewCardBinding>(FragmentNewCardBinding::inflate) {
 
-    val viewModel: TranslatorViewModel by viewModel()
+    private val viewModel: TranslatorViewModel by viewModel()
     private val imm by lazy { requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class NewCardFragment :
                         translations.add(translate)
                     }
                 }
-                viewModel.newCard(word, translations.toTypedArray())
+                viewModel.newCard("word", translations.toTypedArray())
             }
         }
     }

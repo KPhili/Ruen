@@ -29,22 +29,24 @@ class TranslatorViewModel(
         viewModelScope.launch(Dispatchers.Main) {
             wordFlow.debounce(DEBOUNCE_MILLIS)
                 .distinctUntilChanged()
-                .filter { it.isNotEmpty() }
-                .catch {
-                    TranslatorUIState.Error(it)
-                }
                 .collect { word ->
-                    _viewState.update { TranslatorUIState.Loading }
-                    _viewState.update {
-                        val translations = repository.translate(word)
-                        TranslatorUIState.Success(word, translations)
+                    if (word.isEmpty()) {
+                        _viewState.value = TranslatorUIState.Success()
+                        return@collect
                     }
+                    _viewState.value = TranslatorUIState.Loading
+                    try {
+                        val translations = repository.translate(word)
+                        _viewState.value = TranslatorUIState.Success(word, translations)
+                    } catch (e: Throwable) {
+                        _viewState.value = TranslatorUIState.Error(e)
+                    }
+
                 }
         }
     }
 
     fun translate(word: String) {
-        if (word.isEmpty()) return
         viewModelScope.launch {
             wordFlow.emit(word)
         }
@@ -73,7 +75,6 @@ class TranslatorViewModel(
             }
             val card = Card(value = word)
             saveCardWithTranslatedWordUseCase(card, translatedWordList)
-
             TranslatorUIState.Success(
                 notificationMessage = resourceProvider.getString(
                     IResourceProvider.STRINGS.SAVE_CARD_SUCCESS
