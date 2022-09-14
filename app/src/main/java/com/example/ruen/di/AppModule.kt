@@ -11,6 +11,7 @@ import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.adapters.CardsAdapter.CardComparator
 import com.example.domain.providers.IResourceProvider
+import com.example.domain.usecases.FormatRepeatIntervalUseCase
 import com.example.ruen.providers.ResourceProvider
 import com.example.ruen.viewmodels.CardRepeatViewModel
 import com.example.ruen.viewmodels.CardsViewModel
@@ -31,5 +32,6 @@ val appModule = module {
     singleOf(::CardRepository) bind ICardRepository::class
     singleOf(::ResourceProvider) bind IResourceProvider::class
     factoryOf(::CardsAdapter)
-    single<DiffUtil.ItemCallback<Card>> { CardComparator }
+    factory<DiffUtil.ItemCallback<Card>> { CardComparator }
+    factoryOf(::FormatRepeatIntervalUseCase)
 }

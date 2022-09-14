@@ -22,7 +22,6 @@ class CardRepeatFragment :
         super.onViewCreated(view, savedInstanceState)
         subscribeToUIState()
         setClickListeners()
-
     }
 
     override fun onResume() {
@@ -42,15 +41,39 @@ class CardRepeatFragment :
 
     private fun updateUIState(uiState: CardRepeatViewModel.UIState) = with(binding) {
         when (uiState) {
-            is CardRepeatViewModel.UIState.Card -> setCardData(uiState)
+            is CardRepeatViewModel.UIState.Card -> setCardUIState(uiState)
             is CardRepeatViewModel.UIState.Empty -> setNoMoreWords()
         }
 
     }
 
-    private fun setCardData(uiState: CardRepeatViewModel.UIState.Card) = with(binding) {
+    private fun setCardUIState(uiState: CardRepeatViewModel.UIState.Card) = with(binding) {
         wordView.text = uiState.card.value
-        translationsView.text = uiState.translations.map { it.value }.joinToString(", ")
+        translationsView.text = uiState.translations?.map { it.value }?.joinToString(", ")
+        uiState.repeatIntervals?.forEach {
+            when (it.first) {
+                CardRepeatViewModel.KnowLevel.DONT_KNOW -> dontKnowView.text =
+                    resources.getString(
+                        R.string.dont_know,
+                        it.second
+                    )
+                CardRepeatViewModel.KnowLevel.BAD_KNOW -> badKnowView.text =
+                    resources.getString(
+                        R.string.bad_know,
+                        it.second
+                    )
+                CardRepeatViewModel.KnowLevel.GOOD_KNOW -> goodKnowView.text =
+                    resources.getString(
+                        R.string.good_know,
+                        it.second
+                    )
+                CardRepeatViewModel.KnowLevel.EXCELLENT_KNOW -> excellentKnowView.text =
+                    resources.getString(
+                        R.string.excellent_know,
+                        it.second
+                    )
+            }
+        }
         noCardView.visibility = View.GONE
     }
 
@@ -61,7 +84,7 @@ class CardRepeatFragment :
     }
 
     private fun setClickListeners() = with(binding) {
-        arrayOf(dontKnowView, badKnowView, goodKnowView, excelentKnowView).forEach {
+        arrayOf(dontKnowView, badKnowView, goodKnowView, excellentKnowView).forEach {
             it.setOnClickListener(this@CardRepeatFragment)
         }
     }
@@ -71,7 +94,7 @@ class CardRepeatFragment :
             R.id.dont_know_view -> CardRepeatViewModel.KnowLevel.DONT_KNOW
             R.id.bad_know_view -> CardRepeatViewModel.KnowLevel.BAD_KNOW
             R.id.good_know_view -> CardRepeatViewModel.KnowLevel.GOOD_KNOW
-            R.id.excelent_know_view -> CardRepeatViewModel.KnowLevel.EXCELLENT_KNOW
+            R.id.excellent_know_view -> CardRepeatViewModel.KnowLevel.EXCELLENT_KNOW
             else -> throw IllegalArgumentException("Button not supported")
         }
         viewModel.chooseLevelKnow(answer)

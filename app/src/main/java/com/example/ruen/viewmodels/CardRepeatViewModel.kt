@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.repositories.ICardRepository
+import com.example.domain.usecases.FormatRepeatIntervalUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onEach
@@ -13,13 +14,14 @@ import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 class CardRepeatViewModel(
-    private val cardRepository: ICardRepository
+    private val cardRepository: ICardRepository,
+    private val formatRepeatIntervalUseCase: FormatRepeatIntervalUseCase
 ) : ViewModel() {
 
     private var currentCard: Card? = null
 
     private val _uiState: MutableStateFlow<UIState> =
-        MutableStateFlow(UIState.Card(Card(value = ""), listOf()))
+        MutableStateFlow(UIState.Card(Card(value = "")))
     val uiState = _uiState
         .onEach { currentCard = if (it is UIState.Card) it.card else null }
 
@@ -31,8 +33,8 @@ class CardRepeatViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             currentCard?.let { card ->
                 val nextRepeatNumber = getNextRepeatNumber(card.repeatNumber, knowLevel)
-                val nextInterval = getIntervalRepeat(nextRepeatNumber)
-                val nextRepeatDate = LocalDateTime.now().plusMinutes(nextInterval)
+                val interval = getIntervalRepeat(nextRepeatNumber)
+                val nextRepeatDate = LocalDateTime.now().plusMinutes(interval)
                 val newCard =
                     card.copy(repeatNumber = nextRepeatNumber, nextRepetition = nextRepeatDate)
                 cardRepository.update(newCard)
@@ -45,7 +47,15 @@ class CardRepeatViewModel(
     fun loadNextCard() {
         viewModelScope.launch(Dispatchers.Default) {
             _uiState.value = cardRepository.getNextCardForRepeat()?.run {
-                UIState.Card(first, second)
+                val card = first
+                val translations = second
+                val listIntervals = KnowLevel.values().map {
+                    val nextRepeatNumber = getNextRepeatNumber(card.repeatNumber, it)
+                    val interval = getIntervalRepeat(nextRepeatNumber)
+                    val intervalString = formatRepeatIntervalUseCase(interval)
+                    Pair(it, intervalString)
+                }
+                UIState.Card(card, translations, listIntervals)
             } ?: UIState.Empty
         }
     }
@@ -81,7 +91,8 @@ class CardRepeatViewModel(
     sealed class UIState {
         data class Card(
             val card: com.example.domain.models.Card,
-            val translations: List<TranslatedWord>
+            val translations: List<TranslatedWord>? = null,
+            val repeatIntervals: List<Pair<KnowLevel, String>>? = null
         ) : UIState()
 
         object Empty : UIState()
