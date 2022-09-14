@@ -1,4 +1,4 @@
-package com.example.ruen.providers
+package com.example.domain.providers
 
 interface IResourceProvider {
     fun getString(resource: STRINGS): String
@@ -7,5 +7,9 @@ interface IResourceProvider {
         SAVE_CARD_SUCCESS,
         FIELD_WORD_IS_EMPTY,
         LIST_OF_TRANSLATION_IS_EMPTY,
+        // сокращения для интервалов
+        DAYS,
+        HOURS,
+        MINUTES
     }
 }

@@ -27,6 +27,8 @@ android {
         }
     }
     compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -65,6 +67,9 @@ dependencies {
 
     // pagging
     implementation(Paging.paging_runtime)
+
+    //desugar
+    coreLibraryDesugaring(Desugar.desugar_jdk_libs)
 
     // modules
     implementation project(path: ':data')

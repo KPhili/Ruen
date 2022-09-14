@@ -61,3 +61,7 @@ object Room {
     const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
     const val room_paging = "androidx.room:room-paging:${Versions.room_version}"
 }
+
+object Desugar{
+    const val desugar_jdk_libs = "com.android.tools:desugar_jdk_libs:1.1.5"
+}

@@ -10,8 +10,9 @@ import com.example.domain.repositories.ITranslatedWordRepository
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.adapters.CardsAdapter.CardComparator
-import com.example.ruen.providers.IResourceProvider
+import com.example.domain.providers.IResourceProvider
 import com.example.ruen.providers.ResourceProvider
+import com.example.ruen.viewmodels.CardRepeatViewModel
 import com.example.ruen.viewmodels.CardsViewModel
 import com.example.ruen.viewmodels.TranslatorViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -23,6 +24,7 @@ import org.koin.dsl.module
 val appModule = module {
     viewModelOf(::TranslatorViewModel)
     viewModelOf(::CardsViewModel)
+    viewModelOf(::CardRepeatViewModel)
     singleOf(::TranslatedWordRepository) bind ITranslatedWordRepository::class
     singleOf(::LibreWordTranslationRemoteSource)
     factoryOf(::SaveCardWithTranslatedWordUseCase)

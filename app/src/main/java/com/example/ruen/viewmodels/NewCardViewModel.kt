@@ -6,7 +6,7 @@ import com.example.data.repositories.TranslatedWordRepository
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
-import com.example.ruen.providers.IResourceProvider
+import com.example.domain.providers.IResourceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

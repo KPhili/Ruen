@@ -9,5 +9,9 @@
     <string name="no_translations">Нет ни одного перевода</string>
     <string name="list_of_translation_is_empty">Пустой список переводов</string>
     <string name="repeating">Повторение</string>
+    // сокращения для интервалов
+    <string name="minutes">м.</string>
+    <string name="hours">ч.</string>
+    <string name="days">д.</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.data.repositories
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.paging.*
 import com.example.data.db.dao.CardDao
 import com.example.data.db.entities.CardEntity
@@ -33,12 +34,18 @@ class CardRepository(
             }
     }
 
-    override suspend fun getNextCardForRepeat(): Pair<Card, List<TranslatedWord>> {
+    override suspend fun getNextCardForRepeat(): Pair<Card, List<TranslatedWord>>? {
         val result = cardDao.getNextCardForRepeat()
-        return Pair(
-            result.cardRoom.toCard(),
-            result.translatedWords.map { it.toTranslatedWord() }
-        )
+        return result?.let {
+            Pair(
+                result.cardRoom.toCard(),
+                result.translatedWords.map { it.toTranslatedWord() }
+            )
+        }
+    }
+
+    override suspend fun update(card: Card) {
+        cardDao.update(card.toCardRoom())
     }
 
     companion object {

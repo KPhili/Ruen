@@ -17,6 +17,9 @@ interface CardDao {
     @Insert
     suspend fun insert(card: CardEntity): Long
 
+    @Update
+    suspend fun update(card: CardEntity)
+
     @Delete
     suspend fun delete(card: CardEntity)
 
@@ -25,6 +28,6 @@ interface CardDao {
     suspend fun getCardsWithTranslatedWords(id: Long): CardWithTranslatedWordEntity
 
     @Transaction
-    @Query("SELECT * FROM cards ORDER BY next_repetition LIMIT 1")
-    suspend fun getNextCardForRepeat(): CardWithTranslatedWordEntity
+    @Query("SELECT * FROM cards WHERE next_repetition/1000 <= CAST(strftime('%s', CURRENT_TIMESTAMP)  AS  integer) ORDER BY next_repetition LIMIT 1")
+    suspend fun getNextCardForRepeat(): CardWithTranslatedWordEntity?
 }

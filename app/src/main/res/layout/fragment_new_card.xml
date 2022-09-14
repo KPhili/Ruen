@@ -16,13 +16,13 @@
         android:ems="10"
         android:hint="Слово"
         android:inputType="textPersonName"
-        android:text="word"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="word">
 
         <requestFocus />
     </EditText>
@@ -34,12 +34,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
+        android:hint="Перевод"
         android:inputType="textMultiLine"
-        android:text="Name"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/saveView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wordView" />
+        app:layout_constraintTop_toBottomOf="@+id/wordView"
+        tools:text="Name" />
 
     <HorizontalScrollView
         android:layout_width="0dp"
