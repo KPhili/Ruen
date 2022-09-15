@@ -71,8 +71,12 @@ dependencies {
     //desugar
     coreLibraryDesugaring(Desugar.desugar_jdk_libs)
 
+    //preferences lib
+    implementation(Preferences.preference)
+
     // modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
+
 
 }

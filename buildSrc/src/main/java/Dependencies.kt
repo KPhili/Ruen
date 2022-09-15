@@ -65,3 +65,7 @@ object Room {
 object Desugar{
     const val desugar_jdk_libs = "com.android.tools:desugar_jdk_libs:1.1.5"
 }
+
+object Preferences{
+    const val preference = "androidx.preference:preference:1.2.0"
+}

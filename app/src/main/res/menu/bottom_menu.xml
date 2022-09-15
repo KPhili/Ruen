@@ -13,7 +13,7 @@
         android:icon="@drawable/cards_list"
         android:title="@string/сards" />
     <item
-        android:id="@+id/settings"
+        android:id="@+id/settingFragment"
         android:icon="@drawable/settings"
         android:title="@string/settings" />
 </menu>
