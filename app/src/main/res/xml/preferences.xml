@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Внешний вид">
+        <ListPreference
+            android:defaultValue="system"
+            android:entries="@array/setting_theme_title"
+            android:entryValues="@array/setting_theme_values"
+            android:key="theme"
+            android:title="Тема" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Уведомления">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="notification_repeat"
+            android:title="Повторение" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Экраны">
+        <ListPreference
+            android:defaultValue="new_card"
+            android:entries="@array/setting_first_fragment_title"
+            android:entryValues="@array/setting_first_fragment_values"
+            android:key="first_fragment"
+            android:title="Стартовый экран" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

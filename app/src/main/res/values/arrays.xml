@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // для настроек темы
+    <string-array name="setting_theme_title">
+        <item>Как в системе</item>
+        <item>Светлая</item>
+        <item>Темная</item>
+    </string-array>
+    <string-array name="setting_theme_values">
+        <item>system</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    // для настроек стартового фрагмента
+    <string-array name="setting_first_fragment_title">
+        <item>Новая карточка</item>
+        <item>Повторение</item>
+        <item>Список карточек</item>
+    </string-array>
+
+    <string-array name="setting_first_fragment_values">
+        <item>new_card</item>
+        <item>repeat</item>
+        <item>cards</item>
+    </string-array>
+
+</resources>
