@@ -15,6 +15,7 @@ class ResourceProvider(
                 SAVE_CARD_SUCCESS -> R.string.save_card_success
                 FIELD_WORD_IS_EMPTY -> R.string.no_translations
                 LIST_OF_TRANSLATION_IS_EMPTY -> R.string.no_translations
+                NO_INTERNET_CONNECTION -> R.string.no_internet_connection
                 DAYS -> R.string.days
                 HOURS -> R.string.hours
                 MINUTES -> R.string.minutes

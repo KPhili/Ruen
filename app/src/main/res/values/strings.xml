@@ -15,6 +15,7 @@
     <string name="no_translations">Нет ни одного перевода</string>
     <string name="list_of_translation_is_empty">Пустой список переводов</string>
     <string name="repeating">Повторение</string>
+    <string name="no_internet_connection">Нет подключения к сети</string>
 
     // сокращения для интервалов
     <string name="minutes">м.</string>

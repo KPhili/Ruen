@@ -5,17 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.TranslatedWordRepository
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
-import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.domain.providers.IResourceProvider
+import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
+import com.example.ruen.utils.InternetConnectionChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 
 
 class TranslatorViewModel(
     private val repository: TranslatedWordRepository,
     private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase,
-    private val resourceProvider: IResourceProvider
+    private val resourceProvider: IResourceProvider,
+    private val internetConnectionChecker: InternetConnectionChecker
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
@@ -35,13 +38,24 @@ class TranslatorViewModel(
                 }
                 _uiState.value = TranslatorUIState.Loading
                 try {
-                    val translations = repository.translate(word)
-                    _uiState.value = TranslatorUIState.TranslationsLoaded(translations)
+                    if (internetConnectionChecker()) {
+                        val translations = repository.translate(word)
+                        _uiState.value = TranslatorUIState.TranslationsLoaded(translations)
+                    } else {
+                        _uiState.value =
+                            TranslatorUIState.Error(
+                                ConnectException(
+                                    resourceProvider.getString(
+                                        IResourceProvider.STRINGS.NO_INTERNET_CONNECTION
+                                    )
+                                )
+                            )
+                    }
+
                 } catch (e: Throwable) {
                     TranslatorUIState.Error(e)
                 }
             }
-            .flowOn(Dispatchers.Main)
             .launchIn(viewModelScope)
     }
 
@@ -85,7 +99,6 @@ sealed class TranslatorUIState {
     data class TranslationsLoaded(
         val translations: List<TranslatedWord>? = null
     ) : TranslatorUIState()
-
     object ClearUIState : TranslatorUIState()
     data class Notification(val message: String) : TranslatorUIState()
     data class Error(val throwable: Throwable) : TranslatorUIState()

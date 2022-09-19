@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/settingFragment">
+    app:startDestination="@id/cardRepeatFragment">
 
     <fragment
         android:id="@+id/newCardFragment"
@@ -16,8 +16,4 @@
         android:id="@+id/cardRepeatFragment"
         android:name="com.example.ruen.views.CardRepeatFragment"
         android:label="CardRepeatFragment" />
-    <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.ruen.views.SettingFragment"
-        android:label="SettingFragment" />
 </navigation>
