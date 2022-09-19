@@ -5,14 +5,15 @@ import com.example.data.datasource.LibreWordTranslationRemoteSource
 import com.example.data.repositories.CardRepository
 import com.example.data.repositories.TranslatedWordRepository
 import com.example.domain.models.Card
+import com.example.domain.providers.IResourceProvider
 import com.example.domain.repositories.ICardRepository
 import com.example.domain.repositories.ITranslatedWordRepository
+import com.example.domain.usecases.FormatRepeatIntervalUseCase
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.adapters.CardsAdapter.CardComparator
-import com.example.domain.providers.IResourceProvider
-import com.example.domain.usecases.FormatRepeatIntervalUseCase
 import com.example.ruen.providers.ResourceProvider
+import com.example.ruen.utils.InternetConnectionChecker
 import com.example.ruen.viewmodels.CardRepeatViewModel
 import com.example.ruen.viewmodels.CardsViewModel
 import com.example.ruen.viewmodels.TranslatorViewModel
@@ -34,4 +35,5 @@ val appModule = module {
     factoryOf(::CardsAdapter)
     factory<DiffUtil.ItemCallback<Card>> { CardComparator }
     factoryOf(::FormatRepeatIntervalUseCase)
+    singleOf(::InternetConnectionChecker)
 }
