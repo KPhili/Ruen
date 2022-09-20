@@ -4,10 +4,10 @@
 
     <PreferenceCategory android:title="Внешний вид">
         <ListPreference
-            android:defaultValue="system"
+            android:defaultValue="@string/setting_theme_values_system"
             android:entries="@array/setting_theme_title"
             android:entryValues="@array/setting_theme_values"
-            android:key="theme"
+            android:key="@string/preference_key_theme"
             android:title="Тема" />
     </PreferenceCategory>
 

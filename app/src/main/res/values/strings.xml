@@ -26,6 +26,12 @@
     <string name="setting_start_fragment_values_repeat">repeat</string>
     <string name="setting_start_fragment_values_cards">cards</string>
     <string name="preference_key_start_fragment">start_fragment</string>
+    <string name="preference_key_theme">theme</string>
+    <string name="setting_theme_values_system">system</string>
+    <string name="setting_theme_values_light">light</string>
+    <string name="setting_theme_values_dark">dark</string>
+
+
 
 
 </resources>
