@@ -21,5 +21,11 @@
     <string name="hours">ч.</string>
     <string name="days">д.</string>
 
+    // значения для настроек
+    <string name="setting_start_fragment_values_new_card">new_card</string>
+    <string name="setting_start_fragment_values_repeat">repeat</string>
+    <string name="setting_start_fragment_values_cards">cards</string>
+    <string name="preference_key_start_fragment">start_fragment</string>
+
 
 </resources>

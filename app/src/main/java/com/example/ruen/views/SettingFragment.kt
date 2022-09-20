@@ -14,7 +14,7 @@ class SettingFragment : PreferenceFragmentCompat() {
 
         arrayOf(
             findPreference<ListPreference>("theme"),
-            findPreference<ListPreference>("first_fragment")
+            findPreference<ListPreference>("start_fragment")
         ).forEach {
             it?.setSummaryProvider {
                 val text = (it as? ListPreference)?.entry

@@ -14,16 +14,16 @@
     </string-array>
 
     // для настроек стартового фрагмента
-    <string-array name="setting_first_fragment_title">
+    <string-array name="setting_start_fragment_title">
         <item>Новая карточка</item>
         <item>Повторение</item>
         <item>Список карточек</item>
     </string-array>
 
-    <string-array name="setting_first_fragment_values">
-        <item>new_card</item>
-        <item>repeat</item>
-        <item>cards</item>
+    <string-array name="setting_start_fragment_values">
+        <item>@string/setting_start_fragment_values_new_card</item>
+        <item>@string/setting_start_fragment_values_repeat</item>
+        <item>@string/setting_start_fragment_values_cards</item>
     </string-array>
 
 </resources>
