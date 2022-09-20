@@ -24,7 +24,7 @@ class TranslatorViewModel(
     private val _uiState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
         TranslatorUIState.TranslationsLoaded()
     )
-    val viewState: StateFlow<TranslatorUIState> get() = _uiState.asStateFlow()
+    val viewState: StateFlow<TranslatorUIState> get() = _uiState
 
     private val wordFlow = MutableStateFlow("")
 
@@ -56,6 +56,7 @@ class TranslatorViewModel(
                     TranslatorUIState.Error(e)
                 }
             }
+
             .launchIn(viewModelScope)
     }
 
