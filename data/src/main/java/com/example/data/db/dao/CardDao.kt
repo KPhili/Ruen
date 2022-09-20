@@ -29,5 +29,5 @@ interface CardDao {
 
     @Transaction
     @Query("SELECT * FROM cards WHERE next_repetition/1000 <= CAST(strftime('%s', CURRENT_TIMESTAMP)  AS  integer) ORDER BY next_repetition LIMIT 1")
-    suspend fun getNextCardForRepeat(): CardWithTranslatedWordEntity?
+    fun getNextCardForRepeat(): Flow<CardWithTranslatedWordEntity?>
 }

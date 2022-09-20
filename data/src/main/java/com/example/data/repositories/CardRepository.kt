@@ -34,13 +34,14 @@ class CardRepository(
             }
     }
 
-    override suspend fun getNextCardForRepeat(): Pair<Card, List<TranslatedWord>>? {
-        val result = cardDao.getNextCardForRepeat()
-        return result?.let {
-            Pair(
-                result.cardRoom.toCard(),
-                result.translatedWords.map { it.toTranslatedWord() }
-            )
+    override fun getNextCardForRepeat(): Flow<Pair<Card, List<TranslatedWord>>?> {
+        return cardDao.getNextCardForRepeat().map {
+            it?.let {
+                Pair(
+                    it.cardRoom.toCard(),
+                    it.translatedWords.map { it.toTranslatedWord() }
+                )
+            }
         }
     }
 

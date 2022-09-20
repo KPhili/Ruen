@@ -15,7 +15,7 @@ class FormatRepeatIntervalUseCase(
         restMinutes -= hours * 60
         if (days > 0) result.append(days.toString() + resources.getString(IResourceProvider.STRINGS.DAYS))
         if (hours > 0) result.append(hours.toString() + resources.getString(IResourceProvider.STRINGS.HOURS))
-        if (restMinutes > 0) result.append(
+        if (restMinutes > 0 || result.isEmpty()) result.append(
             restMinutes.toString() + resources.getString(
                 IResourceProvider.STRINGS.MINUTES
             )

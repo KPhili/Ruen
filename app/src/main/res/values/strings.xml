@@ -7,8 +7,7 @@
     // текст для кнопок с плейсхолдером
     <string name="dont_know">Нет\n%s</string>
     <string name="bad_know">Плохо\n%s</string>
-    <string name="good_know">Хорошо\n%s</string>
-    <string name="excellent_know">Помню\n%s</string>
+    <string name="good_know">Помню\n%s</string>
 
     // messages
     <string name="save_card_success">Карточка сохранена</string>

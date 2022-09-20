@@ -9,6 +9,8 @@ import com.example.domain.providers.IResourceProvider
 import com.example.domain.repositories.ICardRepository
 import com.example.domain.repositories.ITranslatedWordRepository
 import com.example.domain.usecases.FormatRepeatIntervalUseCase
+import com.example.domain.usecases.GetIntervalRepeatUseCase
+import com.example.domain.usecases.GetNextRepeatNumberUseCase
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.adapters.CardsAdapter.CardComparator
@@ -36,4 +38,7 @@ val appModule = module {
     factory<DiffUtil.ItemCallback<Card>> { CardComparator }
     factoryOf(::FormatRepeatIntervalUseCase)
     singleOf(::InternetConnectionChecker)
+    factoryOf(::GetNextRepeatNumberUseCase)
+    factoryOf(::GetIntervalRepeatUseCase)
+
 }
