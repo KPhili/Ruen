@@ -1,92 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constaintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/noCardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="На сегодня карточек нет"
-            android:textSize="28sp" />
-    </FrameLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <TextView
+        android:id="@+id/wordView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp">
-
-        <LinearLayout
-            android:id="@+id/wordContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/wordView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Text first"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/translationsView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="TextView" />
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:background="@drawable/rect_background"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:padding="30dp"
+        android:text="Text first"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/dont_know_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/dont_know_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Нет"
-            android:textSize="12sp" />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/arrow"
+        app:layout_constraintEnd_toEndOf="@id/wordView"
+        app:layout_constraintStart_toStartOf="@id/wordView"
+        app:layout_constraintTop_toBottomOf="@id/wordView" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/bad_know_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Плохо"
-            android:textSize="12sp" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/rect_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dont_know_view" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/good_know_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Помню"
-            android:textSize="12sp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dont_know_view"
+        style="@style/KnowButton"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Не помню"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bad_know_view"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bad_know_view"
+        style="@style/KnowButton"
+        android:layout_marginEnd="9dp"
+        android:text="Плохо"
+        app:layout_constraintBottom_toBottomOf="@id/dont_know_view"
+        app:layout_constraintEnd_toStartOf="@+id/good_know_view"
+        app:layout_constraintStart_toEndOf="@+id/dont_know_view" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/good_know_view"
+        style="@style/KnowButton"
+        android:text="Помню"
+        app:layout_constraintBottom_toBottomOf="@id/dont_know_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bad_know_view" />
 
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/translationsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="211dp"
+        android:layout_marginBottom="392dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wordView" />
+
+    <TextView
+        android:id="@+id/noCardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="Нет карточек для повторения"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
