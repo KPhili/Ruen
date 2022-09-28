@@ -3,36 +3,33 @@ package com.example.ruen.views
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
 import com.example.ruen.R
 import com.example.ruen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var binding: ActivityMainBinding
-
     private val navController by lazy {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navHostFragment.navController
     }
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private val sharedPreference by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkAndSetTheme()
-        setupActionBar()
         setupNavigation()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
     }
 
     override fun onResume() {
@@ -45,19 +42,21 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         sharedPreference.unregisterOnSharedPreferenceChangeListener(this)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings -> {
-                navController.navigate(R.id.action_cardRepeatFragment_to_settingFragment)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
 
-    private fun setupActionBar() {
-        setSupportActionBar(binding.toolbar)
+    override fun onBackPressed() {
+        if (!onSupportNavigateUp()) super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     private fun setupNavigation() = with(binding) {
@@ -66,6 +65,8 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             navGraph.setStartDestination(it)
         }
         navController.graph = navGraph
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController)
     }
 
     private fun getStartFragmentId() =

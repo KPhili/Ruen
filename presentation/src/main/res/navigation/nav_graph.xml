@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/cardsFragment"
         android:name="com.example.ruen.views.CardsFragment"
-        android:label="CardsFragment" >
+        android:label="@string/сards">
         <action
             android:id="@+id/action_cardsFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
@@ -23,14 +23,13 @@
     <fragment
         android:id="@+id/cardRepeatFragment"
         android:name="com.example.ruen.views.CardRepeatFragment"
-        android:label="CardRepeatFragment" >
+        android:label="Повторения">
         <action
             android:id="@+id/action_cardRepeatFragment_to_settingFragment"
-            app:destination="@id/settingFragment"
-            app:popUpTo="@id/cardRepeatFragment" />
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.ruen.views.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="@string/settings" />
 </navigation>

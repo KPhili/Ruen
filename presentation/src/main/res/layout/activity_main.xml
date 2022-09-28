@@ -13,8 +13,6 @@
         android:layout_height="?android:attr/actionBarSize"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:menu="@menu/main_menu"
-        app:title="Карточки"
         app:titleTextAppearance="@style/ToolBar.TitleTextAppearance" />
 
     <androidx.fragment.app.FragmentContainerView
