@@ -17,4 +17,41 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="10"
         tools:listitem="@layout/cards_item" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/rect_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/startRepeatingView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startRepeatingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Начать повторение"
+        android:textAppearance="@style/ButtonTextAppearance"
+        android:textColor="@color/black"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/circular_arrows"
+        app:iconTint="@color/blue_500"
+        android:textFontWeight="600"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/createCardView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="20dp"
+        android:background="@null"
+        android:src="@drawable/ic_create"
+        app:layout_constraintBottom_toBottomOf="@id/startRepeatingView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/startRepeatingView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
