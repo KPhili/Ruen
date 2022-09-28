@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/langSwitch"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/rect_round_up_corners_background"
+
+    android:gravity="center_horizontal|bottom"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/wordView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/input_background"
         android:ems="10"
-        android:hint="Слово"
+        android:hint="Основная сторона"
         android:inputType="textPersonName"
+        android:padding="10dp"
         android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="word">
+        android:textColor="@color/black"
+        android:textSize="24sp">
 
         <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/translationView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/input_background"
         android:ems="10"
-        android:hint="Перевод"
+        android:hint="Обратная сторона"
         android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:padding="10dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/saveView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wordView"
-        tools:text="Name" />
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
     <HorizontalScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:fadeScrollbars="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/translationView">
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="60dp"
+        android:fadeScrollbars="true">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/translationContainerView"
@@ -62,16 +57,19 @@
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/saveView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
+        android:padding="10dp"
         android:text="Сохранить"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAppearance="@style/ButtonTextAppearance"
+        app:backgroundTint="@color/green_500"
+        app:cornerRadius="5dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
