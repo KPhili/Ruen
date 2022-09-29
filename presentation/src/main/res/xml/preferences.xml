@@ -19,13 +19,4 @@
     </PreferenceCategory>
 
 
-    <PreferenceCategory android:title="Экраны">
-        <ListPreference
-            android:defaultValue="@string/setting_start_fragment_values_new_card"
-            android:entries="@array/setting_start_fragment_title"
-            android:entryValues="@array/setting_start_fragment_values"
-            android:key="@string/preference_key_start_fragment"
-            android:title="Стартовый экран" />
-    </PreferenceCategory>
-
 </PreferenceScreen>

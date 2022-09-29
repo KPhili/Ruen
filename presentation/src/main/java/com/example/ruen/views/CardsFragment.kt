@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.ruen.R
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.databinding.FragmentCardsBinding
@@ -32,6 +33,9 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
     private fun setClickListeners() = with(binding) {
         createCardView.setOnClickListener {
             navController?.navigate(R.id.action_cardsFragment_to_newCardDialogFragment)
+        }
+        startRepeatingView.setOnClickListener {
+            navController?.navigate(R.id.action_cardsFragment_to_cardRepeatFragment)
         }
     }
 

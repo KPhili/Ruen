@@ -3,11 +3,9 @@ package com.example.ruen.views
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import androidx.preference.PreferenceManager
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkAndSetTheme()
-        setupNavigation()
+        setupToolbar()
     }
 
     override fun onResume() {
@@ -59,12 +57,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun setupNavigation() = with(binding) {
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
-        getStartFragmentId()?.let {
-            navGraph.setStartDestination(it)
-        }
-        navController.graph = navGraph
+    private fun setupToolbar() = with(binding) {
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
     }
