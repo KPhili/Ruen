@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rect_round_up_corners_background"
     android:gravity="center_horizontal|bottom"
-    android:orientation="vertical"
-    android:theme="@style/Widget.Design.BottomSheet.Modal">
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/wordView"

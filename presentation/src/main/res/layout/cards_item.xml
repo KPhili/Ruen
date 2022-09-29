@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/cards_item_margin">
@@ -8,8 +9,10 @@
         android:id="@+id/wordView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
-        android:text="size"
+        android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/cards_item_text_size" />
+        android:textSize="@dimen/cards_item_text_size"
+        tools:text="size" />
 </FrameLayout>

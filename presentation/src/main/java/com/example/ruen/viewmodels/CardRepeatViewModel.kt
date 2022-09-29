@@ -23,7 +23,7 @@ class CardRepeatViewModel(
 
     private var currentCard: Card? = null
 
-    val uiState:StateFlow<UIState>
+    val uiState: StateFlow<UIState>
 
     init {
         uiState = cardRepository.getNextCardForRepeat()
@@ -43,7 +43,11 @@ class CardRepeatViewModel(
             }
             .onEach { currentCard = if (it is UIState.Card) it.card else null }
             .flowOn(Dispatchers.Default)
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UIState.Empty)
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                UIState.Card(Card(value = ""))
+            )
 
     }
 

@@ -32,4 +32,9 @@
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
+    <style name="NewCardBottomSheetModal" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>

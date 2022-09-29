@@ -1,6 +1,7 @@
 package com.example.ruen.views
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,8 +22,13 @@ class CardRepeatFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setViewsProperty()
         subscribeToUIState()
         setClickListeners()
+    }
+
+    private fun setViewsProperty() = with(binding) {
+        wordView.movementMethod = ScrollingMovementMethod()
     }
 
     private fun subscribeToUIState() {

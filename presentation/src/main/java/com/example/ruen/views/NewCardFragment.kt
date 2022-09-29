@@ -1,6 +1,5 @@
 package com.example.ruen.views
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,8 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -28,9 +27,13 @@ class NewCardFragment :
     BottomSheetDialogFragment() {
 
     private val viewModel: TranslatorViewModel by viewModel()
-    private val imm by lazy { requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
     private var _binding: FragmentNewCardBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.NewCardBottomSheetModal)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -103,7 +106,7 @@ class NewCardFragment :
             is TranslatorUIState.ClearUIState -> {
                 clearViews()
             }
-            is TranslatorUIState.Loading -> showNotification("Загрузка")
+            is TranslatorUIState.Loading -> {}
             is TranslatorUIState.Error -> uiState.throwable.message?.let {
                 showNotification(it)
                 Log.d("TAGwww", "updateUI:  ${uiState.throwable.stackTraceToString()}")
@@ -118,7 +121,6 @@ class NewCardFragment :
             uiState.translations?.forEach {
                 translationContainerView.addView(createTranslateTextView(it))
             }
-            hideKeyboard()
         }
     }
 
@@ -128,7 +130,6 @@ class NewCardFragment :
         wordView.text.clear()
     }
 
-    private fun hideKeyboard() = imm.hideSoftInputFromWindow(view?.windowToken, 0)
 
     private fun createTranslateTextView(translatedWord: TranslatedWord) =
         Chip(

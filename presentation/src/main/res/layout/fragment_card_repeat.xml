@@ -13,13 +13,13 @@
         android:background="@drawable/rect_round_all_corners_background"
         android:gravity="center"
         android:padding="30dp"
-        android:text="Text first"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/dont_know_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Text first" />
 
     <ImageView
         android:layout_width="300dp"

@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/cardRepeatFragment"
         android:name="com.example.ruen.views.CardRepeatFragment"
-        android:label="Повторения">
+        android:label="@string/repeating">
         <action
             android:id="@+id/action_cardRepeatFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
