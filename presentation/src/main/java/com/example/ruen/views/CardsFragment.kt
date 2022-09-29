@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.ruen.R
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.databinding.FragmentCardsBinding
 import com.example.ruen.viewmodels.CardsViewModel
@@ -19,11 +20,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::inflate) {
 
     private val adapter: CardsAdapter by inject()
-    val viewModel: CardsViewModel by viewModel()
+    private val viewModel: CardsViewModel by viewModel()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         fetchData()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() = with(binding) {
+        createCardView.setOnClickListener {
+            navController?.navigate(R.id.action_cardsFragment_to_newCardDialogFragment)
+        }
     }
 
     private fun fetchData() {

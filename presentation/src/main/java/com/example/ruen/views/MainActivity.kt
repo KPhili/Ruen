@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     private fun getStartFragmentId() =
         sharedPreference.getString(getString(R.string.preference_key_start_fragment), null)?.let {
             when (it) {
-                getString(R.string.setting_start_fragment_values_new_card) -> R.id.newCardFragment
                 getString(R.string.setting_start_fragment_values_repeat) -> R.id.cardRepeatFragment
                 getString(R.string.setting_start_fragment_values_cards) -> R.id.cardsFragment
                 else -> throw IllegalArgumentException("Unknown fragment for navigation graph")

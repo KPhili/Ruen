@@ -10,8 +10,9 @@
         android:id="@+id/cardsView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="40dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backPanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,16 +20,17 @@
         tools:listitem="@layout/cards_item" />
 
     <View
+        android:id="@+id/backPanel"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="-10dp"
-        android:background="@drawable/rect_round_all_corners_background"
+        android:background="@drawable/rect_round_up_corners_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/startRepeatingView" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/startRepeatingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,21 +39,25 @@
         android:text="Начать повторение"
         android:textAppearance="@style/ButtonTextAppearance"
         android:textColor="@color/black"
+        android:textFontWeight="600"
         app:cornerRadius="10dp"
         app:icon="@drawable/circular_arrows"
-        app:iconTint="@color/blue_500"
-        android:textFontWeight="600"
+        app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/createCardView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@null"
+        android:padding="5dp"
         android:src="@drawable/ic_create"
+        android:background="@drawable/rounded_rect_background"
+        android:stateListAnimator="@animator/button_animator"
         app:layout_constraintBottom_toBottomOf="@id/startRepeatingView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/startRepeatingView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
