@@ -6,5 +6,6 @@ data class Card(
     val id: Long? = null,
     val value: String,
     val nextRepetition: LocalDateTime = LocalDateTime.now(),
-    val repeatNumber: Int = 0
+    val repeatNumber: Int = 0,
+    val groupId: Long = 1
 )

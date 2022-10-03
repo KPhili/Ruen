@@ -12,9 +12,7 @@ import com.example.data.db.entities.GroupEntity
 import com.example.data.db.entities.TranslatedWordEntity
 
 @Database(
-    entities = [CardEntity::class, TranslatedWordEntity::class,
-        GroupEntity::class
-               ],
+    entities = [CardEntity::class, TranslatedWordEntity::class, GroupEntity::class],
     version = 2,
     exportSchema = false
 )

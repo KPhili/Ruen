@@ -22,4 +22,6 @@ val roomModule = module {
     factory { get<AppDatabase>().translatedWordDao() }
     // CardDao
     factory { get<AppDatabase>().cardDao() }
+    // GroupDao
+    factory { get<AppDatabase>().groupDao() }
 }

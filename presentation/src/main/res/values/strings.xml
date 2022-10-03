@@ -2,6 +2,7 @@
     <string name="app_name">Ruen</string>
     <string name="new_card">Новая карточка</string>
     <string name="сards">Карточки</string>
+    <string name="groups">Группы</string>
     <string name="settings">Настройки</string>
 
     // текст для кнопок с плейсхолдером

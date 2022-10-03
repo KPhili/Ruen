@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.data.db.dao.CardDao
 import com.example.data.mappers.toCard
-import com.example.data.mappers.toCardRoom
+import com.example.data.mappers.toCardEntity
 import com.example.data.mappers.toTranslatedWord
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
@@ -21,7 +21,7 @@ class CardRepository(
     private val cardDao: CardDao
 ) : ICardRepository {
     override suspend fun saveCard(card: Card): Long = withContext(Dispatchers.IO) {
-        cardDao.insert(card.toCardRoom())
+        cardDao.insert(card.toCardEntity())
     }
 
     override fun getAll(): Flow<PagingData<Card>> {
@@ -46,7 +46,7 @@ class CardRepository(
     }
 
     override suspend fun update(card: Card) {
-        cardDao.update(card.toCardRoom())
+        cardDao.update(card.toCardEntity())
     }
 
     companion object {

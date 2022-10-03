@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/cardsFragment">
+    app:startDestination="@id/groupsFragment">
 
     <fragment
         android:id="@+id/cardsFragment"
@@ -34,4 +34,18 @@
         android:id="@+id/newCardDialogFragment"
         android:name="com.example.ruen.views.NewCardFragment"
         android:label="@string/new_card" />
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.example.ruen.views.GroupsFragment"
+        android:label="@string/groups">
+        <action
+            android:id="@+id/action_groupsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_cardRepeatFragment"
+            app:destination="@id/cardRepeatFragment" />
+    </fragment>
 </navigation>
