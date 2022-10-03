@@ -13,14 +13,14 @@ import com.example.data.db.entities.TranslatedWordEntity
 
 @Database(
     entities = [CardEntity::class, TranslatedWordEntity::class,
-//        GroupEntity::class
+        GroupEntity::class
                ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-//    abstract fun groupDao(): GroupDao
+    abstract fun groupDao(): GroupDao
     abstract fun cardDao(): CardDao
     abstract fun translatedWordDao(): TranslatedWordDao
 }

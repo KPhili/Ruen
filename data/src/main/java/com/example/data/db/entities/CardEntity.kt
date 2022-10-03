@@ -14,6 +14,6 @@ data class CardEntity(
     val nextRepetition: LocalDateTime,
     @ColumnInfo(name = "repeat_number")
     val repeatNumber: Int,
-//    @ColumnInfo(name = "group_id")
-//    val groupId: Long
+    @ColumnInfo(name = "group_id")
+    val groupId: Long
 )
