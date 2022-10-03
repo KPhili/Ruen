@@ -1,9 +1,10 @@
 package com.example.data.repositories
 
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.data.db.dao.CardDao
-import com.example.data.db.entities.CardEntity
 import com.example.data.mappers.toCard
 import com.example.data.mappers.toCardRoom
 import com.example.data.mappers.toTranslatedWord
@@ -12,7 +13,6 @@ import com.example.domain.models.TranslatedWord
 import com.example.domain.repositories.ICardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMap
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 

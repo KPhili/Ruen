@@ -7,7 +7,8 @@ internal fun Card.toCardRoom() = CardEntity(
     this.id,
     this.value,
     this.nextRepetition,
-    this.repeatNumber
+    this.repeatNumber,
+
 )
 
 internal fun CardEntity.toCard() = Card(
