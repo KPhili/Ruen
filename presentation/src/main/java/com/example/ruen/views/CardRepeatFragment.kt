@@ -3,6 +3,7 @@ package com.example.ruen.views
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -22,13 +23,9 @@ class CardRepeatFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViewsProperty()
         subscribeToUIState()
+        setViewsProperty()
         setClickListeners()
-    }
-
-    private fun setViewsProperty() = with(binding) {
-        wordView.movementMethod = ScrollingMovementMethod()
     }
 
     private fun subscribeToUIState() {
@@ -40,6 +37,12 @@ class CardRepeatFragment :
             }
         }
     }
+
+    private fun setViewsProperty() = with(binding) {
+        wordView.movementMethod = ScrollingMovementMethod()
+        translationsView.movementMethod = ScrollingMovementMethod()
+    }
+
 
     private fun updateUIState(uiState: CardRepeatViewModel.UIState) = with(binding) {
         when (uiState) {
@@ -84,6 +87,27 @@ class CardRepeatFragment :
         arrayOf(dontKnowView, badKnowView, goodKnowView).forEach {
             it.setOnClickListener(this@CardRepeatFragment)
         }
+        // видимость поля основной и обратной сторон
+        arrayOf(wordView, translationsView).forEach {
+            it.setOnClickListener {
+                val wordViewVisibility = getReverseVisibility(wordView.visibility)
+                val translationsViewVisibility = wordView.visibility
+                wordViewVisibility.let {
+                    wordView.visibility = it
+                    mainSide.visibility = it
+                }
+                translationsViewVisibility.let{
+                    translationsView.visibility = it
+                    otherSide.visibility = it
+                }
+            }
+        }
+    }
+
+    private fun getReverseVisibility(visibility: Int) = when (visibility) {
+        View.GONE, View.INVISIBLE -> View.VISIBLE
+        View.VISIBLE -> View.GONE
+        else -> throw IllegalArgumentException("Visibility must be View.[GONE,VISIBLE, INVISIBLE]")
     }
 
     override fun onClick(view: View) {
