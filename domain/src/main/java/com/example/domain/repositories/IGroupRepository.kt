@@ -8,4 +8,5 @@ interface IGroupRepository {
     fun getAll(): Flow<PagingData<Group>>
     suspend fun save(group: Group): Long
     suspend fun update(group: Group)
+    suspend fun delete(group: Group)
 }

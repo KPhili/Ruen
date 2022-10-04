@@ -11,6 +11,12 @@ import com.example.ruen.databinding.GroupsItemBinding
 class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
     PagingDataAdapter<Group, GroupsAdapter.GroupViewHolder>(diffCallback) {
 
+    private var deleteFunc: ((position: Int, group: Group) -> Unit)? = null
+
+    fun setDeleteLogic(func: (position: Int,group: Group) -> Unit) {
+        deleteFunc = func
+    }
+
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -21,6 +27,15 @@ class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
                 LayoutInflater.from(parent.context), parent, false
             )
         )
+
+    fun deleteItem(position: Int) {
+        deleteFunc?.let { deleteFunc ->
+            getItem(position)?.let {
+                deleteFunc(position, it)
+            }
+        }
+    }
+
 
     class GroupViewHolder(private val binding: GroupsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

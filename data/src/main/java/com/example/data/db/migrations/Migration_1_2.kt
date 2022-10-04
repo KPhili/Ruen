@@ -20,7 +20,7 @@ class Migration_1_2 : Migration(1, 2) {
             insert("groups", OnConflictStrategy.IGNORE, defaultGroup)
             execSQL("ALTER TABLE cards ADD COLUMN group_id INTEGER NOT NULL DEFAULT 1;")
             execSQL("ALTER TABLE cards RENAME TO cards_temp;")
-            execSQL("CREATE TABLE \"cards\" (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` TEXT NOT NULL, `next_repetition` INTEGER NOT NULL, `repeat_number` INTEGER NOT NULL, `group_id` INTEGER NOT NULL);")
+            execSQL("CREATE TABLE \"cards\" (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` TEXT NOT NULL, `next_repetition` INTEGER NOT NULL, `repeat_number` INTEGER NOT NULL, `group_id` INTEGER NOT NULL, FOREIGN KEY(`group_id`) REFERENCES `groups`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
             execSQL("INSERT INTO cards SELECT * FROM cards_temp;")
             execSQL("DROP TABLE cards_temp;")
             setTransactionSuccessful()

@@ -2,10 +2,20 @@ package com.example.data.db.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
-@Entity(tableName = "cards")
+@Entity(
+    tableName = "cards",
+    foreignKeys = [ForeignKey(
+        entity = GroupEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["group_id"],
+        onDelete = CASCADE
+    )]
+)
 data class CardEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
