@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.ruen.R
 import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.databinding.FragmentGroupsBinding
 import com.example.ruen.viewmodels.GroupsViewModel
@@ -21,6 +22,13 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         collectData()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() = with(binding){
+        createGroupView.setOnClickListener{
+            navController?.navigate(R.id.action_groupsFragment_to_newGroupDialogFragment)
+        }
     }
 
     private fun collectData() {

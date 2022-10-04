@@ -29,7 +29,6 @@ class GroupRepository(
                 }
             }
 
-
     override suspend fun update(group: Group) {
         groupDao.update(group.toGroupEntity())
     }

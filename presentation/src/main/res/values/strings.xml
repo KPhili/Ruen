@@ -31,5 +31,6 @@
     <string name="setting_theme_values_system">system</string>
     <string name="setting_theme_values_light">light</string>
     <string name="setting_theme_values_dark">dark</string>
+    <string name="new_group">Новая группа</string>
 
 </resources>

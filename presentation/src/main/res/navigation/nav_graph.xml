@@ -34,6 +34,10 @@
         android:id="@+id/newCardDialogFragment"
         android:name="com.example.ruen.views.NewCardFragment"
         android:label="@string/new_card" />
+    <dialog
+        android:id="@+id/newGroupDialogFragment"
+        android:name="com.example.ruen.views.NewGroupFragment"
+        android:label="@string/new_group" />
     <fragment
         android:id="@+id/groupsFragment"
         android:name="com.example.ruen.views.GroupsFragment"
@@ -47,5 +51,8 @@
         <action
             android:id="@+id/action_groupsFragment_to_cardRepeatFragment"
             app:destination="@id/cardRepeatFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_newGroupDialogFragment"
+            app:destination="@id/newGroupDialogFragment" />
     </fragment>
 </navigation>

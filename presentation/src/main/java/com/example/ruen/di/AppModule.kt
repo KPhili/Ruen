@@ -20,10 +20,7 @@ import com.example.ruen.adapters.CardsAdapter.CardComparator
 import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.providers.ResourceProvider
 import com.example.ruen.utils.InternetConnectionChecker
-import com.example.ruen.viewmodels.CardRepeatViewModel
-import com.example.ruen.viewmodels.CardsViewModel
-import com.example.ruen.viewmodels.GroupsViewModel
-import com.example.ruen.viewmodels.TranslatorViewModel
+import com.example.ruen.viewmodels.*
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -32,10 +29,12 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val appModule = module {
+    // viewmodels
     viewModelOf(::TranslatorViewModel)
     viewModelOf(::CardsViewModel)
     viewModelOf(::CardRepeatViewModel)
     viewModelOf(::GroupsViewModel)
+    viewModelOf(::NewGroupViewModel)
 
     singleOf(::LibreWordTranslationRemoteSource)
 

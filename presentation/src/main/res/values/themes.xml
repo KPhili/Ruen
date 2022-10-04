@@ -14,7 +14,7 @@
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="backgroundPanelColor">@color/blue_100</item>
+        <item name="backgroundPanelColor">#F4F4F4</item>
     </style>
 
 </resources>
