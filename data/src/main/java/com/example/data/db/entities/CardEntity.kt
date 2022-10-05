@@ -1,10 +1,7 @@
 package com.example.data.db.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
 @Entity(
@@ -14,7 +11,8 @@ import java.time.LocalDateTime
         parentColumns = ["id"],
         childColumns = ["group_id"],
         onDelete = CASCADE
-    )]
+    ),],
+    indices = [Index(value = ["group_id"])]
 )
 data class CardEntity(
     @PrimaryKey(autoGenerate = true)
