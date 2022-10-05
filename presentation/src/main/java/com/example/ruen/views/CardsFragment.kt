@@ -6,12 +6,10 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.example.ruen.R
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.databinding.FragmentCardsBinding
 import com.example.ruen.viewmodels.CardsViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -22,6 +20,18 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private val adapter: CardsAdapter by inject()
     private val viewModel: CardsViewModel by viewModel()
+    private var groupId: Long? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val id = arguments?.getLong(GROUP_ID)
+        if (id != null) {
+            groupId = id
+        } else {
+            Log.e(TAG, "onCreate: No groupId in arguments bundle!")
+            navController?.navigateUp()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,8 +52,10 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
     private fun fetchData() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cardsFlow.collectLatest {
-                    adapter.submitData(it)
+                groupId?.let { groupId ->
+                    viewModel.getCardsFlow(groupId).collectLatest {
+                        adapter.submitData(it)
+                    }
                 }
             }
         }
@@ -51,5 +63,10 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private fun setAdapter() = with(binding) {
         cardsView.adapter = adapter
+    }
+
+    companion object {
+        const val GROUP_ID = "group_id"
+        private const val TAG = "CardsFragment"
     }
 }

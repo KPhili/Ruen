@@ -11,6 +11,8 @@ interface ICardRepository {
 
     fun getAll(): Flow<PagingData<Card>>
 
+    fun getAllFromGroup(groupId: Long): Flow<PagingData<Card>>
+
     fun getNextCardForRepeat(): Flow<Pair<Card, List<TranslatedWord>>?>
     suspend fun update(card: Card)
 }

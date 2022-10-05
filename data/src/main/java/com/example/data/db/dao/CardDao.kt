@@ -11,6 +11,9 @@ interface CardDao {
     @Query("SELECT * FROM cards ORDER BY next_repetition")
     fun getAll(): PagingSource<Int, CardEntity>
 
+    @Query("SELECT * FROM cards WHERE group_id=:groupId ORDER BY next_repetition")
+    fun getAllFromGroup(groupId: Long): PagingSource<Int, CardEntity>
+
     @Query("SELECT * FROM cards WHERE id=:id")
     suspend fun get(id: Long): CardEntity
 

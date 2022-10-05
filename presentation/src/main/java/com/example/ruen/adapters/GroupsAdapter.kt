@@ -2,6 +2,7 @@ package com.example.ruen.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,10 +12,15 @@ import com.example.ruen.databinding.GroupsItemBinding
 class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
     PagingDataAdapter<Group, GroupsAdapter.GroupViewHolder>(diffCallback) {
 
-    private var deleteFunc: ((position: Int, group: Group) -> Unit)? = null
+    private var onDeleteListener: ((position: Int, group: Group) -> Unit)? = null
+    private var onClickListener: ((group: Group) -> Unit)? = null
 
-    fun setDeleteLogic(func: (position: Int,group: Group) -> Unit) {
-        deleteFunc = func
+    fun setOnDeleteListener(listener: (position: Int, group: Group) -> Unit) {
+        onDeleteListener = listener
+    }
+
+    fun setOnClickListener(listener: (group: Group) -> Unit) {
+        onClickListener = listener
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
@@ -29,7 +35,7 @@ class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
         )
 
     fun deleteItem(position: Int) {
-        deleteFunc?.let { deleteFunc ->
+        onDeleteListener?.let { deleteFunc ->
             getItem(position)?.let {
                 deleteFunc(position, it)
             }
@@ -37,11 +43,15 @@ class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
     }
 
 
-    class GroupViewHolder(private val binding: GroupsItemBinding) :
+    inner class GroupViewHolder(private val binding: GroupsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(group: Group?) = with(binding) {
             group?.let {
-                nameView.text = it.name
+                nameView.text = group.name
+                groupItemView.setOnClickListener{
+                    onClickListener?.invoke(group)
+                }
             }
         }
     }

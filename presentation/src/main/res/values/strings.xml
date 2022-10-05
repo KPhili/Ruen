@@ -3,7 +3,15 @@
     <string name="new_card">Новая карточка</string>
     <string name="сards">Карточки</string>
     <string name="groups">Группы</string>
+    <string name="new_group">Новая группа</string>
     <string name="settings">Настройки</string>
+
+    // alert
+    <string name="group_alert_delete_title">Удалить группу: %s?</string>
+    <string name="group_alert_delete_message">Также удалятся все карточки группы</string>
+
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
 
     // текст для кнопок с плейсхолдером
     <string name="dont_know">Нет\n%s</string>
@@ -31,6 +39,7 @@
     <string name="setting_theme_values_system">system</string>
     <string name="setting_theme_values_light">light</string>
     <string name="setting_theme_values_dark">dark</string>
-    <string name="new_group">Новая группа</string>
+
+
 
 </resources>

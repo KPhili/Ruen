@@ -50,7 +50,12 @@
             app:destination="@id/cardsFragment" />
         <action
             android:id="@+id/action_groupsFragment_to_cardRepeatFragment"
-            app:destination="@id/cardRepeatFragment" />
+            app:destination="@id/cardRepeatFragment">
+            <argument
+                android:name="groupId"
+                app:argType="long"
+                 />
+        </action>
         <action
             android:id="@+id/action_groupsFragment_to_newGroupDialogFragment"
             app:destination="@id/newGroupDialogFragment" />

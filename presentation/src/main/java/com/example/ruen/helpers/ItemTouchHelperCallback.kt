@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ruen.R
 import com.example.ruen.adapters.GroupsAdapter
 
-class GroupItemTouchHelper(private val myAdapter: GroupsAdapter, private val context: Context) :
+class ItemTouchHelperCallback(private val myAdapter: GroupsAdapter, private val context: Context) :
     ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.LEFT
     ) {
@@ -41,7 +41,6 @@ class GroupItemTouchHelper(private val myAdapter: GroupsAdapter, private val con
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         val view = viewHolder.itemView
         if (dX < 0) {
-            val bounds = view.clipBounds
             background.setBounds((view.right + dX).toInt(), view.top, view.right, view.bottom)
             icon?.setBounds(view.left, view.top, view.right, view.bottom)
         } else {

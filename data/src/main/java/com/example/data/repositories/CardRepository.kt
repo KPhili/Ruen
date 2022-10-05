@@ -34,6 +34,21 @@ class CardRepository(
             }
     }
 
+    override fun getAllFromGroup(groupId: Long): Flow<PagingData<Card>> {
+        return Pager(
+            PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = MAX_SIZE
+            )
+        ) { cardDao.getAllFromGroup(groupId) }
+            .flow
+            .map {
+                it.map { cardEntity ->
+                    cardEntity.toCard()
+                }
+            }
+    }
+
     override fun getNextCardForRepeat(): Flow<Pair<Card, List<TranslatedWord>>?> {
         return cardDao.getNextCardForRepeat().map {
             it?.let {

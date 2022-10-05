@@ -6,5 +6,7 @@ import androidx.paging.cachedIn
 import com.example.domain.repositories.ICardRepository
 
 class CardsViewModel(private val cardsRepository: ICardRepository) : ViewModel() {
-    val cardsFlow = cardsRepository.getAll().cachedIn(viewModelScope)
+
+    fun getCardsFlow(groupId: Long) =
+        cardsRepository.getAllFromGroup(groupId).cachedIn(viewModelScope)
 }

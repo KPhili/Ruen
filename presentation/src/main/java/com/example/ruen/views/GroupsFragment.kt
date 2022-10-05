@@ -1,25 +1,24 @@
 package com.example.ruen.views
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.domain.models.Group
 import com.example.ruen.R
 import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.databinding.FragmentGroupsBinding
-import com.example.ruen.helpers.GroupItemTouchHelper
+import com.example.ruen.helpers.ItemTouchHelperCallback
 import com.example.ruen.viewmodels.GroupsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.nio.file.Files.delete
 
 class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding::inflate) {
     private val viewModel by viewModel<GroupsViewModel>()
@@ -36,6 +35,9 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
         createGroupView.setOnClickListener {
             navController?.navigate(R.id.action_groupsFragment_to_newGroupDialogFragment)
         }
+        startRepeatingView.setOnClickListener {
+            navController?.navigate(R.id.action_groupsFragment_to_cardRepeatFragment)
+        }
     }
 
     private fun collectData() {
@@ -50,28 +52,40 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
 
     private fun setupRecyclerView() = with(binding) {
         groupsView.adapter = adapter.apply {
-            setDeleteLogic { position, group ->
-                Log.d(TAG, "setupRecyclerView: ${group.name}")
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Удалить группу: ${group.name}?")
-                    .setMessage("Также удалятся все карточки группы")
-                    .setPositiveButton("Да") { dialogInterface: DialogInterface, i: Int ->
-                        viewModel.deleteGroup(group)
-                    }
-                    .setNegativeButton("Отмена") { dialogInterface: DialogInterface, i: Int ->
-                        adapter.notifyItemChanged(position)
-                    }
-                    .setOnDismissListener{
-                        adapter.notifyItemChanged(position)
-                    }
-                    .setIcon(R.drawable.folder_delete)
-                    .create()
-                    .show()
+            setOnDeleteListener { position, group ->
+                showGroupDeleteAlertDialog(group, position)
+            }
+            setOnClickListener { group ->
+                navController?.navigate(
+                    R.id.action_groupsFragment_to_cardsFragment,
+                    bundleOf(CardsFragment.GROUP_ID to group.id)
+                )
             }
         }
-        ItemTouchHelper(GroupItemTouchHelper(adapter, requireContext())).also {
+        ItemTouchHelper(ItemTouchHelperCallback(adapter, requireContext())).also {
             it.attachToRecyclerView(groupsView)
         }
+    }
+
+    private fun showGroupDeleteAlertDialog(
+        group: Group,
+        position: Int
+    ) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.group_alert_delete_title, group.name))
+            .setMessage(getString(R.string.group_alert_delete_message))
+            .setPositiveButton(getString(R.string.yes)) { dialogInterface: DialogInterface, i: Int ->
+                viewModel.deleteGroup(group)
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, i: Int ->
+                adapter.notifyItemChanged(position)
+            }
+            .setOnDismissListener {
+                adapter.notifyItemChanged(position)
+            }
+            .setIcon(R.drawable.folder_delete)
+            .create()
+            .show()
     }
 
     companion object {

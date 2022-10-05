@@ -47,7 +47,7 @@ class NewGroupFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeToData()
-        setClickListeners(view)
+        setClickListeners()
     }
 
     private fun subscribeToData() {
@@ -69,7 +69,7 @@ class NewGroupFragment :
         }
     }
 
-    private fun setClickListeners(view: View) {
+    private fun setClickListeners() {
         with(binding) {
             saveView.setOnClickListener {
                 viewModel.save(nameView.text.toString())
