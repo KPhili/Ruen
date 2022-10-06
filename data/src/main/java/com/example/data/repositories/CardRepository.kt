@@ -1,10 +1,13 @@
 package com.example.data.repositories
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import androidx.lifecycle.Transformations.map
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.data.db.dao.CardDao
+import com.example.data.db.entities.CardWithTranslatedWordEntity
 import com.example.data.mappers.toCard
 import com.example.data.mappers.toCardEntity
 import com.example.data.mappers.toTranslatedWord
@@ -50,15 +53,22 @@ class CardRepository(
     }
 
     override fun getNextCardForRepeat(): Flow<Pair<Card, List<TranslatedWord>>?> {
-        return cardDao.getNextCardForRepeat().map {
-            it?.let {
+        return flowMapToCardsWithTranslatedWord(cardDao.getNextCardForRepeat())
+    }
+
+    override fun getNextCardForRepeatInGroup(groupId: Long): Flow<Pair<Card, List<TranslatedWord>>?> {
+        return flowMapToCardsWithTranslatedWord(cardDao.getNextCardForRepeatInGroup(groupId))
+    }
+
+    private fun flowMapToCardsWithTranslatedWord(flow: Flow<CardWithTranslatedWordEntity?>) =
+        flow.map {
+            it?.let { cardWithTranslatedWordEntity ->
                 Pair(
-                    it.cardRoom.toCard(),
-                    it.translatedWords.map { it.toTranslatedWord() }
+                    cardWithTranslatedWordEntity.cardRoom.toCard(),
+                    cardWithTranslatedWordEntity.translatedWords.map { it.toTranslatedWord() }
                 )
             }
         }
-    }
 
     override suspend fun update(card: Card) {
         cardDao.update(card.toCardEntity())

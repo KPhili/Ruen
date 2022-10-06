@@ -33,4 +33,8 @@ interface CardDao {
     @Transaction
     @Query("SELECT * FROM cards WHERE next_repetition/1000 <= CAST(strftime('%s', CURRENT_TIMESTAMP)  AS  integer) ORDER BY next_repetition LIMIT 1")
     fun getNextCardForRepeat(): Flow<CardWithTranslatedWordEntity?>
+
+    @Transaction
+    @Query("SELECT * FROM cards WHERE group_id=:groupId AND next_repetition/1000 <= CAST(strftime('%s', CURRENT_TIMESTAMP)  AS  integer) ORDER BY next_repetition LIMIT 1")
+    fun getNextCardForRepeatInGroup(groupId: Long): Flow<CardWithTranslatedWordEntity?>
 }

@@ -41,7 +41,14 @@ val appModule = module {
         )
     }
     viewModelOf(::CardsViewModel)
-    viewModelOf(::CardRepeatViewModel)
+    viewModel { parameters ->
+        CardRepeatViewModel(
+            cardRepository = get(),
+            formatRepeatIntervalUseCase = get(),
+            getNextRepeatNumberUseCase = get(),
+            getIntervalRepeatUseCase = get(), groupId = parameters.get()
+        )
+    }
     viewModelOf(::GroupsViewModel)
     viewModelOf(::NewGroupViewModel)
 
@@ -53,6 +60,7 @@ val appModule = module {
 
     singleOf(::ResourceProvider) bind IResourceProvider::class
 
+    // adapters
     factory { GroupsAdapter(get(named("GroupComparator"))) }
     factory { CardsAdapter(get(named("CardComparator"))) }
 

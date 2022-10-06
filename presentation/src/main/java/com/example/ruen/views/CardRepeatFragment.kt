@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.example.domain.models.KnowLevel
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentCardRepeatBinding
@@ -14,12 +15,15 @@ import com.example.ruen.viewmodels.CardRepeatViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CardRepeatFragment :
     BaseFragment<FragmentCardRepeatBinding>(FragmentCardRepeatBinding::inflate),
     View.OnClickListener {
 
-    private val viewModel: CardRepeatViewModel by viewModel()
+    private val viewModel: CardRepeatViewModel by viewModel { parametersOf(groupId) }
+    private val args: CardsFragmentArgs by navArgs()
+    private val groupId: Long by lazy { args.groupId }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,7 +100,7 @@ class CardRepeatFragment :
                     wordView.visibility = it
                     mainSide.visibility = it
                 }
-                translationsViewVisibility.let{
+                translationsViewVisibility.let {
                     translationsView.visibility = it
                     otherSide.visibility = it
                 }

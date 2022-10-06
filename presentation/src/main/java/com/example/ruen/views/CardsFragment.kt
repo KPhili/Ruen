@@ -1,14 +1,11 @@
 package com.example.ruen.views
 
 import android.os.Bundle
-import android.provider.Contacts.GroupMembership.GROUP_ID
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import com.example.ruen.R
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.databinding.FragmentCardsBinding
 import com.example.ruen.viewmodels.CardsViewModel
@@ -37,7 +34,7 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
             navController?.navigate(CardsFragmentDirections.actionCardsFragmentToNewCardDialogFragment(groupId))
         }
         startRepeatingView.setOnClickListener {
-            navController?.navigate(CardsFragmentDirections.actionCardsFragmentToCardRepeatFragment())
+            navController?.navigate(CardsFragmentDirections.actionCardsFragmentToCardRepeatFragment(groupId))
         }
     }
 

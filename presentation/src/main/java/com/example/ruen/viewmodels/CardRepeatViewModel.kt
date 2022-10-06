@@ -18,7 +18,8 @@ class CardRepeatViewModel(
     private val cardRepository: ICardRepository,
     private val formatRepeatIntervalUseCase: FormatRepeatIntervalUseCase,
     private val getNextRepeatNumberUseCase: GetNextRepeatNumberUseCase,
-    private val getIntervalRepeatUseCase: GetIntervalRepeatUseCase
+    private val getIntervalRepeatUseCase: GetIntervalRepeatUseCase,
+    private val groupId: Long
 ) : ViewModel() {
 
     private var currentCard: Card? = null
@@ -26,28 +27,30 @@ class CardRepeatViewModel(
     val uiState: StateFlow<UIState>
 
     init {
-        uiState = cardRepository.getNextCardForRepeat()
-            .map {
-                it?.let {
-                    val card = it.first
-                    val translations = it.second
-                    val listIntervals = KnowLevel.values().map { knowLevel ->
-                        val repeatNumber =
-                            getNextRepeatNumberUseCase(card.repeatNumber, knowLevel)
-                        val interval = getIntervalRepeatUseCase(repeatNumber)
-                        val intervalString = formatRepeatIntervalUseCase(interval)
-                        Pair(knowLevel, intervalString)
-                    }
-                    UIState.Card(card, translations, listIntervals)
-                } ?: UIState.Empty
-            }
-            .onEach { currentCard = if (it is UIState.Card) it.card else null }
+        val flow =
+            if (groupId == -1L) cardRepository.getNextCardForRepeat()
+            else cardRepository.getNextCardForRepeatInGroup(groupId)
+        uiState = flow.map {
+            it?.let {
+                val card = it.first
+                val translations = it.second
+                val listIntervals = KnowLevel.values().map { knowLevel ->
+                    val repeatNumber =
+                        getNextRepeatNumberUseCase(card.repeatNumber, knowLevel)
+                    val interval = getIntervalRepeatUseCase(repeatNumber)
+                    val intervalString = formatRepeatIntervalUseCase(interval)
+                    Pair(knowLevel, intervalString)
+                }
+                UIState.Card(card, translations, listIntervals)
+            } ?: UIState.Empty
+        }.onEach { currentCard = if (it is UIState.Card) it.card else null }
             .flowOn(Dispatchers.Default)
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
                 UIState.Card(Card(value = "", groupId = 0))
             )
+
 
     }
 
