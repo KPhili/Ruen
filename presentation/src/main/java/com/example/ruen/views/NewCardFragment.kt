@@ -12,23 +12,27 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentNewCardBinding
 import com.example.ruen.viewmodels.TranslatorUIState
-import com.example.ruen.viewmodels.TranslatorViewModel
+import com.example.ruen.viewmodels.NewCardViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class NewCardFragment :
     BottomSheetDialogFragment() {
 
-    private val viewModel: TranslatorViewModel by viewModel()
+    private val viewModel: NewCardViewModel by viewModel { parametersOf(groupId) }
     private var _binding: FragmentNewCardBinding? = null
     private val binding get() = _binding!!
+    private val args: NewCardFragmentArgs by navArgs()
+    private val groupId by lazy { args.groupId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +72,7 @@ class NewCardFragment :
                         translations.add(translate)
                     }
                 }
-                viewModel.newCard(word, translations.toTypedArray())
-                dismiss()
+                viewModel.saveCard(word, translations.toTypedArray())
             }
         }
     }
@@ -78,13 +81,11 @@ class NewCardFragment :
         wordView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun afterTextChanged(text: Editable?) {
                 text?.let {
                     viewModel.translate(text.toString())
                 }
             }
-
         })
     }
 
@@ -100,16 +101,12 @@ class NewCardFragment :
 
     private fun updateUI(uiState: TranslatorUIState) {
         when (uiState) {
-            is TranslatorUIState.TranslationsLoaded -> {
-                setSuccessUiState(uiState)
-            }
-            is TranslatorUIState.ClearUIState -> {
-                clearViews()
-            }
-            is TranslatorUIState.Loading -> {}
+            is TranslatorUIState.TranslationsLoaded -> setSuccessUiState(uiState)
+            is TranslatorUIState.ClearUIState -> clearViews()
+            is TranslatorUIState.SavedSuccess -> dismiss()
             is TranslatorUIState.Error -> uiState.throwable.message?.let {
                 showNotification(it)
-                Log.d("TAGwww", "updateUI:  ${uiState.throwable.stackTraceToString()}")
+                Log.d(TAG, "updateUI:  ${uiState.throwable.stackTraceToString()}")
             }
             is TranslatorUIState.Notification -> showNotification(uiState.message)
         }
@@ -154,6 +151,6 @@ class NewCardFragment :
     }
 
     companion object {
-        const val TAG = "NewCardModalBottomSheet"
+        private const val TAG = "NewCardFragment"
     }
 }

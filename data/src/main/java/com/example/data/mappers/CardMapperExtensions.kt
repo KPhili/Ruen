@@ -8,12 +8,13 @@ internal fun Card.toCardEntity() = CardEntity(
     this.value,
     this.nextRepetition,
     this.repeatNumber,
-    1
+    this.groupId
 )
 
 internal fun CardEntity.toCard() = Card(
     this.id,
     this.value,
     this.nextRepetition,
-    this.repeatNumber
+    this.repeatNumber,
+    this.groupId
 )

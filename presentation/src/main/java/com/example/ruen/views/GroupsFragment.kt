@@ -56,10 +56,11 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
                 showGroupDeleteAlertDialog(group, position)
             }
             setOnClickListener { group ->
-                navController?.navigate(
-                    R.id.action_groupsFragment_to_cardsFragment,
-                    bundleOf(CardsFragment.GROUP_ID to group.id)
-                )
+                group.id?.let {
+                    val direction =
+                        GroupsFragmentDirections.actionGroupsFragmentToCardsFragment(it)
+                    navController?.navigate(direction)
+                }
             }
         }
         ItemTouchHelper(ItemTouchHelperCallback(adapter, requireContext())).also {
@@ -74,10 +75,10 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.group_alert_delete_title, group.name))
             .setMessage(getString(R.string.group_alert_delete_message))
-            .setPositiveButton(getString(R.string.yes)) { dialogInterface: DialogInterface, i: Int ->
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.deleteGroup(group)
             }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, i: Int ->
+            .setNegativeButton(getString(R.string.cancel)) { _, _ ->
                 adapter.notifyItemChanged(position)
             }
             .setOnDismissListener {

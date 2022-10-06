@@ -21,6 +21,7 @@ import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.providers.ResourceProvider
 import com.example.ruen.utils.InternetConnectionChecker
 import com.example.ruen.viewmodels.*
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -30,7 +31,15 @@ import org.koin.dsl.module
 
 val appModule = module {
     // viewmodels
-    viewModelOf(::TranslatorViewModel)
+    viewModel { parameters ->
+        NewCardViewModel(
+            repository = get(),
+            saveCardWithTranslatedWordUseCase = get(),
+            resourceProvider = get(),
+            internetConnectionChecker = get(),
+            groupId = parameters.get()
+        )
+    }
     viewModelOf(::CardsViewModel)
     viewModelOf(::CardRepeatViewModel)
     viewModelOf(::GroupsViewModel)

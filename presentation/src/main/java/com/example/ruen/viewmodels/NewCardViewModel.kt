@@ -11,21 +11,22 @@ import com.example.ruen.utils.InternetConnectionChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.core.KoinApplication.Companion.init
 import java.net.ConnectException
 
 
-class TranslatorViewModel(
+class NewCardViewModel(
     private val repository: TranslatedWordRepository,
     private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase,
     private val resourceProvider: IResourceProvider,
-    private val internetConnectionChecker: InternetConnectionChecker
+    private val internetConnectionChecker: InternetConnectionChecker,
+    private val groupId: Long
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<TranslatorUIState> = MutableStateFlow(
         TranslatorUIState.TranslationsLoaded()
     )
     val viewState: StateFlow<TranslatorUIState> get() = _uiState
-
     private val wordFlow = MutableStateFlow("")
 
     init {
@@ -36,7 +37,6 @@ class TranslatorViewModel(
                     _uiState.value = TranslatorUIState.ClearUIState
                     return@onEach
                 }
-                _uiState.value = TranslatorUIState.Loading
                 try {
                     if (internetConnectionChecker()) {
                         val translations = repository.translate(word)
@@ -51,12 +51,10 @@ class TranslatorViewModel(
                                 )
                             )
                     }
-
                 } catch (e: Throwable) {
                     TranslatorUIState.Error(e)
                 }
             }
-
             .launchIn(viewModelScope)
     }
 
@@ -66,7 +64,7 @@ class TranslatorViewModel(
         }
     }
 
-    fun newCard(word: String, translations: Array<String>) = viewModelScope.launch {
+    fun saveCard(word: String, translations: Array<String>) = viewModelScope.launch {
         if (word.isEmpty()) {
             _uiState.value = TranslatorUIState.Notification(
                 resourceProvider.getString(
@@ -86,9 +84,9 @@ class TranslatorViewModel(
             )
             return@launch
         }
-        val card = Card(value = word)
+        val card = Card(value = word, groupId = groupId)
         saveCardWithTranslatedWordUseCase(card, translatedWordList)
-        _uiState.value = TranslatorUIState.ClearUIState
+        _uiState.value = TranslatorUIState.SavedSuccess
     }
 
     companion object {
@@ -100,9 +98,10 @@ sealed class TranslatorUIState {
     data class TranslationsLoaded(
         val translations: List<TranslatedWord>? = null
     ) : TranslatorUIState()
+
     object ClearUIState : TranslatorUIState()
     data class Notification(val message: String) : TranslatorUIState()
     data class Error(val throwable: Throwable) : TranslatorUIState()
-    object Loading : TranslatorUIState()
+    object SavedSuccess : TranslatorUIState()
 }
 

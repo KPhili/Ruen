@@ -46,7 +46,7 @@ class CardRepeatViewModel(
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
-                UIState.Card(Card(value = ""))
+                UIState.Card(Card(value = "", groupId = 0))
             )
 
     }

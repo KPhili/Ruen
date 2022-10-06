@@ -8,12 +8,17 @@
         android:id="@+id/cardsFragment"
         android:name="com.example.ruen.views.CardsFragment"
         android:label="@string/сards">
+        <argument
+            android:name="groupId"
+            app:argType="long" />
         <action
             android:id="@+id/action_cardsFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
         <action
             android:id="@+id/action_cardsFragment_to_newCardDialogFragment"
-            app:destination="@id/newCardDialogFragment" />
+            app:destination="@id/newCardDialogFragment">
+
+        </action>
         <action
             android:id="@+id/action_cardsFragment_to_cardRepeatFragment"
             app:destination="@id/cardRepeatFragment" />
@@ -33,7 +38,11 @@
     <dialog
         android:id="@+id/newCardDialogFragment"
         android:name="com.example.ruen.views.NewCardFragment"
-        android:label="@string/new_card" />
+        android:label="@string/new_card" >
+        <argument
+            android:name="groupId"
+            app:argType="long" />
+    </dialog>
     <dialog
         android:id="@+id/newGroupDialogFragment"
         android:name="com.example.ruen.views.NewGroupFragment"
@@ -51,10 +60,6 @@
         <action
             android:id="@+id/action_groupsFragment_to_cardRepeatFragment"
             app:destination="@id/cardRepeatFragment">
-            <argument
-                android:name="groupId"
-                app:argType="long"
-                 />
         </action>
         <action
             android:id="@+id/action_groupsFragment_to_newGroupDialogFragment"
