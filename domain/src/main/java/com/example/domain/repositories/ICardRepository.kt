@@ -18,4 +18,6 @@ interface ICardRepository {
     fun getNextCardForRepeatInGroup(groupId: Long): Flow<Pair<Card, List<TranslatedWord>>?>
 
     suspend fun update(card: Card)
+
+    suspend fun delete(card: Card)
 }

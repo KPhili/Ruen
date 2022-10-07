@@ -9,7 +9,7 @@ import com.example.domain.models.Card
 import com.example.ruen.databinding.CardsItemBinding
 
 class CardsAdapter(diffCallback: DiffUtil.ItemCallback<Card>) :
-    PagingDataAdapter<Card, CardsAdapter.CardViewHolder>(diffCallback) {
+    BaseAdapter<Card, CardsAdapter.CardViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position))

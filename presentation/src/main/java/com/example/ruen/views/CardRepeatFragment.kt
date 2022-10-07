@@ -58,7 +58,8 @@ class CardRepeatFragment :
 
     private fun setCardUIState(uiState: CardRepeatViewModel.UIState.Card) = with(binding) {
         wordView.text = uiState.card.value
-        translationsView.text = uiState.translations?.map { it.value }?.joinToString(", ")
+        translationsView.text = uiState.translations?.joinToString(", ") { it.value }
+        if (wordView.visibility == View.GONE) flipCard()
         uiState.repeatIntervals?.forEach {
             when (it.first) {
                 KnowLevel.DONT_KNOW -> dontKnowView.text =
@@ -81,6 +82,7 @@ class CardRepeatFragment :
         noCardView.visibility = View.GONE
     }
 
+
     private fun setNoMoreWords() = with(binding) {
         wordView.text = ""
         translationsView.text = ""
@@ -94,17 +96,22 @@ class CardRepeatFragment :
         // видимость поля основной и обратной сторон
         arrayOf(wordView, translationsView).forEach {
             it.setOnClickListener {
-                val wordViewVisibility = getReverseVisibility(wordView.visibility)
-                val translationsViewVisibility = wordView.visibility
-                wordViewVisibility.let {
-                    wordView.visibility = it
-                    mainSide.visibility = it
-                }
-                translationsViewVisibility.let {
-                    translationsView.visibility = it
-                    otherSide.visibility = it
-                }
+                flipCard()
             }
+        }
+    }
+
+    // переворот карты
+    private fun flipCard() = with(binding) {
+        val wordViewVisibility = getReverseVisibility(wordView.visibility)
+        val translationsViewVisibility = wordView.visibility
+        wordViewVisibility.let {
+            wordView.visibility = it
+            mainSide.visibility = it
+        }
+        translationsViewVisibility.let {
+            translationsView.visibility = it
+            otherSide.visibility = it
         }
     }
 

@@ -74,6 +74,10 @@ class CardRepository(
         cardDao.update(card.toCardEntity())
     }
 
+    override suspend fun delete(card: Card) = withContext(Dispatchers.IO) {
+        cardDao.delete(card.toCardEntity())
+    }
+
     companion object {
         private const val MAX_SIZE = 120
         private const val PAGE_SIZE = 30

@@ -6,8 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.databinding.FragmentCardsBinding
+import com.example.ruen.helpers.ItemTouchHelperCallback
 import com.example.ruen.viewmodels.CardsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,10 +33,18 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private fun setClickListeners() = with(binding) {
         createCardView.setOnClickListener {
-            navController?.navigate(CardsFragmentDirections.actionCardsFragmentToNewCardDialogFragment(groupId))
+            navController?.navigate(
+                CardsFragmentDirections.actionCardsFragmentToNewCardDialogFragment(
+                    groupId
+                )
+            )
         }
         startRepeatingView.setOnClickListener {
-            navController?.navigate(CardsFragmentDirections.actionCardsFragmentToCardRepeatFragment(groupId))
+            navController?.navigate(
+                CardsFragmentDirections.actionCardsFragmentToCardRepeatFragment(
+                    groupId
+                )
+            )
         }
     }
 
@@ -50,5 +60,12 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private fun setAdapter() = with(binding) {
         cardsView.adapter = adapter
+        adapter.setOnClickListener { }
+        adapter.setOnDeleteListener { _, item ->
+            viewModel.deleteCard(item)
+        }
+        ItemTouchHelper(ItemTouchHelperCallback(adapter, requireContext())).run {
+            attachToRecyclerView(cardsView)
+        }
     }
 }

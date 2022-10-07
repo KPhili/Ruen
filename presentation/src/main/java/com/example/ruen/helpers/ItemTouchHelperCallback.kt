@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ruen.R
 import com.example.ruen.adapters.GroupsAdapter
+import com.example.ruen.adapters.IDeleteItemAdapter
 
-class ItemTouchHelperCallback(private val myAdapter: GroupsAdapter, private val context: Context) :
+class ItemTouchHelperCallback(
+    private val myAdapter: IDeleteItemAdapter,
+    private val context: Context
+) :
     ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.LEFT
     ) {
@@ -42,7 +46,6 @@ class ItemTouchHelperCallback(private val myAdapter: GroupsAdapter, private val 
         val view = viewHolder.itemView
         if (dX < 0) {
             background.setBounds((view.right + dX).toInt(), view.top, view.right, view.bottom)
-            icon?.setBounds(view.left, view.top, view.right, view.bottom)
         } else {
             background.setBounds(0, 0, 0, 0)
         }
@@ -51,12 +54,13 @@ class ItemTouchHelperCallback(private val myAdapter: GroupsAdapter, private val 
             val iconMargin = (view.height - icon.intrinsicHeight) / 2
             val iconTop = view.top + iconMargin
             val iconBottom = iconTop + icon.intrinsicHeight
-            if (dX < 0) {
-                val iconLeft = view.right - iconMargin - icon.intrinsicWidth
-                val iconRight = view.right - iconMargin
-                icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                icon.draw(c)
-            }
+            val pointToShowIcon = icon.intrinsicWidth + iconMargin
+            if (dX < 0 && -dX > pointToShowIcon) {
+                    val iconLeft = view.right - iconMargin - icon.intrinsicWidth
+                    val iconRight = view.right - iconMargin
+                    icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                    icon.draw(c)
+                }
         }
     }
 }
