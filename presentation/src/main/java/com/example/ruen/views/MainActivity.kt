@@ -7,10 +7,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.*
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.example.ruen.R
 import com.example.ruen.databinding.ActivityMainBinding
+import com.example.ruen.notifications.INotificationChannelHelper
+import com.example.ruen.workmanager.WorkManagerHelper
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var binding: ActivityMainBinding
@@ -19,8 +23,9 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navHostFragment.navController
     }
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private val sharedPreference by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
+    private val notificationChannel: INotificationChannelHelper by inject()
+    private val workManagerHelper: WorkManagerHelper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     override fun onResume() {
         super.onResume()
         sharedPreference.registerOnSharedPreferenceChangeListener(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 
     override fun onPause() {
@@ -62,15 +68,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         setupActionBarWithNavController(navController)
     }
 
-    private fun getStartFragmentId() =
-        sharedPreference.getString(getString(R.string.preference_key_start_fragment), null)?.let {
-            when (it) {
-                getString(R.string.setting_start_fragment_values_repeat) -> R.id.cardRepeatFragment
-                getString(R.string.setting_start_fragment_values_cards) -> R.id.cardsFragment
-                else -> throw IllegalArgumentException("Unknown fragment for navigation graph")
-            }
-        }
-
     private fun checkAndSetTheme() {
         sharedPreference.getString(getString(R.string.preference_key_theme), null)?.let {
             val dayNightMode = when (it) {
@@ -83,9 +80,26 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         }
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, name: String?) {
-        if (name == getString(R.string.preference_key_theme)) {
-            checkAndSetTheme()
+    private fun switchRepeatNotificationEnable() {
+        val enable = sharedPreference.getBoolean(
+            getString(R.string.preference_key_notification_repeat),
+            false
+        )
+        if (enable) {
+            notificationChannel.createChannels(INotificationChannelHelper.NotificationChannelType.DEFAULT)
+            workManagerHelper.enableRepeatNotificationWorker()
+        } else {
+            workManagerHelper.cancelRepeatNotificationWorker()
+        }
+    }
+
+    override fun onSharedPreferenceChanged(
+        sp: SharedPreferences,
+        name: String
+    ) {
+        when (name) {
+            getString(R.string.preference_key_theme) -> checkAndSetTheme()
+            getString(R.string.preference_key_notification_repeat) -> switchRepeatNotificationEnable()
         }
     }
 }

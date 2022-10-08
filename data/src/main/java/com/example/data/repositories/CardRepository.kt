@@ -70,6 +70,10 @@ class CardRepository(
             }
         }
 
+    override suspend fun isExistForRepeat() =
+        cardDao.getCountForRepeat() > 0
+
+
     override suspend fun update(card: Card) {
         cardDao.update(card.toCardEntity())
     }

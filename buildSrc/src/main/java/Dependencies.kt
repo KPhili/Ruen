@@ -1,4 +1,4 @@
-import Versions.paging_version
+import Versions.work_manager_version
 
 object Versions {
     const val koin_version = "3.2.0"
@@ -7,7 +7,7 @@ object Versions {
     const val paging_version = "3.1.1"
     const val ktx_version = "2.5.1"
     const val room_version = "2.4.3"
-
+    const val work_manager_version = "2.7.1"
 }
 
 object Koin {
@@ -62,10 +62,14 @@ object Room {
     const val room_paging = "androidx.room:room-paging:${Versions.room_version}"
 }
 
-object Desugar{
+object Desugar {
     const val desugar_jdk_libs = "com.android.tools:desugar_jdk_libs:1.1.5"
 }
 
-object Preferences{
+object Preferences {
     const val preference = "androidx.preference:preference:1.2.0"
+}
+
+object WorkManager {
+    const val work_manager = "androidx.work:work-runtime-ktx:$work_manager_version"
 }

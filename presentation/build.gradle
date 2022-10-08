@@ -59,7 +59,7 @@ dependencies {
     // Navigation Graph
     implementation(Koin.koin_androidx_navigation)
 
-    //retrofit
+    // retrofit
     implementation(Retrofit.retrofit)
 
     // navigation jetpack
@@ -69,11 +69,14 @@ dependencies {
     // pagging
     implementation(Paging.paging_runtime)
 
-    //desugar
+    // desugar
     coreLibraryDesugaring(Desugar.desugar_jdk_libs)
 
-    //preferences lib
+    // preferences lib
     implementation(Preferences.preference)
+
+    // workManager
+    implementation(WorkManager.work_manager)
 
     // modules
     implementation project(path: ':data')

@@ -13,6 +13,11 @@
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
 
+    // notifications
+    <string name="time_to_repeat_the_word">Время повторить слова!</string>
+    <string name="notification_default_channel_name">Общий</string>
+    <string name="notification_default_channel_description">Общий канал для всех уведомлений</string>
+
     // текст для кнопок с плейсхолдером
     <string name="dont_know">Нет\n%s</string>
     <string name="bad_know">Плохо\n%s</string>
@@ -31,10 +36,7 @@
     <string name="days">д.</string>
 
     // значения для настроек
-    <string name="setting_start_fragment_values_new_card">new_card</string>
-    <string name="setting_start_fragment_values_repeat">repeat</string>
-    <string name="setting_start_fragment_values_cards">cards</string>
-    <string name="preference_key_start_fragment">start_fragment</string>
+    <string name="preference_key_notification_repeat">notification_repeat</string>
     <string name="preference_key_theme">theme</string>
     <string name="setting_theme_values_system">system</string>
     <string name="setting_theme_values_light">light</string>
