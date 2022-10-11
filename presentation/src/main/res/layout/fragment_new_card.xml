@@ -11,17 +11,17 @@
         android:id="@+id/wordView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
+        android:layout_marginTop="@dimen/newCard_mainSide_marginTop"
+        android:layout_marginBottom="@dimen/newCard_mainSide_marginBottom"
         android:background="@drawable/input_background"
         android:ems="10"
-        android:hint="Основная сторона"
+        android:hint="@string/main_side"
         android:inputType="textPersonName"
-        android:padding="7dp"
+        android:padding="@dimen/bottomSheet_editText_padding"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22sp">
+        android:textSize="@dimen/bottomSheet_editText_textSize">
 
         <requestFocus />
     </EditText>
@@ -30,29 +30,29 @@
         android:id="@+id/translationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
+        android:layout_marginBottom="@dimen/newCard_reverseSize_marginBottom"
         android:background="@drawable/input_background"
         android:ems="10"
-        android:hint="Обратная сторона"
+        android:hint="@string/reverse_side"
         android:inputType="textMultiLine"
         android:maxLines="4"
-        android:padding="7dp"
+        android:padding="@dimen/bottomSheet_editText_padding"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22sp" />
+        android:textSize="@dimen/bottomSheet_editText_textSize" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginHorizontal="@dimen/newCard_chipGroup_marginHorizontal"
+        android:layout_marginBottom="@dimen/newCard_chipGroup_marginBottom"
         android:background="@android:color/transparent"
         android:fadeScrollbars="true">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/translationContainerView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             app:singleLine="true">
@@ -66,14 +66,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:padding="10dp"
-        android:text="Сохранить"
+        android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
+        android:layout_marginVertical="@dimen/bottomSheet_saveButton_marginVertical"
+        android:padding="@dimen/bottomSheet_saveButton_padding"
+        android:text="@string/save"
         android:textAppearance="@style/ButtonTextAppearance"
         android:textColor="@color/white"
         app:backgroundTint="@color/green_400"
-        app:cornerRadius="5dp" />
+        app:cornerRadius="@dimen/bottomSheet_saveButton_corner_radius" />
 
 </LinearLayout>

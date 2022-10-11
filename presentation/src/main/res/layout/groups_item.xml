@@ -4,9 +4,9 @@
     android:id="@+id/groupItemView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="7dp"
+    android:layout_margin="@dimen/rvItem_margin"
     android:background="@drawable/rect_round_all_corners_background"
-    android:padding="@dimen/cards_item_margin">
+    android:padding="@dimen/rvItem_padding">
 
     <TextView
         android:id="@+id/nameView"
@@ -15,8 +15,8 @@
         android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
         android:maxLines="1"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="@dimen/rvItem_textView_paddingHorizontal"
         android:textColor="?colorOnSurface"
-        android:textSize="@dimen/cards_item_text_size"
+        android:textSize="@dimen/cardsItem_textSize"
         tools:text="size" />
 </FrameLayout>

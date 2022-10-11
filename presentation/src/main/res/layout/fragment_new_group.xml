@@ -11,15 +11,15 @@
         android:id="@+id/nameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/bottomSheet_editText_marginHorizontal"
         android:background="@drawable/input_background"
         android:ems="10"
-        android:hint="Название группы"
+        android:hint="@string/group_name"
         android:inputType="textPersonName"
-        android:padding="5dp"
+        android:padding="@dimen/bottomSheet_editText_padding"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22sp">
+        android:textSize="@dimen/bottomSheet_editText_textSize">
 
         <requestFocus />
     </EditText>
@@ -30,13 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:padding="10dp"
-        android:text="Сохранить"
+        android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
+        android:layout_marginVertical="@dimen/bottomSheet_saveButton_marginVertical"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textAppearance="@style/ButtonTextAppearance"
         app:backgroundTint="@color/green_400"
-        app:cornerRadius="5dp" />
+        app:cornerRadius="@dimen/bottomSheet_saveButton_corner_radius" />
 
 </LinearLayout>

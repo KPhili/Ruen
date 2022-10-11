@@ -42,5 +42,11 @@
     <string name="setting_theme_values_light">light</string>
     <string name="setting_theme_values_light_blue">light_blue</string>
     <string name="setting_theme_values_dark">dark</string>
+    <string name="main_side">Основная сторона</string>
+    <string name="reverse_side">Обратная сторона</string>
+    <string name="no_cards_to_repeat">Нет карточек для повторения</string>
+    <string name="start_repeating">Начать повторение</string>
+    <string name="save">Сохранить</string>
+    <string name="group_name">Название группы</string>
 
 </resources>
