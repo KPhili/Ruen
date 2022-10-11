@@ -8,12 +8,13 @@
 
     <View
         android:id="@+id/cardView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_margin="40dp"
         android:background="@drawable/rect_round_all_corners_background"
         android:padding="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/dont_know_view"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?colorOnSurface"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="@id/cardView"
@@ -67,27 +68,30 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?colorOnSurface"
         android:textSize="24sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="@id/cardView"
         app:layout_constraintStart_toStartOf="@id/cardView"
-        app:layout_constraintTop_toTopOf="@id/cardView"
+        app:layout_constraintTop_toBottomOf="@id/sideBarrier"
         tools:text="Text second" />
 
     <ImageView
-        android:layout_width="300dp"
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="64dp"
         android:scaleType="centerCrop"
         android:src="@drawable/arrow"
+        app:layout_constraintBottom_toTopOf="@+id/bad_know_view"
         app:layout_constraintEnd_toEndOf="@id/cardView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/cardView"
-        app:layout_constraintTop_toBottomOf="@id/cardView"
         tools:ignore="ContentDescription" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="-10dp"
@@ -99,7 +103,6 @@
 
     <Button
         android:id="@+id/dont_know_view"
-        style="@style/KnowButton"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -112,7 +115,6 @@
 
     <Button
         android:id="@+id/bad_know_view"
-        style="@style/KnowButton"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="9dp"
@@ -123,7 +125,6 @@
 
     <Button
         android:id="@+id/good_know_view"
-        style="@style/KnowButton"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="Помню"
@@ -136,11 +137,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:background="@color/white"
+        android:background="?colorBackgroundToolbar"
         android:elevation="8dp"
         android:gravity="center"
         android:text="Нет карточек для повторения"
-        android:textColor="@color/black"
+        android:textColor="?colorOnToolbar"
         android:textSize="34sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

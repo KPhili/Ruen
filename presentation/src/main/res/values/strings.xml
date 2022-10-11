@@ -40,8 +40,7 @@
     <string name="preference_key_theme">theme</string>
     <string name="setting_theme_values_system">system</string>
     <string name="setting_theme_values_light">light</string>
+    <string name="setting_theme_values_light_blue">light_blue</string>
     <string name="setting_theme_values_dark">dark</string>
-
-
 
 </resources>

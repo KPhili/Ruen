@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@drawable/rounded_rect_background"
+        android:background="?colorBackgroundBottomAppBar"
         android:padding="5dp"
         android:src="@drawable/ic_create"
         android:stateListAnimator="@animator/button_animator"

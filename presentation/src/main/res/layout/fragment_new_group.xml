@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rect_round_up_corners_background"
+    android:background="?attr/backgroundPanelColor"
     android:gravity="center_horizontal|bottom"
     android:orientation="vertical">
 
@@ -16,7 +16,7 @@
         android:ems="10"
         android:hint="Название группы"
         android:inputType="textPersonName"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="22sp">
@@ -34,8 +34,9 @@
         android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="Сохранить"
+        android:textColor="@color/white"
         android:textAppearance="@style/ButtonTextAppearance"
-        app:backgroundTint="@color/green_500"
+        app:backgroundTint="@color/green_400"
         app:cornerRadius="5dp" />
 
 </LinearLayout>

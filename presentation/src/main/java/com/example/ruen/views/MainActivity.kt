@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         checkAndSetTheme()
+        setContentView(binding.root)
         setupToolbar()
     }
 
@@ -71,9 +71,22 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     private fun checkAndSetTheme() {
         sharedPreference.getString(getString(R.string.preference_key_theme), null)?.let {
             val dayNightMode = when (it) {
-                getString(R.string.setting_theme_values_system) -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                getString(R.string.setting_theme_values_light) -> AppCompatDelegate.MODE_NIGHT_NO
-                getString(R.string.setting_theme_values_dark) -> AppCompatDelegate.MODE_NIGHT_YES
+                getString(R.string.setting_theme_values_system) -> {
+                    setTheme(R.style.Theme_Ruen)
+                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                }
+                getString(R.string.setting_theme_values_light) -> {
+                    setTheme(R.style.Theme_Ruen)
+                    AppCompatDelegate.MODE_NIGHT_NO
+                }
+                getString(R.string.setting_theme_values_dark) -> {
+                    setTheme(R.style.Theme_Ruen)
+                    AppCompatDelegate.MODE_NIGHT_YES
+                }
+                getString(R.string.setting_theme_values_light_blue) -> {
+                    setTheme(R.style.Theme_Ruen_Cornflower)
+                    AppCompatDelegate.MODE_NIGHT_NO
+                }
                 else -> throw IllegalArgumentException("Illegal theme argument")
             }
             AppCompatDelegate.setDefaultNightMode(dayNightMode)
@@ -98,7 +111,10 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         name: String
     ) {
         when (name) {
-            getString(R.string.preference_key_theme) -> checkAndSetTheme()
+            getString(R.string.preference_key_theme) -> {
+                checkAndSetTheme()
+                recreate()
+            }
             getString(R.string.preference_key_notification_repeat) -> switchRepeatNotificationEnable()
         }
     }

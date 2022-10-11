@@ -20,13 +20,17 @@
         <item name="android:theme">@style/Widget.Material3.Button</item>
     </style>
 
+    <style name="ToolBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">?attr/colorOnToolbar</item>
+    </style>
+
     <style name="ToolBar.TitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat.Widget.Button">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 

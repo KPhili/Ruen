@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/groupItemView"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groupItemView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/rect_round_all_corners_background"
     android:padding="@dimen/cards_item_margin">
 
     <TextView
@@ -13,7 +15,8 @@
         android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
         android:maxLines="1"
-        android:textColor="@color/black"
+        android:paddingHorizontal="10dp"
+        android:textColor="?colorOnSurface"
         android:textSize="@dimen/cards_item_text_size"
         tools:text="size" />
 </FrameLayout>

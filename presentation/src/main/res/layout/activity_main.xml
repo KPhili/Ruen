@@ -10,10 +10,15 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:background="?colorBackgroundToolbar"
+        app:titleTextColor="?attr/colorOnToolbar"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:titleTextAppearance="@style/ToolBar.TitleTextAppearance" />
+        android:paddingTop="30dp"
+        android:theme="@style/ToolBar"
+        app:titleTextAppearance="@style/ToolBar.TitleTextAppearance"
+         />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

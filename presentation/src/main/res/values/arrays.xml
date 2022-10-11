@@ -5,11 +5,13 @@
     <string-array name="setting_theme_title">
         <item>Как в системе</item>
         <item>Светлая</item>
+        <item>Васильковая</item>
         <item>Темная</item>
     </string-array>
     <string-array name="setting_theme_values">
         <item>@string/setting_theme_values_system</item>
         <item>@string/setting_theme_values_light</item>
+        <item>@string/setting_theme_values_light_blue</item>
         <item>@string/setting_theme_values_dark</item>
     </string-array>
 

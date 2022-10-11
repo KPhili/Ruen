@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rect_round_up_corners_background"
+    android:background="?backgroundPanelColor"
     android:gravity="center_horizontal|bottom"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/wordView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/input_background"
         android:ems="10"
         android:hint="Основная сторона"
         android:inputType="textPersonName"
-        android:padding="10dp"
+        android:padding="7dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="22sp">
@@ -27,15 +28,16 @@
 
     <EditText
         android:id="@+id/translationView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/input_background"
         android:ems="10"
         android:hint="Обратная сторона"
         android:inputType="textMultiLine"
         android:maxLines="4"
-        android:padding="10dp"
+        android:padding="7dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="22sp" />
@@ -70,7 +72,8 @@
         android:padding="10dp"
         android:text="Сохранить"
         android:textAppearance="@style/ButtonTextAppearance"
-        app:backgroundTint="@color/green_500"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/green_400"
         app:cornerRadius="5dp" />
 
 </LinearLayout>

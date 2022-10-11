@@ -2,15 +2,28 @@
     <!-- Base application theme. -->
     <style name="Theme.Ruen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/blue_300</item>
+        <item name="colorPrimaryVariant">@color/gray_200</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/blue_700</item>
+        <item name="colorSecondaryVariant">@color/blue_gray_400</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSurface">@color/blue_700</item>
+        <item name="android:windowBackground">@color/blue_900</item>
+        // toolbar
+        <item name="colorBackgroundToolbar">@color/blue_900</item>
+        <item name="colorOnToolbar">@color/white</item>
+
+        // appbar
+        <item name="colorBackgroundBottomAppBar">@color/blue_100</item>
+        <item name="colorOnBottomAppBar">@color/black</item>
+
+        <item name="fontFamily">@font/roboto</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
+        <item name="backgroundPanelColor">@color/cornflower_200</item>
     </style>
 </resources>
