@@ -32,12 +32,12 @@ class NotificationHelper(
     private fun getRepeatNotification() =
         NotificationCompat.Builder(context, REMIND_REPETITION_CHANNEL_ID)
             .setContentTitle(context.getString(R.string.time_to_repeat_the_word))
-            .setSmallIcon(R.drawable.circular_arrows).setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSmallIcon(R.drawable.ic_launcher_foreground).setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(getRepeatFragmentPendingIntent()).build()
 
     private fun getEmptyNotification() =
         NotificationCompat.Builder(context, REMIND_REPETITION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.circular_arrows).setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSmallIcon(R.drawable.ic_launcher_foreground).setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
 
     private fun getRepeatFragmentPendingIntent(): PendingIntent {
