@@ -77,8 +77,8 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.deleteGroup(group)
             }
-            .setNegativeButton(getString(R.string.cancel)) { _, _ ->
-                adapter.notifyItemChanged(position)
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
             }
             .setOnDismissListener {
                 adapter.notifyItemChanged(position)
