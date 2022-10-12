@@ -2,6 +2,7 @@ package com.example.ruen.helpers.workmanager
 
 import android.content.Context
 import android.util.Log
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.*
@@ -30,7 +31,7 @@ class WorkManagerHelper(
     private fun getInterval(): Long {
         val now = Calendar.getInstance()
         val future = Calendar.getInstance().apply {
-            set(Calendar.HOUR, REPEAT_HOUR)
+            set(Calendar.HOUR_OF_DAY, REPEAT_HOUR)
             set(Calendar.AM_PM, Calendar.AM)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)

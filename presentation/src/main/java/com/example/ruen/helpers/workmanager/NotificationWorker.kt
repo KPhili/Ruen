@@ -1,6 +1,7 @@
 package com.example.ruen.helpers.workmanager
 
 import android.content.Context
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -22,10 +23,10 @@ class NotificationWorker(
     private val notification: INotificationHelper by inject()
 
     override suspend fun doWork(): Result {
-
         if (cardRepository.isExistForRepeat()) {
             notification.sendNotification(INotificationHelper.NotificationType.REMIND_REPETITION)
         }
+        Log.d(TAG, "doWork: success")
         return Result.success()
     }
 
@@ -38,5 +39,6 @@ class NotificationWorker(
 
     companion object {
         private const val NOTIFICATION_ID = 1122
+        private const val TAG = "NotificationWorker"
     }
 }
