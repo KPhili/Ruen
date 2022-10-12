@@ -3,13 +3,14 @@ package com.example.ruen.helpers
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ruen.R
-import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.adapters.IDeleteItemAdapter
+import java.lang.Integer.max
+import kotlin.math.abs
 
 class ItemTouchHelperCallback(
     private val myAdapter: IDeleteItemAdapter,
@@ -19,8 +20,10 @@ class ItemTouchHelperCallback(
         ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.LEFT
     ) {
 
-    private val background = ColorDrawable(Color.RED);
-    private val icon by lazy { ContextCompat.getDrawable(context, R.drawable.folder_delete) }
+    private val background = ContextCompat.getDrawable(context, R.drawable.delete_item_background)
+    private val icon by lazy {
+        ContextCompat.getDrawable(context, R.drawable.delete)?.apply { setTint(Color.WHITE) }
+    }
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -44,23 +47,30 @@ class ItemTouchHelperCallback(
     ) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         val view = viewHolder.itemView
-        if (dX < 0) {
-            background.setBounds((view.right + dX).toInt(), view.top, view.right, view.bottom)
-        } else {
-            background.setBounds(0, 0, 0, 0)
+        background?.let { background ->
+            if (dX < 0) {
+                val backgroundLeftMargin = -40
+                var backgroundLeft = view.left + view.width + dX.toInt() + backgroundLeftMargin
+                if (view.left > backgroundLeft) backgroundLeft = view.left
+                background.setBounds(
+                    backgroundLeft,
+                    view.top,
+                    view.right,
+                    view.bottom
+                )
+            } else {
+                background.setBounds(0, 0, 0, 0)
+            }
+            background.draw(c)
         }
-        background.draw(c)
         icon?.let { icon ->
             val iconMargin = (view.height - icon.intrinsicHeight) / 2
             val iconTop = view.top + iconMargin
             val iconBottom = iconTop + icon.intrinsicHeight
-            val pointToShowIcon = icon.intrinsicWidth + iconMargin
-            if (dX < 0 && -dX > pointToShowIcon) {
-                    val iconLeft = view.right - iconMargin - icon.intrinsicWidth
-                    val iconRight = view.right - iconMargin
-                    icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                    icon.draw(c)
-                }
+            val iconLeft = view.right - iconMargin - icon.intrinsicWidth
+            val iconRight = view.right - iconMargin
+            icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+            icon.draw(c)
         }
     }
 }
