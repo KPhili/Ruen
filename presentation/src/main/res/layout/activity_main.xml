@@ -16,6 +16,7 @@
         android:elevation="@dimen/standart_elevation"
         android:paddingTop="@dimen/toolbar_paddingTop"
         android:theme="@style/ToolBar"
+        android:visibility="visible"
         app:titleTextAppearance="@style/ToolBar.TitleTextAppearance"
          />
 
