@@ -2,20 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Внешний вид">
+    <PreferenceCategory android:title="@string/appearance">
         <ListPreference
             android:defaultValue="@string/setting_theme_values_system"
             android:entries="@array/setting_theme_title"
             android:entryValues="@array/setting_theme_values"
             android:key="@string/preference_key_theme"
-            android:title="Тема" />
+            android:title="@string/theme" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Уведомления">
+    <PreferenceCategory android:title="@string/notifications">
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="notification_repeat"
-            android:title="Повторение" />
+            android:title="@string/repeat" />
     </PreferenceCategory>
 
 

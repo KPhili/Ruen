@@ -1,52 +1,63 @@
 <resources>
-    <string name="app_name">Ruen</string>
-    <string name="new_card">Новая карточка</string>
-    <string name="сards">Карточки</string>
-    <string name="groups">Группы</string>
-    <string name="new_group">Новая группа</string>
-    <string name="settings">Настройки</string>
+    <string name="app_name" translatable="false">Ruen</string>
+    <string name="new_card">New card</string>
+    <string name="сards">Cards</string>
+    <string name="groups">Groups</string>
+    <string name="new_group">New group</string>
+    <string name="settings">Settings</string>
+
+    <string name="main_side">Main side</string>
+    <string name="reverse_side">Reverse side</string>
+    <string name="no_cards_to_repeat">There are no card for repeating</string>
+    <string name="start_repeating">Start repeating</string>
+    <string name="save">Save</string>
+    <string name="group_name">Group name</string>
+
+    <string name="appearance">Appearance</string>
+    <string name="theme">Theme</string>
+    <string name="notifications">Notifications</string>
+
 
     // alert
-    <string name="group_alert_delete_title">Удалить группу: %s?</string>
-    <string name="group_alert_delete_message">Также удалятся все карточки группы</string>
+    <string name="group_alert_delete_title">Delete group: %s?</string>
+    <string name="group_alert_delete_message">All the cards of the group are also deleted</string>
 
-    <string name="yes">Да</string>
-    <string name="cancel">Отмена</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
     // notifications
-    <string name="time_to_repeat_the_word">Время повторить слова!</string>
-    <string name="notification_default_channel_name">Общий</string>
-    <string name="notification_default_channel_description">Общий канал для всех уведомлений</string>
+    <string name="time_to_repeat_the_word">Time to repeat the words!</string>
+    <string name="notification_default_channel_name">General</string>
+    <string name="notification_default_channel_description">A common channel for all notifications</string>
 
     // текст для кнопок с плейсхолдером
-    <string name="dont_know">Нет\n%s</string>
-    <string name="bad_know">Плохо\n%s</string>
-    <string name="good_know">Помню\n%s</string>
+    <string name="dont_know">No\n%s</string>
+    <string name="bad_know">Bad\n%s</string>
+    <string name="good_know">Know\n%s</string>
 
     // messages
-    <string name="save_card_success">Карточка сохранена</string>
-    <string name="no_translations">Нет ни одного перевода</string>
-    <string name="list_of_translation_is_empty">Пустой список переводов</string>
-    <string name="repeating">Повторение</string>
-    <string name="no_internet_connection">Нет подключения к сети</string>
+    <string name="save_card_success">The card is saved</string>
+    <string name="no_translations">There isn\'t translations</string>
+    <string name="list_of_translation_is_empty">Empty list of translations</string>
+    <string name="repeat">Repeat</string>
+    <string name="no_internet_connection">No internet connection</string>
 
     // сокращения для интервалов
-    <string name="minutes">м.</string>
-    <string name="hours">ч.</string>
-    <string name="days">д.</string>
+    <string name="minutes">m.</string>
+    <string name="hours">h.</string>
+    <string name="days">d.</string>
 
     // значения для настроек
-    <string name="preference_key_notification_repeat">notification_repeat</string>
-    <string name="preference_key_theme">theme</string>
-    <string name="setting_theme_values_system">system</string>
-    <string name="setting_theme_values_light">light</string>
-    <string name="setting_theme_values_light_blue">light_blue</string>
-    <string name="setting_theme_values_dark">dark</string>
-    <string name="main_side">Основная сторона</string>
-    <string name="reverse_side">Обратная сторона</string>
-    <string name="no_cards_to_repeat">Нет карточек для повторения</string>
-    <string name="start_repeating">Начать повторение</string>
-    <string name="save">Сохранить</string>
-    <string name="group_name">Название группы</string>
+    <string name="preference_key_notification_repeat" translatable="false">notification_repeat</string>
+    <string name="preference_key_theme" translatable="false">theme</string>
+    <string name="setting_theme_values_system" translatable="false">system</string>
+    <string name="setting_theme_values_light" translatable="false">light</string>
+    <string name="setting_theme_values_light_blue" translatable="false">light_blue</string>
+    <string name="setting_theme_values_dark" translatable="false">dark</string>
+
+    <string name="as_in_the_system">As in the system</string>
+    <string name="light">Light</string>
+    <string name="cornflower">Cornflower</string>
+    <string name="dark">Dark</string>
 
 </resources>

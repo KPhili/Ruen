@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Ruen</string>
+    <string name="new_card">Новая карточка</string>
+    <string name="сards">Карточки</string>
+    <string name="groups">Группы</string>
+    <string name="new_group">Новая группа</string>
+    <string name="settings">Настройки</string>
+
+    <string name="main_side">Основная сторона</string>
+    <string name="reverse_side">Обратная сторона</string>
+    <string name="no_cards_to_repeat">Нет карточек для повторения</string>
+    <string name="start_repeating">Начать повторение</string>
+    <string name="save">Сохранить</string>
+    <string name="group_name">Название группы</string>
+
+    <string name="appearance">Внешний вид</string>
+    <string name="theme">Тема</string>
+    <string name="notifications">Уведомления</string>
+
+    // alert
+    <string name="group_alert_delete_title">Удалить группу: %s?</string>
+    <string name="group_alert_delete_message">Также удалятся все карточки группы</string>
+
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+
+    // notifications
+    <string name="time_to_repeat_the_word">Время повторить слова!</string>
+    <string name="notification_default_channel_name">Общий</string>
+    <string name="notification_default_channel_description">Общий канал для всех уведомлений</string>
+
+    // текст для кнопок с плейсхолдером
+    <string name="dont_know">Нет\n%s</string>
+    <string name="bad_know">Плохо\n%s</string>
+    <string name="good_know">Помню\n%s</string>
+
+    // messages
+    <string name="save_card_success">Карточка сохранена</string>
+    <string name="no_translations">Нет ни одного перевода</string>
+    <string name="list_of_translation_is_empty">Пустой список переводов</string>
+    <string name="repeat">Повторение</string>
+    <string name="no_internet_connection">Нет подключения к сети</string>
+
+    // сокращения для интервалов
+    <string name="minutes">м.</string>
+    <string name="hours">ч.</string>
+    <string name="days">д.</string>
+
+    <string name="as_in_the_system">Как в системе</string>
+    <string name="light">Светлая</string>
+    <string name="cornflower">Васильковая</string>
+    <string name="dark">Темная</string>
+
+</resources>

@@ -3,10 +3,10 @@
 
     // для настроек темы
     <string-array name="setting_theme_title">
-        <item>Как в системе</item>
-        <item>Светлая</item>
-        <item>Васильковая</item>
-        <item>Темная</item>
+        <item>@string/as_in_the_system</item>
+        <item>@string/light</item>
+        <item>@string/cornflower</item>
+        <item>@string/dark</item>
     </string-array>
     <string-array name="setting_theme_values">
         <item>@string/setting_theme_values_system</item>
