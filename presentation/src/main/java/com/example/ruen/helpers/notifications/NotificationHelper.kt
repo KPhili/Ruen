@@ -1,4 +1,4 @@
-package com.example.ruen.notifications
+package com.example.ruen.helpers.notifications
 
 import android.app.PendingIntent
 import android.content.Context
@@ -7,7 +7,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.ruen.R
-import com.example.ruen.notifications.NotificationChannelHelper.Companion.REMIND_REPETITION_CHANNEL_ID
+import com.example.ruen.helpers.notifications.NotificationChannelHelper.Companion.REMIND_REPETITION_CHANNEL_ID
 import com.example.ruen.views.MainActivity
 
 class NotificationHelper(

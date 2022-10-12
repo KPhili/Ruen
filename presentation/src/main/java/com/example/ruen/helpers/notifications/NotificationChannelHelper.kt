@@ -1,4 +1,4 @@
-package com.example.ruen.notifications
+package com.example.ruen.helpers.notifications
 
 import android.content.Context
 import androidx.core.app.NotificationChannelCompat

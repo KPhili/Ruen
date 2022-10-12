@@ -1,4 +1,4 @@
-package com.example.ruen.notifications
+package com.example.ruen.helpers.notifications
 
 interface INotificationChannelHelper {
     fun createChannels(type: NotificationChannelType)

@@ -1,4 +1,4 @@
-package com.example.ruen.workmanager
+package com.example.ruen.helpers.workmanager
 
 interface IWorkManagerHelper {
     fun enableRepeatNotificationWorker()
