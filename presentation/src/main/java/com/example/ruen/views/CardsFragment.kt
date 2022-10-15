@@ -15,12 +15,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::inflate) {
 
     private val adapter: CardsAdapter by inject()
-    private val viewModel: CardsViewModel by viewModel()
+    private val viewModel: CardsViewModel by viewModel { parametersOf(groupId) }
     private val groupId by lazy { args.groupId }
     private val args: CardsFragmentArgs by navArgs()
 
@@ -51,7 +52,7 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
     private fun fetchData() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getCardsFlow(groupId).collectLatest {
+                viewModel.cardsFlow.collectLatest {
                     adapter.submitData(it)
                 }
             }

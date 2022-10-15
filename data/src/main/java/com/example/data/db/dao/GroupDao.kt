@@ -8,7 +8,10 @@ import com.example.data.db.entities.GroupEntity
 interface GroupDao {
     @Query("SELECT * FROM groups")
     fun getAll(): PagingSource<Int, GroupEntity>
-    
+
+    @Query("SELECT * FROM groups WHERE id=:id")
+    suspend fun get(id: Long): GroupEntity
+
     @Insert
     suspend fun insert(group: GroupEntity): Long
 

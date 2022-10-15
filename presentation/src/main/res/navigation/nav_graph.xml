@@ -48,9 +48,14 @@
             app:argType="long" />
     </dialog>
     <dialog
-        android:id="@+id/newGroupDialogFragment"
-        android:name="com.example.ruen.views.NewGroupFragment"
-        android:label="@string/new_group" />
+        android:id="@+id/groupDialogFragment"
+        android:name="com.example.ruen.views.GroupFragment"
+        android:label="@string/new_group" >
+        <argument
+            android:name="groupId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </dialog>
     <fragment
         android:id="@+id/groupsFragment"
         android:name="com.example.ruen.views.GroupsFragment"
@@ -70,6 +75,9 @@
         </action>
         <action
             android:id="@+id/action_groupsFragment_to_newGroupDialogFragment"
-            app:destination="@id/newGroupDialogFragment" />
+            app:destination="@id/groupDialogFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_groupDialogFragment"
+            app:destination="@id/groupDialogFragment" />
     </fragment>
 </navigation>

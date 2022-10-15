@@ -2,7 +2,6 @@ package com.example.ruen.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.Group
@@ -28,8 +27,14 @@ class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
         fun bind(group: Group?) = with(binding) {
             group?.let {
                 nameView.text = group.name
-                groupItemView.setOnClickListener {
-                    clickListener?.invoke(group)
+                groupItemView.apply {
+                    setOnClickListener {
+                        clickListener?.invoke(group)
+                    }
+                    setOnLongClickListener {
+                        longClickListener?.invoke(group)
+                        true
+                    }
                 }
             }
         }

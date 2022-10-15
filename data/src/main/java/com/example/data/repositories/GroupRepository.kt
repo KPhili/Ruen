@@ -29,11 +29,15 @@ class GroupRepository(
                 }
             }
 
-    override suspend fun update(group: Group) = withContext(Dispatchers.IO){
+    override suspend fun get(id: Long) = withContext(Dispatchers.IO) {
+        groupDao.get(id).toGroup()
+    }
+
+    override suspend fun update(group: Group) = withContext(Dispatchers.IO) {
         groupDao.update(group.toGroupEntity())
     }
 
-    override suspend fun delete(group: Group) = withContext(Dispatchers.IO){
+    override suspend fun delete(group: Group) = withContext(Dispatchers.IO) {
         groupDao.delete(group.toGroupEntity())
     }
 

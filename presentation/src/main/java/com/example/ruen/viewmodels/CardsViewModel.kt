@@ -7,9 +7,9 @@ import com.example.domain.models.Card
 import com.example.domain.repositories.ICardRepository
 import kotlinx.coroutines.launch
 
-class CardsViewModel(private val cardsRepository: ICardRepository) : ViewModel() {
+class CardsViewModel(private val cardsRepository: ICardRepository, groupId: Long) : ViewModel() {
 
-    fun getCardsFlow(groupId: Long) =
+    val cardsFlow =
         cardsRepository.getAllFromGroup(groupId).cachedIn(viewModelScope)
 
     fun deleteCard(card: Card) {

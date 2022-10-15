@@ -1,8 +1,6 @@
 package com.example.ruen.di
 
-import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.DiffUtil
-import androidx.work.WorkManager
 import com.example.data.datasource.LibreWordTranslationRemoteSource
 import com.example.data.repositories.CardRepository
 import com.example.data.repositories.GroupRepository
@@ -22,21 +20,19 @@ import com.example.ruen.adapters.CardsAdapter.CardComparator
 import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.helpers.notifications.INotificationChannelHelper
 import com.example.ruen.helpers.notifications.INotificationHelper
-import com.example.ruen.helpers.notifications.NotificationHelper
 import com.example.ruen.helpers.notifications.NotificationChannelHelper
+import com.example.ruen.helpers.notifications.NotificationHelper
+import com.example.ruen.helpers.workmanager.IWorkManagerHelper
+import com.example.ruen.helpers.workmanager.WorkManagerHelper
 import com.example.ruen.providers.ResourceProvider
 import com.example.ruen.utils.InternetConnectionChecker
 import com.example.ruen.viewmodels.*
-import com.example.ruen.helpers.workmanager.IWorkManagerHelper
-import com.example.ruen.helpers.workmanager.WorkManagerHelper
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
-import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val appModule = module {
@@ -50,7 +46,7 @@ val appModule = module {
             groupId = parameters.get()
         )
     }
-    viewModelOf(::CardsViewModel)
+    viewModel { parameters -> CardsViewModel(cardsRepository = get(), groupId = parameters.get()) }
     viewModel { parameters ->
         CardRepeatViewModel(
             cardRepository = get(),
@@ -60,7 +56,7 @@ val appModule = module {
         )
     }
     viewModelOf(::GroupsViewModel)
-    viewModelOf(::NewGroupViewModel)
+    viewModel { parameters -> GroupViewModel(groupRepository = get(), groupId = parameters.get()) }
 
     singleOf(::LibreWordTranslationRemoteSource)
 

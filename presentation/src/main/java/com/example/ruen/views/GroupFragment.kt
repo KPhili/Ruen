@@ -1,6 +1,7 @@
 package com.example.ruen.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,21 +10,25 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.example.ruen.R
-import com.example.ruen.databinding.FragmentNewGroupBinding
-import com.example.ruen.viewmodels.NewGroupViewModel
-import com.example.ruen.viewmodels.NewGroupViewModel.*
+import com.example.ruen.databinding.FragmentGroupBinding
+import com.example.ruen.viewmodels.GroupViewModel
+import com.example.ruen.viewmodels.GroupViewModel.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-class NewGroupFragment :
+class GroupFragment :
     BottomSheetDialogFragment() {
 
-    private val viewModel by viewModel<NewGroupViewModel>()
-    private var _binding: FragmentNewGroupBinding? = null
+    private val viewModel: GroupViewModel by viewModel { parametersOf(groupId) }
+    private var _binding: FragmentGroupBinding? = null
     private val binding get() = _binding!!
+    private val args: GroupFragmentArgs by navArgs()
+    private val groupId = args.groupId.takeIf { it > 0 }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,7 @@ class NewGroupFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNewGroupBinding.inflate(inflater, container, false)
+        _binding = FragmentGroupBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,6 +57,7 @@ class NewGroupFragment :
 
     private fun subscribeToData() {
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getGroupName()
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.notificationState.collectLatest {
                     updateUI(it)
@@ -61,11 +67,20 @@ class NewGroupFragment :
     }
 
     private fun updateUI(uiState: UIState) {
-        if (uiState.saveStatus)
-            dismiss()
-        uiState.notificationMessage?.let {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-            viewModel.notificationShown()
+        when {
+            uiState.saveStatus -> {
+                dismiss()
+                return
+            }
+            uiState.notificationMessage != null -> {
+                Toast.makeText(requireContext(), uiState.notificationMessage, Toast.LENGTH_SHORT)
+                    .show()
+                viewModel.notificationShown()
+            }
+            uiState.groupName.isNotEmpty() -> {
+                binding.nameView.setText(uiState.groupName)
+            }
+
         }
     }
 

@@ -9,6 +9,7 @@ abstract class BaseAdapter<T : Any, V : ViewHolder>(diffCallback: DiffUtil.ItemC
 
     private var deleteListener: ((position: Int, item: T) -> Unit)? = null
     protected var clickListener: ((item: T) -> Unit)? = null
+    protected var longClickListener: ((item: T) -> Unit)? = null
 
 
     fun setOnDeleteListener(listener: (position: Int, item: T) -> Unit) {
@@ -17,6 +18,10 @@ abstract class BaseAdapter<T : Any, V : ViewHolder>(diffCallback: DiffUtil.ItemC
 
     fun setOnClickListener(listener: (item: T) -> Unit) {
         clickListener = listener
+    }
+
+    fun setOnLongClickListener(listener: (item: T) -> Unit) {
+        longClickListener = listener
     }
 
     override fun deleteItem(position: Int) {

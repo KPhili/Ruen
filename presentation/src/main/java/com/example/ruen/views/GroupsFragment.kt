@@ -61,6 +61,14 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
                     navController?.navigate(direction)
                 }
             }
+            setOnLongClickListener { group ->
+                group.id?.let {
+                    val direction =
+                        GroupsFragmentDirections.actionGroupsFragmentToGroupDialogFragment()
+                            .setGroupId(it)
+                    navController?.navigate(direction)
+                }
+            }
         }
         ItemTouchHelper(ItemTouchHelperCallback(adapter, requireContext())).also {
             it.attachToRecyclerView(groupsView)

@@ -19,7 +19,7 @@ class CardRepeatViewModel(
     private val formatRepeatIntervalUseCase: FormatRepeatIntervalUseCase,
     private val getNextRepeatNumberUseCase: GetNextRepeatNumberUseCase,
     private val getIntervalRepeatUseCase: GetIntervalRepeatUseCase,
-    private val groupId: Long
+    private val groupId: Long?
 ) : ViewModel() {
 
     private var currentCard: Card? = null
@@ -28,7 +28,7 @@ class CardRepeatViewModel(
 
     init {
         val flow =
-            if (groupId == -1L) cardRepository.getNextCardForRepeat()
+            if (groupId == null) cardRepository.getNextCardForRepeat()
             else cardRepository.getNextCardForRepeatInGroup(groupId)
         uiState = flow.map {
             it?.let {

@@ -23,7 +23,7 @@ class CardRepeatFragment :
 
     private val viewModel: CardRepeatViewModel by viewModel { parametersOf(groupId) }
     private val args: CardsFragmentArgs by navArgs()
-    private val groupId: Long by lazy { args.groupId }
+    private val groupId: Long? by lazy { args.groupId.takeIf { it > 0 } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
