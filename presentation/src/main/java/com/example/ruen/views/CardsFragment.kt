@@ -66,8 +66,7 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
             it.id?.let { cardId ->
                 val direction =
                     CardsFragmentDirections.actionCardsFragmentToSpecificCardRepeatFragment(
-                        groupId,
-                        cardId
+                        cardId, groupId
                     )
                 navController?.navigate(direction)
             }

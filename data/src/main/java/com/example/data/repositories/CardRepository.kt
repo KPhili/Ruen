@@ -37,7 +37,7 @@ class CardRepository(
             }
     }
 
-    override suspend fun getCardWithTranslatedWord(cardId: Long) = with(Dispatchers.IO) {
+    override suspend fun getCardWithTranslatedWord(cardId: Long) = withContext(Dispatchers.IO) {
         cardDao.getCardsWithTranslatedWords(cardId).toDomainPair()
     }
 

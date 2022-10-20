@@ -22,7 +22,7 @@ class CardRepeatFragment :
 
     private val viewModel: CardRepeatViewModel by viewModel { parametersOf(groupId) }
     private val args: CardRepeatFragmentArgs by navArgs()
-    private val groupId: Long? by lazy { args.groupId.takeIf { it > 0 } }
+    private val groupId: Long? by lazy { args.groupId.takeIf { it != -1L } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +34,7 @@ class CardRepeatFragment :
     private fun subscribeToUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val cardId = args.cardId?.takeIf { it != -1L }
+                val cardId = args.cardId.takeIf { it != -1L }
                 viewModel.getUIState(cardId).collectLatest { uiState ->
                     updateUIState(uiState)
                 }
