@@ -18,15 +18,15 @@ val retrofitModule = module {
             .build()
     }
     // LibreTranslateService
-    single<LibreTranslateService> { get<Retrofit>().create(LibreTranslateService::class.java) }
+    single { get<Retrofit>().create(LibreTranslateService::class.java) }
     // interceptor
-    single {
+    factory {
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
     // client
-    single { OkHttpClient.Builder().addInterceptor(get<HttpLoggingInterceptor>()).build() }
+    factory { OkHttpClient.Builder().addInterceptor(get<HttpLoggingInterceptor>()).build() }
     // base url
-    single(named("BASE_URL")) { "https://libretranslate.com/" }
+    factory(named("BASE_URL")) { "https://libretranslate.com/" }
 }

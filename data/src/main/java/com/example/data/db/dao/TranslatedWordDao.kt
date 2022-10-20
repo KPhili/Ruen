@@ -23,4 +23,7 @@ interface TranslatedWordDao {
 
     @Delete
     suspend fun delete(translated_word: TranslatedWordEntity)
+
+    @Query("DELETE FROM translated_words WHERE card_id=:cardId")
+    suspend fun deleteAllBelongsCard(cardId: Long)
 }

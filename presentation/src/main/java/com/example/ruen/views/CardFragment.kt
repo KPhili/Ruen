@@ -33,7 +33,7 @@ class CardFragment :
     private val binding get() = _binding!!
     private val args: CardFragmentArgs by navArgs()
     private val groupId by lazy { args.groupId }
-    private val cardId by lazy { args.cardId }
+    private val cardId by lazy { args.cardId.takeIf { it != -1L } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,25 +121,31 @@ class CardFragment :
                         setSelection(it.value.length)
                     }
                 }
-                uiState.translatedWords?.let { setSuccessUiState(it) }
+                setChipsTranslatedWords(uiState.selectedTranslatedWords, uiState.translatedWords)
             }
         }
     }
 
-    private fun setSuccessUiState(translatedWords: List<TranslatedWord>) {
+    private fun setChipsTranslatedWords(
+        selectedTranslatedWord: List<TranslatedWord>,
+        translatedWords: MutableList<TranslatedWord>?
+    ) {
         with(binding) {
             translationContainerView.removeAllViews()
-            translatedWords.forEach {
-                translationContainerView.addView(createTranslateTextView(it))
+            selectedTranslatedWord.forEach {
+                translationContainerView.addView(createTranslatedWordChip(it, true))
+            }
+            translatedWords?.forEach {
+                translationContainerView.addView(createTranslatedWordChip(it))
             }
         }
     }
 
-    private fun createTranslateTextView(translatedWord: TranslatedWord) =
-        Chip(
-            requireContext(),
-            null,
-        ).apply {
+    private fun createTranslatedWordChip(
+        translatedWord: TranslatedWord,
+        selected: Boolean = false
+    ) =
+        Chip(requireContext(), null).apply {
             val chipDrawable = ChipDrawable.createFromAttributes(
                 requireContext(),
                 null, 0,
@@ -147,6 +153,10 @@ class CardFragment :
             )
             setChipDrawable(chipDrawable)
             text = translatedWord.value
+            isChecked = selected
+            setOnCheckedChangeListener { compoundButton, checked ->
+                viewModel.clickTranslatedWord(compoundButton.text.toString(), checked)
+            }
         }
 
     private fun showNotification(message: String) {

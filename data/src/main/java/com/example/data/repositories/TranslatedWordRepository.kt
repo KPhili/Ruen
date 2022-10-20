@@ -4,6 +4,7 @@ import com.example.data.datasource.LibreWordTranslationRemoteSource
 import com.example.data.db.dao.TranslatedWordDao
 import com.example.data.mappers.toTranslatedWord
 import com.example.data.mappers.toTranslatedWordRoom
+import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.repositories.ITranslatedWordRepository
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,10 @@ class TranslatedWordRepository(
                 .let { list ->
                     translatedWordDao.insert(list)
                 }
+        }
+    override suspend fun deleteAllBelongsCard(cardId: Long) =
+        withContext(Dispatchers.IO){
+            translatedWordDao.deleteAllBelongsCard(cardId)
         }
 }
 

@@ -8,6 +8,7 @@ import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.providers.IResourceProvider
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
+import com.example.domain.usecases.UpdateCardWithTranslatedWordUseCase
 import com.example.ruen.utils.InternetConnectionChecker
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
@@ -20,6 +21,7 @@ class CardViewModel(
     private val translatedWordRepository: TranslatedWordRepository,
     private val cardRepository: CardRepository,
     private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase,
+    private val updateCardWithTranslatedWordUseCase: UpdateCardWithTranslatedWordUseCase,
     private val resourceProvider: IResourceProvider,
     private val internetConnectionChecker: InternetConnectionChecker,
     private val groupId: Long,
@@ -48,7 +50,7 @@ class CardViewModel(
                             val card =
                                 it.card?.copy(value = word) ?: Card(value = word, groupId = groupId)
                             it.copy(
-                                card = card, translatedWords = translations
+                                card = card, translatedWords = translations.toMutableList()
                             )
                         }
                     } else {
@@ -70,6 +72,32 @@ class CardViewModel(
         viewModelScope.launch {
             wordFlow.emit(word)
         }
+    }
+
+    fun clickTranslatedWord(translatedWord: String, isChecked: Boolean) {
+        _uiState.update { cardUIState ->
+            val translatedWords = cardUIState.translatedWords ?: mutableListOf()
+            val selectedTranslatedWords = cardUIState.selectedTranslatedWords
+            if (isChecked) {
+                movingTranslatedWord(translatedWords, selectedTranslatedWords, translatedWord)
+            } else {
+                movingTranslatedWord(selectedTranslatedWords, translatedWords, translatedWord)
+            }
+            cardUIState.copy(
+                selectedTranslatedWords = selectedTranslatedWords,
+                translatedWords = translatedWords
+            )
+        }
+    }
+
+    private fun movingTranslatedWord(
+        fromList: MutableList<TranslatedWord>,
+        toList: MutableList<TranslatedWord>,
+        translatedWord: String
+    ) {
+        val indexTranslatedWord = fromList.indexOfFirst { it.value == translatedWord }
+        toList.add(fromList[indexTranslatedWord])
+        fromList.removeAt(indexTranslatedWord)
     }
 
     fun saveCard(word: String, translations: Array<String>) = viewModelScope.launch {
@@ -94,8 +122,13 @@ class CardViewModel(
             }
             return@launch
         }
-        val card = Card(value = word, groupId = groupId)
-        saveCardWithTranslatedWordUseCase(card, translatedWordList)
+
+        val card = _uiState.value.card ?: Card(value = word, groupId = groupId)
+        if (card.id != null) {
+            updateCardWithTranslatedWordUseCase(card, translatedWordList)
+        } else {
+            saveCardWithTranslatedWordUseCase(card, translatedWordList)
+        }
         _uiState.update { it.copy(isSaved = true) }
     }
 
@@ -111,7 +144,11 @@ class CardViewModel(
         cardId?.let {
             viewModelScope.launch {
                 val pair = cardRepository.getCardWithTranslatedWord(cardId)
-                _uiState.value = CardUIState(pair.first, pair.second)
+                _uiState.value =
+                    CardUIState(
+                        card = pair.first,
+                        selectedTranslatedWords = pair.second.toMutableList()
+                    )
             }
         }
     }
@@ -123,7 +160,8 @@ class CardViewModel(
 
 data class CardUIState(
     val card: Card? = null,
-    val translatedWords: List<TranslatedWord>? = null,
+    val selectedTranslatedWords: MutableList<TranslatedWord> = mutableListOf(),
+    val translatedWords: MutableList<TranslatedWord>? = null,
     val isSaved: Boolean = false,
     val notificationMessage: String? = null,
     val error: Throwable? = null

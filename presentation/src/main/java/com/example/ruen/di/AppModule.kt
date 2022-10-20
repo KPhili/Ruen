@@ -11,10 +11,7 @@ import com.example.domain.providers.IResourceProvider
 import com.example.domain.repositories.ICardRepository
 import com.example.domain.repositories.IGroupRepository
 import com.example.domain.repositories.ITranslatedWordRepository
-import com.example.domain.usecases.FormatRepeatIntervalUseCase
-import com.example.domain.usecases.GetIntervalRepeatUseCase
-import com.example.domain.usecases.GetNextRepeatNumberUseCase
-import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
+import com.example.domain.usecases.*
 import com.example.ruen.adapters.CardsAdapter
 import com.example.ruen.adapters.CardsAdapter.CardComparator
 import com.example.ruen.adapters.GroupsAdapter
@@ -42,6 +39,7 @@ val appModule = module {
             translatedWordRepository = get(),
             cardRepository = get(),
             saveCardWithTranslatedWordUseCase = get(),
+            updateCardWithTranslatedWordUseCase = get(),
             resourceProvider = get(),
             internetConnectionChecker = get(),
             groupId = parameters[0],
@@ -83,6 +81,7 @@ val appModule = module {
     factoryOf(::GetNextRepeatNumberUseCase)
     factoryOf(::GetIntervalRepeatUseCase)
     factoryOf(::SaveCardWithTranslatedWordUseCase)
+    factoryOf(::UpdateCardWithTranslatedWordUseCase)
 
     // utils
     singleOf(::InternetConnectionChecker)
