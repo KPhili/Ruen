@@ -3,7 +3,6 @@ package com.example.ruen.views
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -22,7 +21,7 @@ class CardRepeatFragment :
     View.OnClickListener {
 
     private val viewModel: CardRepeatViewModel by viewModel { parametersOf(groupId) }
-    private val args: CardsFragmentArgs by navArgs()
+    private val args: CardRepeatFragmentArgs by navArgs()
     private val groupId: Long? by lazy { args.groupId.takeIf { it > 0 } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +34,8 @@ class CardRepeatFragment :
     private fun subscribeToUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collectLatest { uiState ->
+                val cardId = args.cardId?.takeIf { it != -1L }
+                viewModel.getUIState(cardId).collectLatest { uiState ->
                     updateUIState(uiState)
                 }
             }
@@ -53,7 +53,6 @@ class CardRepeatFragment :
             is CardRepeatViewModel.UIState.Card -> setCardUIState(uiState)
             is CardRepeatViewModel.UIState.Empty -> setNoMoreWords()
         }
-
     }
 
     private fun setCardUIState(uiState: CardRepeatViewModel.UIState.Card) = with(binding) {
@@ -107,11 +106,11 @@ class CardRepeatFragment :
         val translationsViewVisibility = wordView.visibility
         wordViewVisibility.let {
             wordView.visibility = it
-            mainSide.visibility = it
+            mainSideView.visibility = it
         }
         translationsViewVisibility.let {
             translationsView.visibility = it
-            otherSide.visibility = it
+            otherSideView.visibility = it
         }
     }
 

@@ -19,12 +19,19 @@
             app:destination="@id/CardDialogFragment">
             <argument
                 android:name="cardId"
-                app:argType="long"
-                android:defaultValue="-1L" />
+                android:defaultValue="-1L"
+                app:argType="long" />
         </action>
 
         <action
-            android:id="@+id/action_cardsFragment_to_cardRepeatFragment"
+            android:id="@+id/action_cardsFragment_to_CardRepeatFragment"
+            app:destination="@id/cardRepeatFragment">
+            <argument
+                android:name="cardId"
+                android:defaultValue="-1L" />
+        </action>
+        <action
+            android:id="@+id/action_cardsFragment_to_SpecificCardRepeatFragment"
             app:destination="@id/cardRepeatFragment" />
         <action
             android:id="@+id/action_cardsFragment_to_CardDialogFragment"
@@ -40,6 +47,9 @@
             app:destination="@id/settingFragment" />
         <argument
             android:name="groupId"
+            app:argType="long" />
+        <argument
+            android:name="cardId"
             app:argType="long" />
     </fragment>
     <fragment
@@ -80,6 +90,9 @@
             app:destination="@id/cardRepeatFragment">
             <argument
                 android:name="groupId"
+                android:defaultValue="-1L" />
+            <argument
+                android:name="cardId"
                 android:defaultValue="-1L" />
         </action>
         <action

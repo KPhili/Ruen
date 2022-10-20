@@ -63,7 +63,14 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
     private fun setAdapter() = with(binding) {
         cardsView.adapter = adapter
         adapter.setOnClickListener {
-            Toast.makeText(requireContext(), "click on ${it.value}", Toast.LENGTH_SHORT).show()
+            it.id?.let { cardId ->
+                val direction =
+                    CardsFragmentDirections.actionCardsFragmentToSpecificCardRepeatFragment(
+                        groupId,
+                        cardId
+                    )
+                navController?.navigate(direction)
+            }
         }
         adapter.setOnLongClickListener {
             it.id?.let { cardId ->

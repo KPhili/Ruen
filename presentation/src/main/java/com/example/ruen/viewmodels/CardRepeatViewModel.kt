@@ -22,36 +22,18 @@ class CardRepeatViewModel(
     private val groupId: Long?
 ) : ViewModel() {
 
+    private var isSpecificCard: Boolean = false
     private var currentCard: Card? = null
+    private val _uiState = MutableStateFlow<UIState>(UIState.Empty)
 
-    val uiState: StateFlow<UIState>
-
-    init {
-        val flow =
-            if (groupId == null) cardRepository.getNextCardForRepeat()
-            else cardRepository.getNextCardForRepeatInGroup(groupId)
-        uiState = flow.map {
-            it?.let {
-                val card = it.first
-                val translations = it.second
-                val listIntervals = KnowLevel.values().map { knowLevel ->
-                    val repeatNumber =
-                        getNextRepeatNumberUseCase(card.repeatNumber, knowLevel)
-                    val interval = getIntervalRepeatUseCase(repeatNumber)
-                    val intervalString = formatRepeatIntervalUseCase(interval)
-                    Pair(knowLevel, intervalString)
-                }
-                UIState.Card(card, translations, listIntervals)
-            } ?: UIState.Empty
-        }.onEach { currentCard = if (it is UIState.Card) it.card else null }
-            .flowOn(Dispatchers.Default)
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                UIState.Card(Card(value = "", groupId = 0))
-            )
-
-
+    fun getUIState(cardId: Long? = null): StateFlow<UIState> {
+        if (cardId == null) {
+            startFlow()
+        } else {
+            isSpecificCard = true
+            getCard(cardId)
+        }
+        return _uiState.asStateFlow()
     }
 
     fun chooseLevelKnow(knowLevel: KnowLevel) {
@@ -65,7 +47,46 @@ class CardRepeatViewModel(
                 cardRepository.update(newCard)
                 currentCard = null
             }
+            if (isSpecificCard) {
+                startFlow()
+                isSpecificCard = false
+            }
         }
+    }
+
+    private fun getCard(cardId: Long) {
+        viewModelScope.launch {
+            val pair = cardRepository.getCardWithTranslatedWord(cardId)
+            _uiState.value = convertPairToUIState(pair)
+            currentCard = pair.first
+        }
+    }
+
+    private fun convertPairToUIState(cardWithTranslatedWord: Pair<Card, List<TranslatedWord>>): UIState.Card {
+        val card = cardWithTranslatedWord.first
+        val translations = cardWithTranslatedWord.second
+        val listIntervals = KnowLevel.values().map { knowLevel ->
+            val repeatNumber =
+                getNextRepeatNumberUseCase(card.repeatNumber, knowLevel)
+            val interval = getIntervalRepeatUseCase(repeatNumber)
+            val intervalString = formatRepeatIntervalUseCase(interval)
+            Pair(knowLevel, intervalString)
+        }
+        return UIState.Card(card, translations, listIntervals)
+    }
+
+    private fun startFlow() {
+        val flow =
+            if (groupId == null) cardRepository.getNextCardForRepeat()
+            else cardRepository.getNextCardForRepeatInGroup(groupId)
+        flow
+            .onEach {
+                _uiState.value = it?.let {
+                    currentCard = it.first
+                    convertPairToUIState(it)
+                } ?: UIState.Empty
+            }
+            .launchIn(viewModelScope)
     }
 
     sealed class UIState {
