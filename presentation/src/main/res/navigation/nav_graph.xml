@@ -16,12 +16,19 @@
             app:destination="@id/settingFragment" />
         <action
             android:id="@+id/action_cardsFragment_to_newCardDialogFragment"
-            app:destination="@id/newCardDialogFragment">
-
+            app:destination="@id/CardDialogFragment">
+            <argument
+                android:name="cardId"
+                app:argType="long"
+                android:defaultValue="-1L" />
         </action>
+
         <action
             android:id="@+id/action_cardsFragment_to_cardRepeatFragment"
             app:destination="@id/cardRepeatFragment" />
+        <action
+            android:id="@+id/action_cardsFragment_to_CardDialogFragment"
+            app:destination="@id/CardDialogFragment" />
 
     </fragment>
     <fragment
@@ -30,7 +37,7 @@
         android:label="@string/repeat">
         <action
             android:id="@+id/action_cardRepeatFragment_to_settingFragment"
-            app:destination="@id/settingFragment"/>
+            app:destination="@id/settingFragment" />
         <argument
             android:name="groupId"
             app:argType="long" />
@@ -40,20 +47,22 @@
         android:name="com.example.ruen.views.SettingFragment"
         android:label="@string/settings" />
     <dialog
-        android:id="@+id/newCardDialogFragment"
-        android:name="com.example.ruen.views.NewCardFragment"
+        android:id="@+id/CardDialogFragment"
+        android:name="com.example.ruen.views.CardFragment"
         android:label="@string/new_card">
         <argument
             android:name="groupId"
+            app:argType="long" />
+        <argument
+            android:name="cardId"
             app:argType="long" />
     </dialog>
     <dialog
         android:id="@+id/groupDialogFragment"
         android:name="com.example.ruen.views.GroupFragment"
-        android:label="@string/new_group" >
+        android:label="@string/new_group">
         <argument
             android:name="groupId"
-            android:defaultValue="-1L"
             app:argType="long" />
     </dialog>
     <fragment
@@ -68,14 +77,18 @@
             app:destination="@id/cardsFragment" />
         <action
             android:id="@+id/action_groupsFragment_to_cardRepeatFragment"
-            app:destination="@id/cardRepeatFragment" >
+            app:destination="@id/cardRepeatFragment">
             <argument
                 android:name="groupId"
                 android:defaultValue="-1L" />
         </action>
         <action
             android:id="@+id/action_groupsFragment_to_newGroupDialogFragment"
-            app:destination="@id/groupDialogFragment" />
+            app:destination="@id/groupDialogFragment">
+            <argument
+                android:name="groupId"
+                android:defaultValue="-1L" />
+        </action>
         <action
             android:id="@+id/action_groupsFragment_to_groupDialogFragment"
             app:destination="@id/groupDialogFragment" />

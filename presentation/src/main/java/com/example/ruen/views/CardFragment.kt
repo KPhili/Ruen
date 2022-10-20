@@ -15,9 +15,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
-import com.example.ruen.databinding.FragmentNewCardBinding
-import com.example.ruen.viewmodels.TranslatorUIState
-import com.example.ruen.viewmodels.NewCardViewModel
+import com.example.ruen.databinding.FragmentCardBinding
+import com.example.ruen.viewmodels.CardUIState
+import com.example.ruen.viewmodels.CardViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -25,14 +25,15 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class NewCardFragment :
+class CardFragment :
     BottomSheetDialogFragment() {
 
-    private val viewModel: NewCardViewModel by viewModel { parametersOf(groupId) }
-    private var _binding: FragmentNewCardBinding? = null
+    private val viewModel: CardViewModel by viewModel { parametersOf(groupId, cardId) }
+    private var _binding: FragmentCardBinding? = null
     private val binding get() = _binding!!
-    private val args: NewCardFragmentArgs by navArgs()
+    private val args: CardFragmentArgs by navArgs()
     private val groupId by lazy { args.groupId }
+    private val cardId by lazy { args.cardId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class NewCardFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNewCardBinding.inflate(inflater, container, false)
+        _binding = FragmentCardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -99,34 +100,40 @@ class NewCardFragment :
         }
     }
 
-    private fun updateUI(uiState: TranslatorUIState) {
-        when (uiState) {
-            is TranslatorUIState.TranslationsLoaded -> setSuccessUiState(uiState)
-            is TranslatorUIState.ClearUIState -> clearViews()
-            is TranslatorUIState.SavedSuccess -> dismiss()
-            is TranslatorUIState.Error -> uiState.throwable.message?.let {
-                showNotification(it)
-                Log.d(TAG, "updateUI:  ${uiState.throwable.stackTraceToString()}")
+    private fun updateUI(uiState: CardUIState) {
+        when {
+            uiState.isSaved -> dismiss()
+            uiState.error != null -> {
+                uiState.error.message?.let {
+                    showNotification(it)
+                    Log.e(TAG, "updateUI:  ${uiState.error.stackTraceToString()}")
+                    viewModel.errorAccepted()
+                }
             }
-            is TranslatorUIState.Notification -> showNotification(uiState.message)
+            uiState.notificationMessage != null -> {
+                showNotification(uiState.notificationMessage)
+                viewModel.notificationAccepted()
+            }
+            uiState.card != null || uiState.translatedWords != null -> {
+                uiState.card?.let {
+                    binding.wordView.apply {
+                        setText(it.value)
+                        setSelection(it.value.length)
+                    }
+                }
+                uiState.translatedWords?.let { setSuccessUiState(it) }
+            }
         }
     }
 
-    private fun setSuccessUiState(uiState: TranslatorUIState.TranslationsLoaded) {
+    private fun setSuccessUiState(translatedWords: List<TranslatedWord>) {
         with(binding) {
             translationContainerView.removeAllViews()
-            uiState.translations?.forEach {
+            translatedWords.forEach {
                 translationContainerView.addView(createTranslateTextView(it))
             }
         }
     }
-
-    private fun clearViews() = with(binding) {
-        translationContainerView.removeAllViews()
-        translationView.text.clear()
-        wordView.text.clear()
-    }
-
 
     private fun createTranslateTextView(translatedWord: TranslatedWord) =
         Chip(

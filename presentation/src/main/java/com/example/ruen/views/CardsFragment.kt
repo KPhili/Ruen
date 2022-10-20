@@ -2,6 +2,7 @@ package com.example.ruen.views
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -61,7 +62,16 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private fun setAdapter() = with(binding) {
         cardsView.adapter = adapter
-        adapter.setOnClickListener { }
+        adapter.setOnClickListener {
+            Toast.makeText(requireContext(), "click on ${it.value}", Toast.LENGTH_SHORT).show()
+        }
+        adapter.setOnLongClickListener {
+            it.id?.let { cardId ->
+                val direction =
+                    CardsFragmentDirections.actionCardsFragmentToCardDialogFragment(groupId, cardId)
+                navController?.navigate(direction)
+            }
+        }
         adapter.setOnDeleteListener { _, item ->
             viewModel.deleteCard(item)
         }

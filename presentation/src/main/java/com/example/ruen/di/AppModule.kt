@@ -38,12 +38,14 @@ import org.koin.dsl.module
 val appModule = module {
     // viewmodels
     viewModel { parameters ->
-        NewCardViewModel(
-            repository = get(),
+        CardViewModel(
+            translatedWordRepository = get(),
+            cardRepository = get(),
             saveCardWithTranslatedWordUseCase = get(),
             resourceProvider = get(),
             internetConnectionChecker = get(),
-            groupId = parameters.get()
+            groupId = parameters[0],
+            cardId = parameters[1]
         )
     }
     viewModel { parameters -> CardsViewModel(cardsRepository = get(), groupId = parameters.get()) }
@@ -52,11 +54,12 @@ val appModule = module {
             cardRepository = get(),
             formatRepeatIntervalUseCase = get(),
             getNextRepeatNumberUseCase = get(),
-            getIntervalRepeatUseCase = get(), groupId = parameters.get()
+            getIntervalRepeatUseCase = get(),
+            groupId = parameters[0]
         )
     }
     viewModelOf(::GroupsViewModel)
-    viewModel { parameters -> GroupViewModel(groupRepository = get(), groupId = parameters.get()) }
+    viewModel { parameters -> GroupViewModel(groupRepository = get(), groupId = parameters[0]) }
 
     singleOf(::LibreWordTranslationRemoteSource)
 

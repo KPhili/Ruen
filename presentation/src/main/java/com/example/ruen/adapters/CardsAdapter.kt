@@ -22,14 +22,31 @@ class CardsAdapter(diffCallback: DiffUtil.ItemCallback<Card>) :
             )
         )
 
-    class CardViewHolder(private val binding: CardsItemBinding) :
+    inner class CardViewHolder(private val binding: CardsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.apply {
+                setOnClickListener {
+                    getItem(layoutPosition)?.let { position ->
+                        clickListener?.invoke(position)
+                    }
+                }
+                setOnLongClickListener {
+                    getItem(layoutPosition)?.let { position ->
+                        longClickListener?.invoke(position)
+                    }
+                    true
+                }
+            }
+        }
+
         fun bind(card: Card?) = with(binding) {
             card?.let {
                 wordView.text = it.value
             }
         }
     }
+
     object CardComparator : DiffUtil.ItemCallback<Card>() {
         override fun areItemsTheSame(oldItem: Card, newItem: Card) = oldItem.id == newItem.id
 

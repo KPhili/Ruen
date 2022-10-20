@@ -1,7 +1,6 @@
 package com.example.data.repositories
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import androidx.lifecycle.Transformations.map
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -10,6 +9,7 @@ import com.example.data.db.dao.CardDao
 import com.example.data.db.entities.CardWithTranslatedWordEntity
 import com.example.data.mappers.toCard
 import com.example.data.mappers.toCardEntity
+import com.example.data.mappers.toDomainPair
 import com.example.data.mappers.toTranslatedWord
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
@@ -37,6 +37,10 @@ class CardRepository(
             }
     }
 
+    override suspend fun getCardWithTranslatedWord(cardId: Long) = with(Dispatchers.IO) {
+        cardDao.getCardsWithTranslatedWords(cardId).toDomainPair()
+    }
+
     override fun getAllFromGroup(groupId: Long): Flow<PagingData<Card>> {
         return Pager(
             PagingConfig(
@@ -62,12 +66,7 @@ class CardRepository(
 
     private fun flowMapToCardsWithTranslatedWord(flow: Flow<CardWithTranslatedWordEntity?>) =
         flow.map {
-            it?.let { cardWithTranslatedWordEntity ->
-                Pair(
-                    cardWithTranslatedWordEntity.cardRoom.toCard(),
-                    cardWithTranslatedWordEntity.translatedWords.map { it.toTranslatedWord() }
-                )
-            }
+            it?.toDomainPair()
         }
 
     override suspend fun isExistForRepeat() =

@@ -23,19 +23,25 @@ class GroupsAdapter(diffCallback: DiffUtil.ItemCallback<Group>) :
 
     inner class GroupViewHolder(private val binding: GroupsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            with(binding.root) {
+                setOnClickListener {
+                    getItem(layoutPosition)?.let { group ->
+                        clickListener?.invoke(group)
+                    }
+                }
+                setOnLongClickListener {
+                    getItem(layoutPosition)?.let { group ->
+                        longClickListener?.invoke(group)
+                    }
+                    true
+                }
+            }
+        }
 
         fun bind(group: Group?) = with(binding) {
             group?.let {
                 nameView.text = group.name
-                groupItemView.apply {
-                    setOnClickListener {
-                        clickListener?.invoke(group)
-                    }
-                    setOnLongClickListener {
-                        longClickListener?.invoke(group)
-                        true
-                    }
-                }
             }
         }
     }

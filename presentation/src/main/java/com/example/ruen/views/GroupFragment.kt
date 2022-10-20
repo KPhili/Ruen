@@ -28,7 +28,7 @@ class GroupFragment :
     private var _binding: FragmentGroupBinding? = null
     private val binding get() = _binding!!
     private val args: GroupFragmentArgs by navArgs()
-    private val groupId = args.groupId.takeIf { it > 0 }
+    private val groupId by lazy { args.groupId.takeIf { it > 0 } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,9 +78,11 @@ class GroupFragment :
                 viewModel.notificationShown()
             }
             uiState.groupName.isNotEmpty() -> {
-                binding.nameView.setText(uiState.groupName)
+                binding.nameView.apply {
+                    setText(uiState.groupName)
+                    setSelection(uiState.groupName.length)
+                }
             }
-
         }
     }
 

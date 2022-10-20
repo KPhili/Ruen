@@ -64,8 +64,8 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
             setOnLongClickListener { group ->
                 group.id?.let {
                     val direction =
-                        GroupsFragmentDirections.actionGroupsFragmentToGroupDialogFragment()
-                            .setGroupId(it)
+                        GroupsFragmentDirections.actionGroupsFragmentToNewGroupDialogFragment()
+                                        .setGroupId(it)
                     navController?.navigate(direction)
                 }
             }
