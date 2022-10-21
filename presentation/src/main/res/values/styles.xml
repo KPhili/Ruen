@@ -11,6 +11,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:checkable">true</item>
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="chipCornerRadius">@dimen/chip_radius</item>
     </style>
 
     <style name="KnowButton">

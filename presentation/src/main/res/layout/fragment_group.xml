@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/backgroundPanelColor"
+    android:background="@drawable/bottom_sheet_background"
     android:gravity="center_horizontal|bottom"
     android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/bottomSheet_upperLine_marginTop"
+        android:src="@drawable/line" />
 
     <EditText
         android:id="@+id/nameView"
@@ -15,11 +22,13 @@
         android:background="@drawable/input_background"
         android:ems="10"
         android:hint="@string/group_name"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/bottomSheet_editText_marginTop"
         android:inputType="textPersonName"
         android:paddingVertical="@dimen/bottomSheet_editText_paddingVertical"
         android:paddingHorizontal="@dimen/bottomSheet_editText_paddingHorizontal"
         android:textColor="@color/black"
+        android:drawableStart="@drawable/create_folder"
+        android:drawablePadding="@dimen/editText_drawable_padding"
         android:textSize="@dimen/bottomSheet_editText_textSize">
 
         <requestFocus />

@@ -1,10 +1,13 @@
 package com.example.ruen.views
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
@@ -33,6 +36,7 @@ class GroupFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.NewCardBottomSheetModal)
+
     }
 
     override fun onCreateView(
@@ -40,6 +44,10 @@ class GroupFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.window?.apply{
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            requestFeature(Window.FEATURE_NO_TITLE)
+        }
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
         return binding.root
     }

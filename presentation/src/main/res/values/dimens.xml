@@ -30,9 +30,8 @@
     <dimen name="newCard_mainSide_marginTop">60dp</dimen>
     <dimen name="newCard_mainSide_marginBottom">40dp</dimen>
     <dimen name="bottomSheet_editText_paddingVertical">7dp</dimen>
-    <dimen name="bottomSheet_editText_textSize">22sp</dimen>
+    <dimen name="bottomSheet_editText_textSize">20sp</dimen>
     <dimen name="newCard_reverseSize_marginBottom">20dp</dimen>
-    <dimen name="newCard_chipGroup_marginHorizontal">40dp</dimen>
     <dimen name="newCard_chipGroup_marginBottom">60dp</dimen>
     <dimen name="bottomSheet_saveButton_marginEnd">24dp</dimen>
     <dimen name="bottomSheet_saveButton_padding">10dp</dimen>
@@ -40,5 +39,9 @@
     <dimen name="newGroup_editText_marginTop">20dp</dimen>
     <dimen name="bottomSheet_saveButton_marginVertical">20dp</dimen>
     <dimen name="progressbar_elevation">10dp</dimen>
-    <dimen name="bottomSheet_editText_paddingHorizontal">20dp</dimen>
+    <dimen name="bottomSheet_editText_paddingHorizontal">15dp</dimen>
+    <dimen name="bottomSheet_editText_marginTop">20dp</dimen>
+    <dimen name="editText_drawable_padding">10dp</dimen>
+    <dimen name="bottomSheet_upperLine_marginTop">20dp</dimen>
+    <dimen name="chip_radius">5dp</dimen>
 </resources>
