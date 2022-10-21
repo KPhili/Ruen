@@ -1,8 +1,10 @@
 package com.example.ruen
 
+import com.example.ruen.helpers.workmanager.WorkManagerHelper
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 /**
@@ -18,20 +20,5 @@ class ExampleUnitTest {
 
     @Test
     fun test() {
-        val c = Calendar.getInstance()
-        val f = Calendar.getInstance().apply {
-            set(Calendar.HOUR, 14)
-            set(Calendar.AM_PM, Calendar.AM)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-        val d = f.timeInMillis - c.timeInMillis
-        println(c.timeInMillis)
-        println(f.timeInMillis)
-        println(d)
-        val now = Calendar.getInstance()
-        now.timeInMillis += d
-        println(now)
     }
 }
