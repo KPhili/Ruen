@@ -18,7 +18,7 @@
         android:ems="10"
         android:hint="@string/main_side"
         android:inputType="textPersonName"
-        android:padding="@dimen/bottomSheet_editText_padding"
+        android:padding="@dimen/bottomSheet_editText_paddingVertical"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/bottomSheet_editText_textSize">
@@ -37,7 +37,7 @@
         android:hint="@string/reverse_side"
         android:inputType="textMultiLine"
         android:maxLines="4"
-        android:padding="@dimen/bottomSheet_editText_padding"
+        android:padding="@dimen/bottomSheet_editText_paddingVertical"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/bottomSheet_editText_textSize" />

@@ -11,13 +11,14 @@
         android:id="@+id/nameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/bottomSheet_editText_marginHorizontal"
+        android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
         android:background="@drawable/input_background"
         android:ems="10"
         android:hint="@string/group_name"
+        android:layout_marginTop="20dp"
         android:inputType="textPersonName"
-        android:padding="@dimen/bottomSheet_editText_padding"
-        android:textAlignment="center"
+        android:paddingVertical="@dimen/bottomSheet_editText_paddingVertical"
+        android:paddingHorizontal="@dimen/bottomSheet_editText_paddingHorizontal"
         android:textColor="@color/black"
         android:textSize="@dimen/bottomSheet_editText_textSize">
 

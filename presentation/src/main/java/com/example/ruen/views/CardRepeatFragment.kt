@@ -51,11 +51,18 @@ class CardRepeatFragment :
     private fun updateUIState(uiState: CardRepeatViewModel.UIState) = with(binding) {
         when (uiState) {
             is CardRepeatViewModel.UIState.Card -> setCardUIState(uiState)
-            is CardRepeatViewModel.UIState.Empty -> setNoMoreWords()
+            is CardRepeatViewModel.UIState.Empty -> setNoMoreWords(true)
+            CardRepeatViewModel.UIState.Loading -> setLoading(true)
         }
     }
 
+    private fun setLoading(visible: Boolean) = with(binding) {
+        val visibility = if (visible) View.VISIBLE else View.GONE
+        progressBar.visibility = visibility
+    }
+
     private fun setCardUIState(uiState: CardRepeatViewModel.UIState.Card) = with(binding) {
+        setLoading(false)
         wordView.text = uiState.card.value
         translationsView.text = uiState.translations?.joinToString(", ") { it.value }
         if (wordView.visibility == View.GONE) flipCard()
@@ -78,14 +85,13 @@ class CardRepeatFragment :
                     )
             }
         }
-        noCardView.visibility = View.GONE
+        setNoMoreWords(false)
     }
 
-
-    private fun setNoMoreWords() = with(binding) {
-        wordView.text = ""
-        translationsView.text = ""
-        noCardView.visibility = View.VISIBLE
+    // видимость надписи Нет больше карт для повторения
+    private fun setNoMoreWords(visible: Boolean) = with(binding) {
+        setLoading(false)
+        noCardView.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     private fun setClickListeners() = with(binding) {

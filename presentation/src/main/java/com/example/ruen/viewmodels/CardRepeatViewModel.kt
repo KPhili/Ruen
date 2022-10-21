@@ -24,7 +24,7 @@ class CardRepeatViewModel(
 
     private var isSpecificCard: Boolean = false
     private var currentCard: Card? = null
-    private val _uiState = MutableStateFlow<UIState>(UIState.Empty)
+    private val _uiState = MutableStateFlow<UIState>(UIState.Loading)
 
     fun getUIState(cardId: Long? = null): StateFlow<UIState> {
         if (cardId == null) {
@@ -95,7 +95,7 @@ class CardRepeatViewModel(
             val translations: List<TranslatedWord>? = null,
             val repeatIntervals: List<Pair<KnowLevel, String>>? = null
         ) : UIState()
-
+        object Loading: UIState()
         object Empty : UIState()
     }
 }
