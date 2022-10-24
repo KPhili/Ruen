@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="?backgroundPanelColor" />
-    <corners
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp" />
+<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="?backgroundPanelColor"/>
+    <corners android:topRightRadius="@dimen/bottomSheet_corner_radius"
+        android:topLeftRadius="@dimen/bottomSheet_corner_radius"/>
 </shape>

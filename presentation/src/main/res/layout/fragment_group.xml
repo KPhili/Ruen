@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
-        android:layout_marginVertical="@dimen/bottomSheet_saveButton_marginVertical"
+        android:layout_marginVertical="@dimen/bottomSheet_saveButton_marginBottom"
         android:text="@string/save"
         android:textColor="@color/white"
         android:textAppearance="@style/ButtonTextAppearance"

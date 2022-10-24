@@ -44,7 +44,7 @@ class WorkManagerHelper(
     }
 
     companion object {
-        private const val REPEAT_INTERVAL_HOURS = 12L
+        private const val REPEAT_INTERVAL_HOURS = 24L
         private const val REPEAT_HOUR = 14
         private const val TAG = "WorkManagerHelper"
         private const val REPEAT_WORKER_TAG = "REPEAT WORKER TAG"

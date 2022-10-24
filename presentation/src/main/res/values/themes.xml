@@ -22,7 +22,7 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="backgroundPanelColor">@color/cornflower_200</item>
+        <item name="backgroundPanelColor">@color/gray_100</item>
     </style>
 
 
@@ -49,7 +49,9 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="backgroundPanelColor">@color/cornflower_200</item>
+        <item name="backgroundPanelColor">@color/white</item>
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetModal</item>
     </style>
 
 </resources>

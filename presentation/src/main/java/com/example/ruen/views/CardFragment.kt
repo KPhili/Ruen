@@ -1,5 +1,9 @@
 package com.example.ruen.views
 
+import android.accessibilityservice.AccessibilityService.SoftKeyboardController
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
@@ -18,6 +24,8 @@ import com.example.ruen.R
 import com.example.ruen.databinding.FragmentCardBinding
 import com.example.ruen.viewmodels.CardUIState
 import com.example.ruen.viewmodels.CardViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -35,11 +43,6 @@ class CardFragment :
     private val groupId by lazy { args.groupId }
     private val cardId by lazy { args.cardId.takeIf { it != -1L } }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.NewCardBottomSheetModal)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +55,16 @@ class CardFragment :
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog =  super.onCreateDialog(savedInstanceState)
+        if (dialog is BottomSheetDialog){
+            dialog.behavior.skipCollapsed = true
+            dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

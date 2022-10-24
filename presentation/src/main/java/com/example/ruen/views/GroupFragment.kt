@@ -1,13 +1,10 @@
 package com.example.ruen.views
 
+import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
@@ -18,6 +15,8 @@ import com.example.ruen.R
 import com.example.ruen.databinding.FragmentGroupBinding
 import com.example.ruen.viewmodels.GroupViewModel
 import com.example.ruen.viewmodels.GroupViewModel.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,12 +31,6 @@ class GroupFragment :
     private val binding get() = _binding!!
     private val args: GroupFragmentArgs by navArgs()
     private val groupId by lazy { args.groupId.takeIf { it > 0 } }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.NewCardBottomSheetModal)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

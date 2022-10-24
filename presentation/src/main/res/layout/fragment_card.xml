@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bottom_sheet_background"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal|bottom"
     android:orientation="vertical">
 
@@ -23,7 +22,6 @@
         android:layout_marginTop="@dimen/newCard_mainSide_marginTop"
         android:layout_marginBottom="@dimen/newCard_mainSide_marginBottom"
         android:background="@drawable/input_background"
-        android:drawableStart="@drawable/card"
         android:drawablePadding="@dimen/editText_drawable_padding"
         android:ems="10"
         android:hint="@string/main_side"
@@ -43,7 +41,6 @@
         android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
         android:layout_marginBottom="@dimen/newCard_reverseSize_marginBottom"
         android:background="@drawable/input_background"
-        android:drawableStart="@drawable/card"
         android:drawablePadding="@dimen/editText_drawable_padding"
         android:ems="10"
         android:hint="@string/reverse_side"
@@ -57,10 +54,11 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/newCard_chipGroup_minHeight"
         android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
         android:layout_marginBottom="@dimen/newCard_chipGroup_marginBottom"
         android:background="@android:color/transparent"
-        android:fadeScrollbars="true">
+        android:scrollbars="none">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/translationContainerView"
@@ -77,8 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="@dimen/bottomSheet_editText_marginHorizontal"
-        android:layout_marginVertical="@dimen/bottomSheet_saveButton_marginVertical"
-        android:padding="@dimen/bottomSheet_saveButton_padding"
+        android:layout_marginBottom="@dimen/bottomSheet_saveButton_marginBottom"
+        android:paddingHorizontal="@dimen/bottomSheet_saveButton_paddingHorizontal"
         android:text="@string/save"
         android:textAppearance="@style/ButtonTextAppearance"
         android:textColor="@color/white"
