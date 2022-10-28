@@ -1,9 +1,6 @@
 package com.example.ruen.views
 
-import android.accessibilityservice.AccessibilityService.SoftKeyboardController
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,10 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -58,8 +52,8 @@ class CardFragment :
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog =  super.onCreateDialog(savedInstanceState)
-        if (dialog is BottomSheetDialog){
+        val dialog = super.onCreateDialog(savedInstanceState)
+        if (dialog is BottomSheetDialog) {
             dialog.behavior.skipCollapsed = true
             dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
@@ -133,6 +127,7 @@ class CardFragment :
                         setText(it.value)
                         setSelection(it.value.length)
                     }
+                    viewModel.cardAccepted()
                 }
                 setChipsTranslatedWords(uiState.selectedTranslatedWords, uiState.translatedWords)
             }

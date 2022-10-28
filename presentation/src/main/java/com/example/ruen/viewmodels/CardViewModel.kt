@@ -28,6 +28,7 @@ class CardViewModel(
     private val cardId: Long?
 ) : ViewModel() {
 
+    private var card: Card? = null
     private val _uiState: MutableStateFlow<CardUIState> = MutableStateFlow(
         CardUIState()
     )
@@ -40,17 +41,14 @@ class CardViewModel(
             .debounce(DEBOUNCE_MILLIS)
             .onEach { word ->
                 if (word.isEmpty()) {
-                    _uiState.value = CardUIState()
                     return@onEach
                 }
                 try {
                     if (internetConnectionChecker()) {
                         val translations = translatedWordRepository.translate(word)
                         _uiState.update {
-                            val card =
-                                it.card?.copy(value = word) ?: Card(value = word, groupId = groupId)
                             it.copy(
-                                card = card, translatedWords = translations.toMutableList()
+                                translatedWords = translations.toMutableList()
                             )
                         }
                     } else {
@@ -123,7 +121,7 @@ class CardViewModel(
             return@launch
         }
 
-        val card = _uiState.value.card ?: Card(value = word, groupId = groupId)
+        val card = card?.copy(value = word) ?: Card(value = word, groupId = groupId)
         if (card.id != null) {
             updateCardWithTranslatedWordUseCase(card, translatedWordList)
         } else {
@@ -140,10 +138,15 @@ class CardViewModel(
         _uiState.update { it.copy(error = null) }
     }
 
+    fun cardAccepted() {
+        _uiState.update { it.copy(card = null) }
+    }
+
     private fun getCard() {
         cardId?.let {
             viewModelScope.launch {
                 val pair = cardRepository.getCardWithTranslatedWord(cardId)
+                card = pair.first
                 _uiState.value =
                     CardUIState(
                         card = pair.first,
