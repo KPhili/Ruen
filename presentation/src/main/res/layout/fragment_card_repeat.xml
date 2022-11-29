@@ -160,5 +160,17 @@
 
     </FrameLayout>
 
+    <Button
+        android:id="@+id/imagesView"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/images"
+        android:textColor="#1A5875"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

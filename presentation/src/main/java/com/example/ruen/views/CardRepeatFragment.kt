@@ -1,5 +1,7 @@
 package com.example.ruen.views
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
@@ -53,6 +55,12 @@ class CardRepeatFragment :
             is CardRepeatViewModel.UIState.Card -> setCardUIState(uiState)
             is CardRepeatViewModel.UIState.Empty -> setNoMoreWords(true)
             CardRepeatViewModel.UIState.Loading -> setLoading(true)
+            is CardRepeatViewModel.UIState.Images -> {
+                uiState.url?.let {
+                    val direction = CardRepeatFragmentDirections.actionCardRepeatFragmentToWebViewFragment(it)
+                    navController?.navigate(direction)
+                }
+            }
         }
     }
 
@@ -103,6 +111,9 @@ class CardRepeatFragment :
             it.setOnClickListener {
                 flipCard()
             }
+        }
+        imagesView.setOnClickListener {
+            viewModel.showImages()
         }
     }
 

@@ -60,6 +60,9 @@
             android:name="cardId"
             android:defaultValue="-1L"
             app:argType="long" />
+        <action
+            android:id="@+id/action_cardRepeatFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -109,5 +112,13 @@
                 android:name="groupId"
                 app:argType="long" />
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.ruen.views.WebViewFragment"
+        android:label="WebViewFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 </navigation>

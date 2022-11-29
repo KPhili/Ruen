@@ -1,5 +1,6 @@
 package com.example.ruen.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.Card
@@ -54,6 +55,13 @@ class CardRepeatViewModel(
         }
     }
 
+    fun showImages() {
+        currentCard?.let {
+            val url = "https://yandex.ru/images/search?text=${Uri.encode(it.value)}"
+            _uiState.value = UIState.Images(url)
+        }
+    }
+
     private fun getCard(cardId: Long) {
         viewModelScope.launch {
             val pair = cardRepository.getCardWithTranslatedWord(cardId)
@@ -95,7 +103,9 @@ class CardRepeatViewModel(
             val translations: List<TranslatedWord>? = null,
             val repeatIntervals: List<Pair<KnowLevel, String>>? = null
         ) : UIState()
-        object Loading: UIState()
+
+        data class Images(val url: String? = null) : UIState()
+        object Loading : UIState()
         object Empty : UIState()
     }
 }
