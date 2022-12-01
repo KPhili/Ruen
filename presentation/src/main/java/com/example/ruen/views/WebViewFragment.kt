@@ -3,25 +3,37 @@ package com.example.ruen.views
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
-import com.example.ruen.databinding.FragmentWebviewBinding
+import com.example.ruen.R
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlin.math.abs
 
-class WebViewFragment : BaseFragment<FragmentWebviewBinding>(FragmentWebviewBinding::inflate) {
+class WebViewFragment : BottomSheetDialogFragment() {
 
     private val args: WebViewFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_webview, container, false)
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val url = args.url
-        binding.webView.apply {
+        val webView = view.findViewById<WebView>(R.id.webView)
+        webView.apply {
             webViewClient = WebViewClient()
-            setOnTouchListener(OnTouchToClickListenerAdapter(this))
+            setOnTouchListener(OnTouchListener(this))
             settings.apply {
                 javaScriptEnabled = true
             }
@@ -33,7 +45,7 @@ class WebViewFragment : BaseFragment<FragmentWebviewBinding>(FragmentWebviewBind
         private const val TAG = "WebViewFragment"
     }
 
-    private inner class OnTouchToClickListenerAdapter(private val webView: WebView) :
+    private inner class OnTouchListener(private val webView: WebView) :
         View.OnTouchListener {
         private var rawX = 0f
         private var rawY = 0f
@@ -68,8 +80,8 @@ class WebViewFragment : BaseFragment<FragmentWebviewBinding>(FragmentWebviewBind
             ) {
                 val imageUrl = webView.hitTestResult.extra
                 imageUrl?.let {
-                    Log.d(TAG, "onViewCreated: ${webView.hitTestResult.type}")
                     Log.d(TAG, "onViewCreated: $it")
+                    dismiss()
                 }
             }
         }

@@ -113,12 +113,12 @@
                 app:argType="long" />
         </action>
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/webViewFragment"
         android:name="com.example.ruen.views.WebViewFragment"
         android:label="WebViewFragment" >
         <argument
             android:name="url"
             app:argType="string" />
-    </fragment>
+    </dialog>
 </navigation>
