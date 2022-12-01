@@ -1,6 +1,7 @@
 package com.example.ruen.views
 
 import android.app.Dialog
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
@@ -82,6 +84,10 @@ class CardFragment :
                 }
                 viewModel.saveCard(word, translations.toTypedArray())
             }
+
+            selectImageView.setOnClickListener {
+                viewModel.selectImage(wordView.text.toString())
+            }
         }
     }
 
@@ -107,6 +113,7 @@ class CardFragment :
         }
     }
 
+
     private fun updateUI(uiState: CardUIState) {
         when {
             uiState.isSaved -> dismiss()
@@ -121,6 +128,20 @@ class CardFragment :
                 showNotification(uiState.notificationMessage)
                 viewModel.notificationAccepted()
             }
+            uiState.selectImage != null -> {
+                viewModel.imageSelected()
+                val navController = findNavController()
+                navController
+                    .currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.getLiveData<String>(WebViewFragment.URL)
+                    ?.observe(viewLifecycleOwner) { url ->
+                        url
+                    }
+                val direction =
+                    CardFragmentDirections.actionCardDialogFragmentToWebViewFragment(uiState.selectImage)
+                findNavController().navigate(direction)
+            }
             uiState.card != null || uiState.translatedWords != null -> {
                 uiState.card?.let {
                     binding.wordView.apply {
@@ -131,6 +152,7 @@ class CardFragment :
                 }
                 setChipsTranslatedWords(uiState.selectedTranslatedWords, uiState.translatedWords)
             }
+
         }
     }
 

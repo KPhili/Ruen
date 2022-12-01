@@ -52,4 +52,7 @@
     <string name="cornflower">Васильковая</string>
     <string name="dark">Темная</string>
 
+    <string name="images">Картинки</string>
+    <string name="image">Картинка</string>
+    <string name="field_word_is_empty">Поле \"Слово\" пустое</string>
 </resources>

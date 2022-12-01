@@ -1,5 +1,6 @@
 package com.example.ruen.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.CardRepository
@@ -100,12 +101,7 @@ class CardViewModel(
 
     fun saveCard(word: String, translations: Array<String>) = viewModelScope.launch {
         if (word.isEmpty()) {
-            _uiState.update {
-                val emptyFieldsMessage = resourceProvider.getString(
-                    IResourceProvider.STRINGS.FIELD_WORD_IS_EMPTY
-                )
-                it.copy(notificationMessage = emptyFieldsMessage)
-            }
+            setNotificationWordIsEmpty()
             return@launch
         }
         val translatedWordList = translations
@@ -130,6 +126,15 @@ class CardViewModel(
         _uiState.update { it.copy(isSaved = true) }
     }
 
+    private fun setNotificationWordIsEmpty() {
+        _uiState.update {
+            val emptyFieldsMessage = resourceProvider.getString(
+                IResourceProvider.STRINGS.FIELD_WORD_IS_EMPTY
+            )
+            it.copy(notificationMessage = emptyFieldsMessage)
+        }
+    }
+
     fun errorAccepted() {
         _uiState.update { it.copy(error = null) }
     }
@@ -140,6 +145,18 @@ class CardViewModel(
 
     fun cardAccepted() {
         _uiState.update { it.copy(card = null) }
+    }
+
+    fun selectImage(word:String) {
+        if (word.isEmpty()){
+            setNotificationWordIsEmpty()
+            return
+        }
+        _uiState.update { it.copy(selectImage = word) }
+    }
+
+    fun imageSelected() {
+        _uiState.update { it.copy(selectImage = null) }
     }
 
     private fun getCard() {
@@ -166,6 +183,7 @@ data class CardUIState(
     val selectedTranslatedWords: MutableList<TranslatedWord> = mutableListOf(),
     val translatedWords: MutableList<TranslatedWord>? = null,
     val isSaved: Boolean = false,
+    val selectImage: String? = null,
     val notificationMessage: String? = null,
     val error: Throwable? = null
 )

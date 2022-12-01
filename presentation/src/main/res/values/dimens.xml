@@ -51,5 +51,6 @@
     <dimen name="editText_border_radius">5dp</dimen>
     <dimen name="bottomBar_background_radius">15dp</dimen>
     <dimen name="createButton_background_radius">10dp</dimen>
+    <dimen name="bottomSheet_button_selectImage_marginBottom">10dp</dimen>
 
 </resources>

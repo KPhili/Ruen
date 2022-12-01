@@ -56,10 +56,7 @@ class CardRepeatFragment :
             is CardRepeatViewModel.UIState.Empty -> setNoMoreWords(true)
             CardRepeatViewModel.UIState.Loading -> setLoading(true)
             is CardRepeatViewModel.UIState.Images -> {
-                uiState.url?.let {
-                    val direction = CardRepeatFragmentDirections.actionCardRepeatFragmentToWebViewFragment(it)
-                    navController?.navigate(direction)
-                }
+
             }
         }
     }

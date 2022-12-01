@@ -58,6 +58,7 @@ val appModule = module {
     }
     viewModelOf(::GroupsViewModel)
     viewModel { parameters -> GroupViewModel(groupRepository = get(), groupId = parameters[0]) }
+    viewModelOf(::WebViewViewModel)
 
     singleOf(::LibreWordTranslationRemoteSource)
 

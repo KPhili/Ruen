@@ -59,5 +59,8 @@
     <string name="light">Light</string>
     <string name="cornflower">Cornflower</string>
     <string name="dark">Dark</string>
-    <string name="images">Картинки</string>
+
+    <string name="images">Images</string>
+    <string name="image">Image</string>
+    <string name="field_word_is_empty">Field \"word\" is empty</string>
 </resources>
