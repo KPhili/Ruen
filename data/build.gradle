@@ -28,10 +28,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    testOptions{
+        unitTests.returnDefaultValues = true
+    }
     namespace 'com.example.data'
 }
 
 dependencies {
+    implementation (TestDependencies.monitor)
     testImplementation(TestDependencies.junit)
     androidTestImplementation(TestDependencies.ext_junit)
     androidTestImplementation(TestDependencies.espresso_core)

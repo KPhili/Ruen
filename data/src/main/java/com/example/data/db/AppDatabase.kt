@@ -13,7 +13,7 @@ import com.example.data.db.entities.TranslatedWordEntity
 
 @Database(
     entities = [CardEntity::class, TranslatedWordEntity::class, GroupEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

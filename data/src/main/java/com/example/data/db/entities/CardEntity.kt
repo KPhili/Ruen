@@ -23,5 +23,6 @@ data class CardEntity(
     @ColumnInfo(name = "repeat_number")
     val repeatNumber: Int,
     @ColumnInfo(name = "group_id")
-    val groupId: Long
+    val groupId: Long,
+    val uri: String? = null,
 )

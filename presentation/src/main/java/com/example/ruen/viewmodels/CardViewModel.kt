@@ -1,6 +1,5 @@
 package com.example.ruen.viewmodels
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.CardRepository
@@ -30,6 +29,7 @@ class CardViewModel(
 ) : ViewModel() {
 
     private var card: Card? = null
+    private var imageUrl: String? = null
     private val _uiState: MutableStateFlow<CardUIState> = MutableStateFlow(
         CardUIState()
     )
@@ -89,6 +89,10 @@ class CardViewModel(
         }
     }
 
+    fun setImageUrl(url: String) {
+        imageUrl = url
+    }
+
     private fun movingTranslatedWord(
         fromList: MutableList<TranslatedWord>,
         toList: MutableList<TranslatedWord>,
@@ -121,7 +125,7 @@ class CardViewModel(
         if (card.id != null) {
             updateCardWithTranslatedWordUseCase(card, translatedWordList)
         } else {
-            saveCardWithTranslatedWordUseCase(card, translatedWordList)
+            saveCardWithTranslatedWordUseCase(card, translatedWordList, imageUrl)
         }
         _uiState.update { it.copy(isSaved = true) }
     }
@@ -147,8 +151,8 @@ class CardViewModel(
         _uiState.update { it.copy(card = null) }
     }
 
-    fun selectImage(word:String) {
-        if (word.isEmpty()){
+    fun choiseImage(word: String) {
+        if (word.isEmpty()) {
             setNotificationWordIsEmpty()
             return
         }

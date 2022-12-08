@@ -13,7 +13,6 @@ import com.example.ruen.adapters.GroupsAdapter
 import com.example.ruen.databinding.FragmentGroupsBinding
 import com.example.ruen.helpers.ItemTouchHelperCallback
 import com.example.ruen.viewmodels.GroupsViewModel
-import com.example.ruen.helpers.workmanager.WorkManagerHelper
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject

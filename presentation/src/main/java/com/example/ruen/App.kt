@@ -1,6 +1,7 @@
 package com.example.ruen
 
 import android.app.Application
+import com.example.data.di.dataModule
 import com.example.data.di.roomModule
 import com.example.ruen.di.appModule
 import com.example.ruen.di.retrofitModule
@@ -12,7 +13,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            modules(appModule, retrofitModule, roomModule)
+            modules(appModule, retrofitModule, roomModule, dataModule)
             androidLogger()
             androidContext(this@App)
         }

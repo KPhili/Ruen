@@ -7,5 +7,7 @@ data class Card(
     val value: String,
     val nextRepetition: LocalDateTime = LocalDateTime.now(),
     val repeatNumber: Int = 0,
-    val groupId: Long
+    val groupId: Long,
+    val uri: String? = null,
+    val url: String? = null,
 )

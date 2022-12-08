@@ -1,7 +1,6 @@
 package com.example.ruen.views
 
 import android.app.Dialog
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -86,7 +85,7 @@ class CardFragment :
             }
 
             selectImageView.setOnClickListener {
-                viewModel.selectImage(wordView.text.toString())
+                viewModel.choiseImage(wordView.text.toString())
             }
         }
     }
@@ -136,7 +135,7 @@ class CardFragment :
                     ?.savedStateHandle
                     ?.getLiveData<String>(WebViewFragment.URL)
                     ?.observe(viewLifecycleOwner) { url ->
-                        url
+                        viewModel.setImageUrl(url)
                     }
                 val direction =
                     CardFragmentDirections.actionCardDialogFragmentToWebViewFragment(uiState.selectImage)

@@ -55,9 +55,6 @@ class CardRepeatFragment :
             is CardRepeatViewModel.UIState.Card -> setCardUIState(uiState)
             is CardRepeatViewModel.UIState.Empty -> setNoMoreWords(true)
             CardRepeatViewModel.UIState.Loading -> setLoading(true)
-            is CardRepeatViewModel.UIState.Images -> {
-
-            }
         }
     }
 
@@ -108,9 +105,6 @@ class CardRepeatFragment :
             it.setOnClickListener {
                 flipCard()
             }
-        }
-        imagesView.setOnClickListener {
-            viewModel.showImages()
         }
     }
 

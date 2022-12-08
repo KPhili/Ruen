@@ -10,7 +10,6 @@ import com.example.data.db.entities.CardWithTranslatedWordEntity
 import com.example.data.mappers.toCard
 import com.example.data.mappers.toCardEntity
 import com.example.data.mappers.toDomainPair
-import com.example.data.mappers.toTranslatedWord
 import com.example.domain.models.Card
 import com.example.domain.models.TranslatedWord
 import com.example.domain.repositories.ICardRepository
@@ -81,7 +80,12 @@ class CardRepository(
         cardDao.delete(card.toCardEntity())
     }
 
-    companion object {
+    override suspend fun updateImage(cardId:Long, uri: String?) = withContext(Dispatchers.IO) {
+        cardDao.updateImage(cardId, uri)
+    }
+
+
+        companion object {
         private const val MAX_SIZE = 120
         private const val PAGE_SIZE = 30
     }
