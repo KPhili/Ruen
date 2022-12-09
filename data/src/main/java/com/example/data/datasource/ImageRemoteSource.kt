@@ -7,13 +7,12 @@ import android.net.Uri
 import android.webkit.URLUtil
 import com.example.data.configuration.IMAGE_DIRECTORY
 
-class ImageDownloader(private val context: Context) {
+class ImageRemoteSource(private val context: Context) {
     fun download(uri: Uri): Long {
         val fileName = URLUtil.guessFileName(uri.toString(), null, null)
             .replace(Regex("\\.[^\\.$]+"), "")
             .plus(IMAGE_EXT)
         val request = Request(uri).apply {
-            allowScanningByMediaScanner()
             setNotificationVisibility(Request.VISIBILITY_HIDDEN)
             setDestinationInExternalFilesDir(context, IMAGE_DIRECTORY, fileName)
         }

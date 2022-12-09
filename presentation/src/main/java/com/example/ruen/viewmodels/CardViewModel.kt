@@ -121,11 +121,15 @@ class CardViewModel(
             return@launch
         }
 
-        val card = card?.copy(value = word) ?: Card(value = word, groupId = groupId)
+        val card = card?.copy(value = word, imageUrl = imageUrl) ?: Card(
+            value = word,
+            groupId = groupId,
+            imageUrl = imageUrl
+        )
         if (card.id != null) {
             updateCardWithTranslatedWordUseCase(card, translatedWordList)
         } else {
-            saveCardWithTranslatedWordUseCase(card, translatedWordList, imageUrl)
+            saveCardWithTranslatedWordUseCase(card, translatedWordList)
         }
         _uiState.update { it.copy(isSaved = true) }
     }

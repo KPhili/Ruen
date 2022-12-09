@@ -6,7 +6,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 class Migration_2_3 : Migration(2, 3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.run {
-            execSQL("ALTER TABLE cards ADD COLUMN uri TEXT;")
+            execSQL("ALTER TABLE cards ADD COLUMN image_file_name TEXT;")
         }
     }
 }

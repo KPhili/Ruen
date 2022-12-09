@@ -26,4 +26,6 @@ interface ICardRepository {
     suspend fun delete(card: Card)
 
     suspend fun updateImage(cardId: Long, uri: String?)
+
+    suspend fun getImageFileName(cardId: Long): String?
 }

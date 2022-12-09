@@ -1,6 +1,7 @@
 package com.example.ruen.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.FilenameFilter
 
 class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding::inflate) {
     private val viewModel by viewModel<GroupsViewModel>()
@@ -64,7 +66,7 @@ class GroupsFragment : BaseFragment<FragmentGroupsBinding>(FragmentGroupsBinding
                 group.id?.let {
                     val direction =
                         GroupsFragmentDirections.actionGroupsFragmentToNewGroupDialogFragment()
-                                        .setGroupId(it)
+                            .setGroupId(it)
                     navController?.navigate(direction)
                 }
             }

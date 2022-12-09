@@ -24,5 +24,6 @@ data class CardEntity(
     val repeatNumber: Int,
     @ColumnInfo(name = "group_id")
     val groupId: Long,
-    val uri: String? = null,
+    @ColumnInfo(name = "image_file_name")
+    val imageFileName: String? = null,
 )

@@ -41,6 +41,10 @@ interface CardDao {
     @Query("SELECT COUNT(*) FROM cards WHERE next_repetition/1000 <= CAST(strftime('%s', CURRENT_TIMESTAMP)  AS  integer)")
     suspend fun getCountForRepeat(): Int
 
-    @Query("UPDATE cards SET uri=:uri WHERE id=:cardId")
-    suspend fun updateImage(cardId: Long, uri: String?)
+    @Query("UPDATE cards SET image_file_name=:imageFileName WHERE id=:cardId")
+    suspend fun updateImage(cardId: Long, imageFileName: String?)
+
+    @Query("SELECT image_file_name FROM cards where id=:cardId")
+    suspend fun getImageFileName(cardId: Long): String?
+
 }

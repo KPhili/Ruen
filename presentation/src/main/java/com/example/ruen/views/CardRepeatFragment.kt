@@ -1,6 +1,7 @@
 package com.example.ruen.views
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -14,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.example.data.configuration.IMAGE_DIRECTORY
 import com.example.domain.models.KnowLevel
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentCardRepeatBinding
@@ -72,17 +74,18 @@ class CardRepeatFragment :
         setLoading(false)
         wordView.text = uiState.card.value
         translationsView.text = uiState.translations?.joinToString(", ") { it.value }
-        val uriString = uiState.card.uri
-        // показать кнопку "Показать изображение" и загрузить само изображение, если есть uri
-        if (uriString != null) {
+        val imageFileName = uiState.card.imageFileName
+        // показать кнопку "Показать изображение" и загрузить само изображение, если есть imageFileName
+        if (imageFileName != null) {
             showImage.visibility = View.VISIBLE
-            val uri = Uri.parse(uriString)
-            val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, uri))
-            } else {
-                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+            val image = requireContext().getExternalFilesDir(IMAGE_DIRECTORY)
+                ?.listFiles { _, fileName -> fileName == imageFileName }
+                ?.takeIf { it.isNotEmpty() }
+                ?.first()
+            image?.let {
+                val bitmapImage = BitmapFactory.decodeFile(image.absolutePath)
+                imageView.setImageBitmap(bitmapImage)
             }
-            imageView.setImageBitmap(image)
         } else {
             showImage.visibility = View.GONE
         }
