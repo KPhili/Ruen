@@ -13,6 +13,7 @@ class ImageDownloader(private val context: Context) {
             .replace(Regex("\\.[^\\.$]+"), "")
             .plus(IMAGE_EXT)
         val request = Request(uri).apply {
+            allowScanningByMediaScanner()
             setNotificationVisibility(Request.VISIBILITY_HIDDEN)
             setDestinationInExternalFilesDir(context, IMAGE_DIRECTORY, fileName)
         }

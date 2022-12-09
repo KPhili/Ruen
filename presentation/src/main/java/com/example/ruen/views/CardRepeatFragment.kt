@@ -1,9 +1,14 @@
 package com.example.ruen.views
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -67,6 +72,20 @@ class CardRepeatFragment :
         setLoading(false)
         wordView.text = uiState.card.value
         translationsView.text = uiState.translations?.joinToString(", ") { it.value }
+        val uriString = uiState.card.uri
+        // показать кнопку "Показать изображение" и загрузить само изображение, если есть uri
+        if (uriString != null) {
+            showImage.visibility = View.VISIBLE
+            val uri = Uri.parse(uriString)
+            val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, uri))
+            } else {
+                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+            }
+            imageView.setImageBitmap(image)
+        } else {
+            showImage.visibility = View.GONE
+        }
         if (wordView.visibility == View.GONE) flipCard()
         uiState.repeatIntervals?.forEach {
             when (it.first) {
@@ -96,6 +115,7 @@ class CardRepeatFragment :
         noCardView.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setClickListeners() = with(binding) {
         arrayOf(dontKnowView, badKnowView, goodKnowView).forEach {
             it.setOnClickListener(this@CardRepeatFragment)
@@ -105,6 +125,21 @@ class CardRepeatFragment :
             it.setOnClickListener {
                 flipCard()
             }
+        }
+        //показать изображение
+        showImage.setOnTouchListener { view, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    imageView.visibility = View.VISIBLE
+                    return@setOnTouchListener true
+                }
+                MotionEvent.ACTION_UP -> {
+                    imageView.visibility = View.GONE
+                    return@setOnTouchListener true
+                }
+            }
+
+            return@setOnTouchListener view.performClick()
         }
     }
 
@@ -136,5 +171,9 @@ class CardRepeatFragment :
             else -> throw IllegalArgumentException("Button not supported")
         }
         viewModel.chooseLevelKnow(answer)
+    }
+
+    companion object {
+        private const val TAG = "CardRepeatFragment"
     }
 }

@@ -9,5 +9,4 @@ data class Card(
     val repeatNumber: Int = 0,
     val groupId: Long,
     val uri: String? = null,
-    val url: String? = null,
 )

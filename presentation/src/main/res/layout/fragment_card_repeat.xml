@@ -11,7 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/repeatCard_margin"
+        android:layout_marginHorizontal="@dimen/repeatCard_margin"
+        android:layout_marginTop="@dimen/repeatCard_margin"
+        android:layout_marginBottom="@dimen/repeatCard_marginBottom"
         android:background="@drawable/rect_round_all_corners_background"
         android:padding="@dimen/repeatCard_padding"
         app:layout_constraintBottom_toTopOf="@+id/view"
@@ -161,16 +163,30 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/imagesView"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/showImage"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/images"
-        android:textColor="#1A5875"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        android:text="@string/show_image"
+        android:textColor="?colorSecondary"
+        app:icon="@drawable/ic_baseline_image_24"
+        app:iconTint="?colorSecondary"
+        app:layout_constraintBottom_toTopOf="@id/view"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView" />
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@id/cardView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:background="@color/transparent_white"
+        android:layout_width="0dp"
+        android:src="@drawable/ic_baseline_image_24"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

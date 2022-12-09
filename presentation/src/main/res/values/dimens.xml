@@ -52,5 +52,6 @@
     <dimen name="bottomBar_background_radius">15dp</dimen>
     <dimen name="createButton_background_radius">10dp</dimen>
     <dimen name="bottomSheet_button_selectImage_marginBottom">10dp</dimen>
+    <dimen name="repeatCard_marginBottom">80dp</dimen>
 
 </resources>
