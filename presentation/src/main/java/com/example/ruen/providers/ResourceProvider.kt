@@ -16,6 +16,8 @@ class ResourceProvider(
                 FIELD_WORD_IS_EMPTY -> R.string.field_word_is_empty
                 LIST_OF_TRANSLATION_IS_EMPTY -> R.string.no_translations
                 NO_INTERNET_CONNECTION -> R.string.no_internet_connection
+                YEARS -> R.string.years
+                MONTHS -> R.string.months
                 DAYS -> R.string.days
                 HOURS -> R.string.hours
                 MINUTES -> R.string.minutes

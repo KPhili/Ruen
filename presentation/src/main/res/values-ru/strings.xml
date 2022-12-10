@@ -46,6 +46,8 @@
     <string name="minutes">м.</string>
     <string name="hours">ч.</string>
     <string name="days">д.</string>
+    <string name="months">М.</string>
+    <string name="years">Г.</string>
 
     <string name="as_in_the_system">Как в системе</string>
     <string name="light">Светлая</string>

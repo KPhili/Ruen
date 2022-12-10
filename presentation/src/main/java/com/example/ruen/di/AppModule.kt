@@ -67,6 +67,7 @@ val appModule = module {
     singleOf(::GroupRepository) bind IGroupRepository::class
     singleOf(::TranslatedWordRepository) bind ITranslatedWordRepository::class
 
+    // resourceProvider
     singleOf(::ResourceProvider) bind IResourceProvider::class
 
     // adapters

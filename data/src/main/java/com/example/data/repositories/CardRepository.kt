@@ -1,6 +1,5 @@
 package com.example.data.repositories
 
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData

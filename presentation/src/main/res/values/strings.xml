@@ -46,6 +46,8 @@
     <string name="minutes">m.</string>
     <string name="hours">h.</string>
     <string name="days">d.</string>
+    <string name="months">M.</string>
+    <string name="years">Y.</string>
 
     // значения для настроек
     <string name="preference_key_notification_repeat" translatable="false">notification_repeat</string>

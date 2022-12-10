@@ -9,6 +9,8 @@ interface IResourceProvider {
         LIST_OF_TRANSLATION_IS_EMPTY,
         NO_INTERNET_CONNECTION,
         // сокращения для интервалов
+        YEARS,
+        MONTHS,
         DAYS,
         HOURS,
         MINUTES,

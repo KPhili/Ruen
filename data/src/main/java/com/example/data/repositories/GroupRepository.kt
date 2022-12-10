@@ -3,18 +3,22 @@ package com.example.data.repositories
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.map
+import com.example.data.db.dao.CardDao
 import com.example.data.db.dao.GroupDao
 import com.example.data.mappers.toGroup
 import com.example.data.mappers.toGroupEntity
 import com.example.domain.models.Group
 import com.example.domain.repositories.IGroupRepository
+import com.example.domain.repositories.IImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 
 class GroupRepository(
-    private val groupDao: GroupDao
+    private val groupDao: GroupDao,
+    private val cardDao: CardDao,
+    private val imageRepository: IImageRepository
 ) : IGroupRepository {
     override suspend fun save(group: Group): Long = withContext(Dispatchers.IO) {
         groupDao.insert(group.toGroupEntity())
@@ -38,6 +42,11 @@ class GroupRepository(
     }
 
     override suspend fun delete(group: Group) = withContext(Dispatchers.IO) {
+        val groupId = group.id ?: throw Exception("Can't delete a group without an id")
+        // удаление всех изображений из локального хранилища прежде чем удалить карточки
+        cardDao.getAllImageFileNamesByGroup(groupId).forEach { imageFileName ->
+            imageRepository.deleteImage(imageFileName)
+        }
         groupDao.delete(group.toGroupEntity())
     }
 
