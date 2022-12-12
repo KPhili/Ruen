@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.Card
 import com.example.ruen.databinding.CardsItemBinding
+import java.time.format.DateTimeFormatter
 
 class CardsAdapter(diffCallback: DiffUtil.ItemCallback<Card>) :
     BaseAdapter<Card, CardsAdapter.CardViewHolder>(diffCallback) {
@@ -43,8 +44,13 @@ class CardsAdapter(diffCallback: DiffUtil.ItemCallback<Card>) :
         fun bind(card: Card?) = with(binding) {
             card?.let {
                 wordView.text = it.value
+                dateTimeView.text = it.nextRepetition.format(DATE_TIME_FORMATTER)
             }
         }
+    }
+
+    companion object {
+        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
     }
 
     object CardComparator : DiffUtil.ItemCallback<Card>() {

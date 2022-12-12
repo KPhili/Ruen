@@ -54,5 +54,9 @@
     <dimen name="bottomSheet_button_selectImage_marginBottom">10dp</dimen>
     <dimen name="repeatCard_marginBottom">80dp</dimen>
     <dimen name="repeat_imageView_margin">30dp</dimen>
+    <dimen name="cardsItem_dateTimeView_textSize">8sp</dimen>
+    <dimen name="rvItem_wordView_margin">12dp</dimen>
+    <dimen name="rvItem_dateTimeView_marginHorizontal">15dp</dimen>
+    <dimen name="cardsItem_dateTimeView_marginBottom">3dp</dimen>
 
 </resources>

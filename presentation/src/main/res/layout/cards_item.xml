@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/rvItem_margin"
-    android:background="@drawable/rect_round_all_corners_background"
-    android:padding="@dimen/rvItem_padding">
+    android:background="@drawable/rect_round_all_corners_background">
 
     <TextView
         android:id="@+id/wordView"
@@ -14,8 +13,19 @@
         android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
         android:maxLines="1"
-        android:paddingHorizontal="@dimen/rvItem_textView_paddingHorizontal"
+        android:layout_margin="@dimen/rvItem_wordView_margin"
         android:textColor="?colorOnSurface"
         android:textSize="@dimen/cardsItem_textSize"
         tools:text="size" />
+
+    <TextView
+        android:id="@+id/dateTimeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginHorizontal="@dimen/rvItem_dateTimeView_marginHorizontal"
+        android:layout_marginBottom="@dimen/cardsItem_dateTimeView_marginBottom"
+        tools:text="28.11.2022 15:12"
+        android:textColor="?colorPrimaryVariant"
+        android:textSize="@dimen/cardsItem_dateTimeView_textSize" />
 </FrameLayout>

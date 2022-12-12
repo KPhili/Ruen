@@ -23,7 +23,7 @@
         android:ems="10"
         android:hint="@string/group_name"
         android:layout_marginTop="@dimen/bottomSheet_editText_marginTop"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences"
         android:paddingVertical="@dimen/bottomSheet_editText_paddingVertical"
         android:paddingHorizontal="@dimen/bottomSheet_editText_paddingHorizontal"
         android:textColor="@color/black"
