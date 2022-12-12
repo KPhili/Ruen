@@ -21,6 +21,9 @@
                 android:name="cardId"
                 android:defaultValue="-1L"
                 app:argType="long" />
+            <argument
+                android:name="word"
+                android:defaultValue="null" />
         </action>
 
         <action
@@ -42,7 +45,11 @@
         </action>
         <action
             android:id="@+id/action_cardsFragment_to_CardDialogFragment"
-            app:destination="@id/CardDialogFragment" />
+            app:destination="@id/CardDialogFragment" >
+            <argument
+                android:name="word"
+                android:defaultValue="null" />
+        </action>
 
     </fragment>
     <fragment
@@ -78,6 +85,10 @@
         <action
             android:id="@+id/action_CardDialogFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
+        <argument
+            android:name="word"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
     <dialog
         android:id="@+id/groupDialogFragment"
@@ -110,6 +121,14 @@
 
             <argument
                 android:name="groupId"
+                app:argType="long" />
+        </action>
+        <action
+            android:id="@+id/action_groupsFragment_to_newCardDialogFragment"
+            app:destination="@id/CardDialogFragment" >
+            <argument
+                android:name="cardId"
+                android:defaultValue="-1L"
                 app:argType="long" />
         </action>
     </fragment>

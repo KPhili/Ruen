@@ -1,5 +1,6 @@
 package com.example.ruen.views
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +14,6 @@ import androidx.preference.PreferenceManager
 import com.example.ruen.R
 import com.example.ruen.databinding.ActivityMainBinding
 import com.example.ruen.helpers.notifications.INotificationChannelHelper
-import com.example.ruen.helpers.notifications.INotificationHelper
 import com.example.ruen.helpers.workmanager.WorkManagerHelper
 import org.koin.android.ext.android.inject
 
@@ -62,6 +62,25 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let{
+            if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
+                val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+                val regex =
+                    Regex("^\"([^\"]+)", setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL))
+                text?.let {
+                    val match = regex.find(text)
+                    val resultWord =
+                        (match?.groups?.takeIf { it.isNotEmpty() }?.get(1)?.value ?: text).trim()
+                    if(resultWord.isEmpty()) finish()
+                    val directions = GroupsFragmentDirections.actionGroupsFragmentToNewCardDialogFragment(2, resultWord)
+                    navController.navigate(directions)
+                }
+            }
+        }
     }
 
     private fun setupToolbar() = with(binding) {
@@ -118,5 +137,9 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             }
             getString(R.string.preference_key_notification_repeat) -> switchRepeatNotificationEnable()
         }
+    }
+    
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }

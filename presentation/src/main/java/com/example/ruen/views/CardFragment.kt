@@ -67,6 +67,17 @@ class CardFragment :
         subscribeUpdatesUI()
         setClickListeners(view)
         setChangeListeners()
+        checkWordIntent()
+    }
+
+    // check word data from args
+    private fun checkWordIntent() {
+        args.word?.let {
+            binding.wordView.apply {
+                setText(it)
+                setSelection(it.length)
+            }
+        }
     }
 
     private fun setClickListeners(view: View) {
