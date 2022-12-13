@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         super.onResume()
         sharedPreference.registerOnSharedPreferenceChangeListener(this)
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
+        if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
+            onNewIntent(intent)
+            intent = Intent()
+        }
     }
 
     override fun onPause() {
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         super.onNewIntent(intent)
         intent?.let{
             if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
-                val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+                val text = intent.getStringExtra(Intent.EXTRA_TEXT)?.capitalize()
                 val regex =
                     Regex("^\"([^\"]+)", setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL))
                 text?.let {
@@ -76,7 +80,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                     val resultWord =
                         (match?.groups?.takeIf { it.isNotEmpty() }?.get(1)?.value ?: text).trim()
                     if(resultWord.isEmpty()) finish()
-                    val directions = GroupsFragmentDirections.actionGroupsFragmentToNewCardDialogFragment(2, resultWord)
+                    val directions = GroupsFragmentDirections.actionGroupsFragmentToNewCardDialogFragment(resultWord)
                     navController.navigate(directions)
                 }
             }

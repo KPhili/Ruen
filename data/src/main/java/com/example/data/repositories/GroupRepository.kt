@@ -33,6 +33,10 @@ class GroupRepository(
                 }
             }
 
+    override suspend fun getAllAsList(): List<Group> = withContext(Dispatchers.IO){
+        groupDao.getAllAsList().map { it.toGroup() }
+    }
+
     override suspend fun get(id: Long) = withContext(Dispatchers.IO) {
         groupDao.get(id).toGroup()
     }

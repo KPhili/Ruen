@@ -23,7 +23,7 @@
                 app:argType="long" />
             <argument
                 android:name="word"
-                android:defaultValue="null" />
+                android:defaultValue="@null" />
         </action>
 
         <action
@@ -48,7 +48,7 @@
             app:destination="@id/CardDialogFragment" >
             <argument
                 android:name="word"
-                android:defaultValue="null" />
+                android:defaultValue="@null" />
         </action>
 
     </fragment>
@@ -130,6 +130,9 @@
                 android:name="cardId"
                 android:defaultValue="-1L"
                 app:argType="long" />
+            <argument
+                android:name="groupId"
+                android:defaultValue="-1L" />
         </action>
     </fragment>
     <dialog

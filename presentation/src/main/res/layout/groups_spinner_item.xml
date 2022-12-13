@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groupNameView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/roboto_medium"
+    android:paddingHorizontal="@dimen/groups_autocomplete_paddingHorizontal"
+    android:paddingVertical="@dimen/groups_autocomplete_paddingVertical"
+    android:textColor="@color/black"
+    android:textSize="@dimen/groups_spinner_textSize"
+    tools:text="test" />

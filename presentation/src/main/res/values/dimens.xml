@@ -28,7 +28,6 @@
     <dimen name="bottomPanel_create_margin">20dp</dimen>
     <dimen name="bottomPanel_create_padding">5dp</dimen>
     <dimen name="bottomSheet_editText_marginHorizontal">10dp</dimen>
-    <dimen name="newCard_mainSide_marginTop">30dp</dimen>
     <dimen name="newCard_mainSide_marginBottom">40dp</dimen>
     <dimen name="bottomSheet_editText_paddingVertical">7dp</dimen>
     <dimen name="bottomSheet_editText_textSize">20sp</dimen>
@@ -58,5 +57,10 @@
     <dimen name="rvItem_wordView_margin">12dp</dimen>
     <dimen name="rvItem_dateTimeView_marginHorizontal">15dp</dimen>
     <dimen name="cardsItem_dateTimeView_marginBottom">3dp</dimen>
+    <dimen name="newCard_groupView_marginVertical">40dp</dimen>
+    <dimen name="groups_autocomplete_paddingHorizontal">10dp</dimen>
+    <dimen name="groups_autocomplete_paddingVertical">5dp</dimen>
+    <dimen name="groups_spinner_textSize">20sp</dimen>
+    <dimen name="card_groupView_minHeight">40dp</dimen>
 
 </resources>

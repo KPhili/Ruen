@@ -2,11 +2,13 @@ package com.example.ruen.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.repositories.CardRepository
-import com.example.data.repositories.TranslatedWordRepository
 import com.example.domain.models.Card
+import com.example.domain.models.Group
 import com.example.domain.models.TranslatedWord
 import com.example.domain.providers.IResourceProvider
+import com.example.domain.repositories.ICardRepository
+import com.example.domain.repositories.IGroupRepository
+import com.example.domain.repositories.ITranslatedWordRepository
 import com.example.domain.usecases.SaveCardWithTranslatedWordUseCase
 import com.example.domain.usecases.UpdateCardWithTranslatedWordUseCase
 import com.example.ruen.utils.InternetConnectionChecker
@@ -18,15 +20,17 @@ import java.net.ConnectException
 
 @OptIn(FlowPreview::class)
 class CardViewModel(
-    private val translatedWordRepository: TranslatedWordRepository,
-    private val cardRepository: CardRepository,
+    private val translatedWordRepository: ITranslatedWordRepository,
+    private val cardRepository: ICardRepository,
+    private val groupRepository: IGroupRepository,
     private val saveCardWithTranslatedWordUseCase: SaveCardWithTranslatedWordUseCase,
     private val updateCardWithTranslatedWordUseCase: UpdateCardWithTranslatedWordUseCase,
     private val resourceProvider: IResourceProvider,
     private val internetConnectionChecker: InternetConnectionChecker,
     private val groupId: Long,
-    private val cardId: Long?
-) : ViewModel() {
+    private val cardId: Long?,
+
+    ) : ViewModel() {
 
     private var card: Card? = null
     private var imageUrl: String? = null
@@ -37,6 +41,10 @@ class CardViewModel(
     private val wordFlow = MutableStateFlow("")
 
     init {
+        viewModelScope.launch {
+            getGroups()
+            setSelectedGroup(getGroup(groupId))
+        }
         getCard()
         wordFlow
             .debounce(DEBOUNCE_MILLIS)
@@ -121,7 +129,8 @@ class CardViewModel(
             return@launch
         }
 
-        val card = card?.copy(value = word, imageUrl = imageUrl) ?: Card(
+        val groupId = _uiState.value.selectedGroup?.id ?: throw Exception("The id must not be null")
+        val card = card?.copy(value = word, imageUrl = imageUrl, groupId = groupId) ?: Card(
             value = word,
             groupId = groupId,
             imageUrl = imageUrl
@@ -181,6 +190,22 @@ class CardViewModel(
         }
     }
 
+    private suspend fun getGroups() {
+        _uiState.update { it.copy(groups = groupRepository.getAllAsList()) }
+    }
+
+    private fun getGroup(groupId: Long): Group? {
+        return if (groupId == -1L) {
+            _uiState.value.groups?.first()
+        } else {
+            _uiState.value.groups?.first { it.id == groupId }
+        }
+    }
+
+    fun setSelectedGroup(group: Group?) {
+        _uiState.update { it.copy(selectedGroup = group) }
+    }
+
     companion object {
         const val DEBOUNCE_MILLIS = 1000L
     }
@@ -193,6 +218,8 @@ data class CardUIState(
     val isSaved: Boolean = false,
     val selectImage: String? = null,
     val notificationMessage: String? = null,
-    val error: Throwable? = null
+    val error: Throwable? = null,
+    val groups: List<Group>? = null,
+    val selectedGroup: Group? = null
 )
 

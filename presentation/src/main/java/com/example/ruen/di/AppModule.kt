@@ -38,6 +38,7 @@ val appModule = module {
         CardViewModel(
             translatedWordRepository = get(),
             cardRepository = get(),
+            groupRepository = get(),
             saveCardWithTranslatedWordUseCase = get(),
             updateCardWithTranslatedWordUseCase = get(),
             resourceProvider = get(),

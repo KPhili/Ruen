@@ -1,5 +1,6 @@
 package com.example.data.db.dao
 
+import android.database.Cursor
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.data.db.entities.GroupEntity
@@ -8,6 +9,9 @@ import com.example.data.db.entities.GroupEntity
 interface GroupDao {
     @Query("SELECT * FROM groups")
     fun getAll(): PagingSource<Int, GroupEntity>
+
+    @Query("SELECT * FROM groups")
+    suspend fun getAllAsList(): List<GroupEntity>
 
     @Query("SELECT * FROM groups WHERE id=:id")
     suspend fun get(id: Long): GroupEntity

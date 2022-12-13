@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.models.TranslatedWord
 import com.example.ruen.R
+import com.example.ruen.adapters.SpinnerGroupsAdapter
 import com.example.ruen.databinding.FragmentCardBinding
 import com.example.ruen.viewmodels.CardUIState
 import com.example.ruen.viewmodels.CardViewModel
@@ -24,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -37,6 +40,13 @@ class CardFragment :
     private val args: CardFragmentArgs by navArgs()
     private val groupId by lazy { args.groupId }
     private val cardId by lazy { args.cardId.takeIf { it != -1L } }
+    private val groupAdapter by lazy {
+        SpinnerGroupsAdapter(
+            requireContext(),
+            R.layout.groups_spinner_item,
+            R.id.groupNameView
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,18 +74,26 @@ class CardFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setGroupsAdapter()
         subscribeUpdatesUI()
         setClickListeners(view)
         setChangeListeners()
         checkWordIntent()
     }
 
+    private fun setGroupsAdapter() {
+        binding.groupView.apply {
+            adapter = groupAdapter
+        }
+    }
+
     // check word data from args
     private fun checkWordIntent() {
-        args.word?.let {
+        val word = args.word
+        if (!word.isNullOrEmpty()) {
             binding.wordView.apply {
-                setText(it)
-                setSelection(it.length)
+                setText(word)
+                setSelection(word.length)
             }
         }
     }
@@ -94,9 +112,21 @@ class CardFragment :
                 }
                 viewModel.saveCard(word, translations.toTypedArray())
             }
-
             selectImageView.setOnClickListener {
                 viewModel.choiseImage(wordView.text.toString())
+            }
+            groupView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val group = groupAdapter.getItem(position)
+                    viewModel.setSelectedGroup(group)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
     }
@@ -116,7 +146,7 @@ class CardFragment :
     private fun subscribeUpdatesUI() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.viewState.collect {
+                viewModel.viewState.collectLatest {
                     updateUI(it)
                 }
             }
@@ -162,6 +192,18 @@ class CardFragment :
                 }
                 setChipsTranslatedWords(uiState.selectedTranslatedWords, uiState.translatedWords)
             }
+            uiState.selectedGroup != null -> {
+                val position = groupAdapter.getPosition(uiState.selectedGroup)
+                binding.groupView.setSelection(position)
+            }
+            uiState.groups != null -> {
+                groupAdapter.apply {
+                    clear()
+                    addAll(uiState.groups)
+                    notifyDataSetChanged()
+                }
+            }
+
 
         }
     }
