@@ -1,6 +1,5 @@
 package com.example.ruen.viewmodels
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.Card
@@ -45,8 +44,8 @@ class CardRepeatViewModel(
                 val nextRepeatDate = LocalDateTime.now().plusMinutes(interval)
                 val newCard =
                     card.copy(repeatNumber = nextRepeatNumber, nextRepetition = nextRepeatDate)
-                cardRepository.update(newCard)
                 currentCard = null
+                cardRepository.update(newCard)
             }
             if (isSpecificCard) {
                 startFlow()
