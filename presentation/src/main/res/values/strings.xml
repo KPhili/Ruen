@@ -65,4 +65,10 @@
     <string name="show_image">Show image</string>
     <string name="image">Image</string>
     <string name="field_word_is_empty">Field \"word\" is empty</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="setting_notification_start_hour">9</string>
+    <string name="setting_notification_end_hour">20</string>
+    <string name="preference_key_notification_start_time">notificationStartHour</string>
+    <string name="preference_key_notification_end_time">notificationEndHour</string>
 </resources>

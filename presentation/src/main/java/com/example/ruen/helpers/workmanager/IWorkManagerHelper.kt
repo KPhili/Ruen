@@ -1,6 +1,6 @@
 package com.example.ruen.helpers.workmanager
 
 interface IWorkManagerHelper {
-    fun enableRepeatNotificationWorker()
     fun cancelRepeatNotificationWorker()
+    fun enableRepeatNotificationWorker(startTimeHours: Int, endTimeHours: Int)
 }

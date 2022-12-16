@@ -14,9 +14,17 @@
     <PreferenceCategory android:title="@string/notifications">
         <SwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="notification_repeat"
+            android:key="@string/preference_key_notification_repeat"
             android:title="@string/repeat" />
+        <SeekBarPreference
+            android:key="@string/preference_key_notification_start_time"
+            android:title="@string/start_time"
+            android:defaultValue="@string/setting_notification_start_hour"
+            android:max="24" />
+        <SeekBarPreference
+            android:key="@string/preference_key_notification_end_time"
+            android:title="@string/end_time"
+            android:defaultValue="@string/setting_notification_end_hour"
+            android:max="24" />
     </PreferenceCategory>
-
-
 </PreferenceScreen>

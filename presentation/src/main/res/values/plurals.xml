@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="hours">
+        <item quantity="zero">hours</item>
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+</resources>

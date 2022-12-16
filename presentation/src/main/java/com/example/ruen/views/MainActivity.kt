@@ -100,11 +100,20 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             false
         )
         if (enable) {
-            notificationChannel.createChannels(INotificationChannelHelper.NotificationChannelType.DEFAULT)
-            workManagerHelper.enableRepeatNotificationWorker()
+            enableRepeatNotification()
         } else {
             workManagerHelper.cancelRepeatNotificationWorker()
         }
+    }
+
+    private fun enableRepeatNotification() {
+        val startTime =
+            sharedPreference.getInt(getString(R.string.preference_key_notification_start_time), 10)
+        val endTime =
+            sharedPreference.getInt(getString(R.string.preference_key_notification_end_time), 20)
+        notificationChannel.createChannels(INotificationChannelHelper.NotificationChannelType.DEFAULT)
+        workManagerHelper.cancelRepeatNotificationWorker()
+        workManagerHelper.enableRepeatNotificationWorker(startTime, endTime)
     }
 
     override fun onSharedPreferenceChanged(
@@ -116,10 +125,12 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 checkAndSetTheme()
                 recreate()
             }
-            getString(R.string.preference_key_notification_repeat) -> switchRepeatNotificationEnable()
+            getString(R.string.preference_key_notification_repeat),
+            getString(R.string.preference_key_notification_start_time),
+            getString(R.string.preference_key_notification_end_time) -> switchRepeatNotificationEnable()
         }
     }
-    
+
     companion object {
         private const val TAG = "MainActivity"
     }
