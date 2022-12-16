@@ -25,7 +25,7 @@ class NotificationWorker(
 
     override suspend fun doWork(): Result {
         val calendar = Calendar.getInstance()
-        val currentHour = calendar.get(Calendar.HOUR)
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val startTime = inputData.getInt(START_TIME, 10)
         val endTime = inputData.getInt(END_TIME, 20)
         if (currentHour in (startTime until endTime)) {

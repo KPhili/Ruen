@@ -18,6 +18,7 @@ class WorkManagerHelper(
         data.putInt(NotificationWorker.END_TIME, endTimeHours)
         val request =
             PeriodicWorkRequestBuilder<NotificationWorker>(REPEAT_INTERVAL_HOURS, TimeUnit.HOURS)
+                .setInitialDelay(REPEAT_DELAY_HOURS, TimeUnit.HOURS)
                 .addTag(REPEAT_WORKER_TAG)
                 .setInputData(data.build())
                 .build()
@@ -33,6 +34,7 @@ class WorkManagerHelper(
 
     companion object {
         private const val REPEAT_INTERVAL_HOURS = 1L
+        private const val REPEAT_DELAY_HOURS = 1L
         private const val TAG = "WorkManagerHelper"
         private const val REPEAT_WORKER_TAG = "REPEAT WORKER TAG"
     }
