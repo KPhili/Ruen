@@ -2,16 +2,11 @@ package com.example.ruen.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.transition.Fade
+import android.transition.Transition
 import android.widget.FrameLayout
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.ruen.R
 
@@ -19,12 +14,7 @@ class ShareIntentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_intent)
-        findViewById<FrameLayout>(R.id.backgroundView).setOnClickListener {
-            finish()
-        }
         onNewIntent(intent)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navHostFragment.navController.setOnBackPressedDispatcher(onBackPressedDispatcher)
     }
 
     override fun onNewIntent(intent: Intent?) {

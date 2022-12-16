@@ -84,8 +84,10 @@ class CardFragment :
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        requireActivity().finish()
         super.onDismiss(dialog)
+        if (!findNavController().navigateUp())
+            requireActivity().finish()
+
     }
 
     private fun setGroupsAdapter() {
