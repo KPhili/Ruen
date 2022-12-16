@@ -56,6 +56,10 @@
     <string name="setting_theme_values_light" translatable="false">light</string>
     <string name="setting_theme_values_light_blue" translatable="false">light_blue</string>
     <string name="setting_theme_values_dark" translatable="false">dark</string>
+    <string name="setting_notification_start_hour" translatable="false">9</string>
+    <string name="setting_notification_end_hour" translatable="false">20</string>
+    <string name="preference_key_notification_start_time" translatable="false">notificationStartHour</string>
+    <string name="preference_key_notification_end_time" translatable="false">notificationEndHour</string>
 
     <string name="as_in_the_system">As in the system</string>
     <string name="light">Light</string>
@@ -67,8 +71,8 @@
     <string name="field_word_is_empty">Field \"word\" is empty</string>
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
-    <string name="setting_notification_start_hour">9</string>
-    <string name="setting_notification_end_hour">20</string>
-    <string name="preference_key_notification_start_time">notificationStartHour</string>
-    <string name="preference_key_notification_end_time">notificationEndHour</string>
+    <string name="pieces">pcs</string>
+
+
+
 </resources>

@@ -47,7 +47,7 @@ val appModule = module {
             cardId = parameters[1]
         )
     }
-    viewModel { parameters -> CardsViewModel(cardsRepository = get(), groupId = parameters.get()) }
+    viewModel { parameters -> CardsViewModel(cardsRepository = get(), groupRepository = get() ,groupId = parameters.get()) }
     viewModel { parameters ->
         CardRepeatViewModel(
             cardRepository = get(),

@@ -6,8 +6,7 @@
 
     <fragment
         android:id="@+id/cardsFragment"
-        android:name="com.example.ruen.views.CardsFragment"
-        android:label="@string/сards">
+        android:name="com.example.ruen.views.CardsFragment">
         <argument
             android:name="groupId"
             app:argType="long" />

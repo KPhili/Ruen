@@ -1,5 +1,6 @@
 package com.example.data.repositories
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -114,6 +115,9 @@ class CardRepository(
     override suspend fun getImageFileName(cardId: Long) = withContext(Dispatchers.IO) {
         cardDao.getImageFileName(cardId)
     }
+
+    override fun getCount(groupId: Long) =
+        cardDao.getCount(groupId)
 
 
     companion object {

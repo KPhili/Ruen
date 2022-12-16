@@ -28,4 +28,5 @@ interface ICardRepository {
     suspend fun updateImage(cardId: Long, uri: String?)
 
     suspend fun getImageFileName(cardId: Long): String?
+    fun getCount(groupId: Long): Flow<Int>
 }

@@ -5,4 +5,5 @@
         <item quantity="one">hour</item>
         <item quantity="other">hours</item>
     </plurals>
+
 </resources>

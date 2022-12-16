@@ -71,6 +71,8 @@ class GroupRepository(
             .getLong(SP_LAST_GROUP_ID, -1L)
     }
 
+    override suspend fun getGroupName(groupId: Long): String = groupDao.getGroupName(groupId)
+
     private fun getGroupSharedPreference() =
         context.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE)
 

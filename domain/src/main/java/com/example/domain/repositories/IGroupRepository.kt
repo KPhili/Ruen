@@ -13,4 +13,5 @@ interface IGroupRepository {
     suspend fun get(id: Long): Group
     fun saveLastSelectGroupId(id: Long)
     fun getLastSelectGroupId(): Long
+    suspend fun getGroupName(groupId: Long): String
 }

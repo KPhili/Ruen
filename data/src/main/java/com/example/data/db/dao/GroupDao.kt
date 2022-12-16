@@ -16,6 +16,9 @@ interface GroupDao {
     @Query("SELECT * FROM groups WHERE id=:id")
     suspend fun get(id: Long): GroupEntity
 
+    @Query("SELECT name FROM groups WHERE id=:id")
+    suspend fun getGroupName(id: Long): String
+
     @Insert
     suspend fun insert(group: GroupEntity): Long
 

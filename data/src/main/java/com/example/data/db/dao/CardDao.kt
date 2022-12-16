@@ -50,4 +50,7 @@ interface CardDao {
     @Query("SELECT image_file_name FROM cards where id=:cardId")
     suspend fun getImageFileName(cardId: Long): String?
 
+    @Query("SELECT COUNT(id) FROM cards  WHERE group_id=:groupId")
+    fun getCount(groupId:Long): Flow<Int>
+
 }
