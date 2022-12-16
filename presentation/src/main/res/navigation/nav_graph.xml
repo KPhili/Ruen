@@ -16,7 +16,7 @@
             app:destination="@id/settingFragment" />
         <action
             android:id="@+id/action_cardsFragment_to_newCardDialogFragment"
-            app:destination="@id/CardDialogFragment">
+            app:destination="@id/navigationNewCard">
             <argument
                 android:name="cardId"
                 android:defaultValue="-1L"
@@ -24,6 +24,9 @@
             <argument
                 android:name="word"
                 android:defaultValue="@null" />
+            <argument
+                android:name="groupId"
+                app:argType="long" />
         </action>
 
         <action
@@ -45,10 +48,16 @@
         </action>
         <action
             android:id="@+id/action_cardsFragment_to_CardDialogFragment"
-            app:destination="@id/CardDialogFragment" >
+            app:destination="@id/navigationNewCard">
             <argument
                 android:name="word"
                 android:defaultValue="@null" />
+            <argument
+                android:name="groupId"
+                app:argType="long" />
+            <argument
+                android:name="cardId"
+                app:argType="long"/>
         </action>
 
     </fragment>
@@ -72,24 +81,6 @@
         android:id="@+id/settingFragment"
         android:name="com.example.ruen.views.SettingFragment"
         android:label="@string/settings" />
-    <dialog
-        android:id="@+id/CardDialogFragment"
-        android:name="com.example.ruen.views.CardFragment"
-        android:label="@string/new_card">
-        <argument
-            android:name="groupId"
-            app:argType="long" />
-        <argument
-            android:name="cardId"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_CardDialogFragment_to_webViewFragment"
-            app:destination="@id/webViewFragment" />
-        <argument
-            android:name="word"
-            app:argType="string"
-            app:nullable="true" />
-    </dialog>
     <dialog
         android:id="@+id/groupDialogFragment"
         android:name="com.example.ruen.views.GroupFragment"
@@ -125,7 +116,7 @@
         </action>
         <action
             android:id="@+id/action_groupsFragment_to_newCardDialogFragment"
-            app:destination="@id/CardDialogFragment" >
+            app:destination="@id/navigationNewCard" >
             <argument
                 android:name="cardId"
                 android:defaultValue="-1L"
@@ -133,14 +124,12 @@
             <argument
                 android:name="groupId"
                 android:defaultValue="-1L" />
+            <argument
+                android:name="word"
+                app:argType="string"
+                />
         </action>
     </fragment>
-    <dialog
-        android:id="@+id/webViewFragment"
-        android:name="com.example.ruen.views.WebViewFragment"
-        android:label="WebViewFragment" >
-        <argument
-            android:name="word"
-            app:argType="string" />
-    </dialog>
+    <include app:graph="@navigation/new_card_nav_graph" />
+
 </navigation>

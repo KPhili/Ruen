@@ -39,7 +39,7 @@ object Android {
     const val appcompat = "androidx.appcompat:appcompat:1.5.0"
     const val material = "com.google.android.material:material:1.6.1"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-    const val fragment_ktx = "androidx.fragment:fragment-ktx:1.5.2"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:1.5.5"
 }
 
 object TestDependencies {

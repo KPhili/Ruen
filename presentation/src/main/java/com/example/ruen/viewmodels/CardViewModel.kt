@@ -64,7 +64,7 @@ class CardViewModel(
                         val errorMessage = resourceProvider.getString(
                             IResourceProvider.STRINGS.NO_INTERNET_CONNECTION
                         )
-                        _uiState.update { it.copy(error = ConnectException(errorMessage)) }
+                        _uiState.update { it.copy(notificationMessage = errorMessage) }
                     }
                 } catch (e: Throwable) {
                     _uiState.update { it.copy(error = e) }
@@ -196,9 +196,9 @@ class CardViewModel(
 
     private fun getGroup(groupId: Long): Group? {
         return if (groupId == -1L) {
-            _uiState.value.groups?.first()
+            _uiState.value.groups?.firstOrNull()
         } else {
-            _uiState.value.groups?.first { it.id == groupId }
+            _uiState.value.groups?.firstOrNull { it.id == groupId }
         }
     }
 

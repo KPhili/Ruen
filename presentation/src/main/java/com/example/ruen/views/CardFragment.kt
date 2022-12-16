@@ -1,8 +1,10 @@
 package com.example.ruen.views
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
+import android.text.Selection.setSelection
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -79,6 +81,11 @@ class CardFragment :
         setClickListeners(view)
         setChangeListeners()
         checkWordIntent()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        requireActivity().finish()
+        super.onDismiss(dialog)
     }
 
     private fun setGroupsAdapter() {

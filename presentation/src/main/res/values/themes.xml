@@ -55,4 +55,12 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheetModal</item>
     </style>
 
+
+    <style name="Theme.Transparent" parent="Theme.Ruen">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>
