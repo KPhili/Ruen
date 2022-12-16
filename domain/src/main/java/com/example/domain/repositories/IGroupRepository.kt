@@ -11,4 +11,6 @@ interface IGroupRepository {
     suspend fun update(group: Group)
     suspend fun delete(group: Group)
     suspend fun get(id: Long): Group
+    fun saveLastSelectGroupId(id: Long)
+    fun getLastSelectGroupId(): Long
 }

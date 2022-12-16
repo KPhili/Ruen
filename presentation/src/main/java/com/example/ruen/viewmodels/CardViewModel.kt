@@ -43,7 +43,8 @@ class CardViewModel(
     init {
         viewModelScope.launch {
             getGroups()
-            setSelectedGroup(getGroup(groupId))
+            val selectedGroup = if(groupId == -1L) groupRepository.getLastSelectGroupId() else groupId
+            setSelectedGroup(getGroup(selectedGroup))
         }
         getCard()
         wordFlow
@@ -204,6 +205,9 @@ class CardViewModel(
 
     fun setSelectedGroup(group: Group?) {
         _uiState.update { it.copy(selectedGroup = group) }
+        group?.id?.let {
+            groupRepository.saveLastSelectGroupId(it)
+        }
     }
 
     companion object {
