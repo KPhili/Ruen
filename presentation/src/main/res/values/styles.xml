@@ -28,7 +28,7 @@
     </style>
 
     <style name="ToolBar.TitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 

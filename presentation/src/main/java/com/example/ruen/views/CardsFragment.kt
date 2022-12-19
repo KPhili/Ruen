@@ -71,12 +71,12 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
                         actionBar?.title = it
                     }
                 }
-                launch {
-                    viewModel.getCount().collectLatest {
-                        val pieces = getString(R.string.pieces)
-                        actionBar?.subtitle = "$it $pieces"
-                    }
-                }
+//                launch {
+//                    viewModel.getCount().collectLatest {
+//                        val pieces = getString(R.string.pieces)
+//                        actionBar?.subtitle = "$it $pieces"
+//                    }
+//                }
             }
         }
     }
