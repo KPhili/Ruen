@@ -2,6 +2,7 @@ package com.example.domain.usecases
 
 import com.example.domain.models.KnowLevel
 import kotlin.math.max
+import kotlin.math.min
 
 class GetNextRepeatNumberUseCase {
     operator fun invoke(
@@ -9,8 +10,8 @@ class GetNextRepeatNumberUseCase {
         knowLevel: KnowLevel
     ) =
         when (knowLevel) {
-            KnowLevel.DONT_KNOW -> max(0, repeatNumber - 1)
-            KnowLevel.BAD_KNOW -> repeatNumber
+            KnowLevel.DONT_KNOW -> min(0, repeatNumber)
+            KnowLevel.BAD_KNOW -> max(1, repeatNumber - 1)
             else -> repeatNumber + 1
         }
 }
