@@ -2,20 +2,15 @@ package com.example.ruen.views
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.os.Environment
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import com.example.data.configuration.IMAGE_DIRECTORY
 import com.example.domain.models.KnowLevel
 import com.example.ruen.R
 import com.example.ruen.databinding.FragmentCardRepeatBinding
@@ -78,7 +73,7 @@ class CardRepeatFragment :
         // показать кнопку "Показать изображение" и загрузить само изображение, если есть imageFileName
         if (imageFileName != null) {
             showImage.visibility = View.VISIBLE
-            val image = requireContext().getExternalFilesDir(IMAGE_DIRECTORY)
+            val image = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
                 ?.listFiles { _, fileName -> fileName == imageFileName }
                 ?.takeIf { it.isNotEmpty() }
                 ?.first()
