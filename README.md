@@ -18,6 +18,7 @@
 
 
 **Главный экран**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/1.png?raw=true" width="300"/>
 
 **Создание группы**
