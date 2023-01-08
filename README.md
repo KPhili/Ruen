@@ -22,41 +22,55 @@
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/1.png?raw=true" width="300"/>
 
 **Создание группы**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/2.png?raw=true" width="300"/>
 
 **Создание карточки**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/3.png?raw=true" width="300"/>
 
 **Выбор изображения**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/3.png?raw=true" width="300"/>
 
 **Создание карточки**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/4.png?raw=true" width="300"/>
 
 **Выбор перевода из предложенных подсказок**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/5.png?raw=true" width="300"/>
 
 **Список карточек**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/6.png?raw=true" width="300"/>
 
 **Повторение карточки**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/7.png?raw=true" width="300"/>
 
 **Просмотр подсказки-изображения**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/8.png?raw=true" width="300"/>
 
 **Настройки**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/9.png?raw=true" width="300"/>
 
 **Выбор темы**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/10.png?raw=true" width="300"/>
 
 **Уведомление**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/11.png?raw=true" width="300"/>
 
 **Создание карточки из другого приложения**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/12.png?raw=true" width="300"/>
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/13.png?raw=true" width="300"/>
 
 **Васильковая тема**
+
 <img src="https://github.com/KPhili/Ruen/blob/develop/Screenshots/14.png?raw=true" width="300"/>
